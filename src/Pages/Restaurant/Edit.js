@@ -197,7 +197,7 @@ export default function Edit() {
 
     // Check if belongsTo and belongsTo.food have the required data
     if (!belongsTo || !belongsTo.food) {
-      console.error("BelongsTo or belongsTo.food is not defined");
+      console.error("BelongsTo or belongsTo.food is not defined check please");
       return;
     }
 
