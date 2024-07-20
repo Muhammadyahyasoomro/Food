@@ -17,15 +17,17 @@ const NewListing = () => {
   const [file, setFile] = useState(null);
   const [filePath, setFilePath] = useState("");
   const [belongsto, setBelongsto] = useState({
-    res_id: localStorage.getItem("res_id"), 
+    restaurant_id: localStorage.getItem("res_id") || "", 
     f_id: "",
-    f_ingredients: "",
+    ingredients: "",
     description: "",
     taste: "",
     f_image: null,
     HasDisease: "",
     DiseaseName: "",
-  });
+    foodCategory: "",
+    name: ""
+   });
 
   const FetchBID = async () => {
     try {
@@ -42,24 +44,21 @@ const NewListing = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+  
+    setBelongsto((prevState) => ({
+      ...prevState,
+      foodCategory: category?.value || "",
+      name: subcategory?.value || "",
+    }));
+  
     const formData = new FormData();
-    formData.append("foodCategory", category);
-    formData.append("name", subcategory);
-    formData.append("taste", belongsto.taste);
-    formData.append("ingredients", belongsto.f_ingredients);
-    formData.append("description", belongsto.description);
-    formData.append("restaurant_id", belongsto.res_id.toString());
-    formData.append("HasDisease", belongsto.HasDisease);
-    formData.append("DiseaseName", belongsto.DiseaseName);
-
+    formData.append("FoodItem", JSON.stringify(belongsto));
     if (belongsto.f_image) {
       formData.append("f_image", belongsto.f_image);
     }
-    console.log(category.value,subcategory.value,belongsto)
-
+  
     try {
-      const response = await axios.post(`${API_BASE_URL}/Restaurant/AddFoodItem`, formData, {
+      const response = await axios.post(`${API_BASE_URL}/restaurant/AddFoodItem`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -71,7 +70,6 @@ const NewListing = () => {
       console.error("Error submitting form:", error);
     }
   };
-
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
     setFile(selectedFile);
@@ -81,7 +79,6 @@ const NewListing = () => {
       f_image: selectedFile,
     }));
   };
-
   return (
     <>
       <NavbarHome />
@@ -111,11 +108,11 @@ const NewListing = () => {
                     <Form.Label>Ingredients</Form.Label>
                     <Form.Control
                       type="text"
-                      value={belongsto.f_ingredients}
+                      value={belongsto.ingredients}
                       onChange={(e) =>
                         setBelongsto((prevState) => ({
                           ...prevState,
-                          f_ingredients: e.target.value,
+                          ingredients: e.target.value,
                         }))
                       }
                     />
@@ -189,6 +186,8 @@ const NewListing = () => {
                               ...prevState,
                               DiseaseName: e.target.value,
                               HasDisease: true,
+                              foodCategory:category,
+                              name:subcategory
                             }))
                           }
                           value="bp"
