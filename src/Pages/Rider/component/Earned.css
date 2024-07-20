@@ -1,0 +1,32 @@
+.EarningRow {
+  margin-left: 12.5rem;
+  margin-right: 12.5rem;
+  background-color: red;
+}
+.Rides {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+@media screen and (max-width: 768px) {
+  .EarningRow {
+    margin-left: 3.1rem;
+    margin-right: 3.1rem;
+  }
+
+  .Rides {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .EarningRow {
+    margin-left: 0rem;
+    margin-right: 0rem;
+  }
+
+  .Rides {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}

@@ -1,0 +1,35 @@
+.Custom-Zone {
+  border: 0.1rem solid red;
+  border-radius: 10px; /* Adjust border radius as needed */
+  display: flex;
+  align-items: center; /* Align items vertically */
+}
+
+.inputZone {
+  border: none;
+  border-radius: 10px; /* Adjust border radius as needed */
+  padding-left: 10px; /* Add padding from the left */
+  flex: 1; /* Allow the input to grow and take remaining space */
+  box-sizing: border-box; /* Include padding and border in the element's total width */
+}
+
+.selectZone {
+  border: none;
+  border-radius: 10%; /* Adjust border radius as needed */
+  margin-left: 10px; /* Add margin between input and select */
+}
+
+.btnAdd {
+  border: none;
+  background-color: red;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border-radius: 15%; /* Adjust border radius as needed */
+  margin-left: 10px; /* Add margin between select and button */
+}
+
+.ZoneListHeading > h3 {
+  color: red;
+  font-size: 14;
+}

@@ -1,0 +1,16 @@
+.custom-card {
+  width: 60%;
+  margin: 0 auto;
+  margin-top: 30px;
+}
+.red-bg {
+  background-color: red;
+  color: white;
+}
+.red-border {
+  border: 2px solid red;
+}
+.white-bg {
+  background-color: white;
+  color: red;
+}

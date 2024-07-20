@@ -1,0 +1,48 @@
+.about-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    margin-top: 200;
+  }
+ 
+  
+  .red-heading {
+    color: red;
+
+    text-align: center;
+  }
+  
+  .text-container {
+    text-align: justify;
+  }
+  
+  .text-container p {
+    margin: 0; /* Remove default margin */
+  }
+  
+  
+  .about-container h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+  }
+  
+  .about-container p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+  }
+  
+  /* Media query for smaller screens */
+  @media (max-width: 768px) {
+    .about-container {
+      padding: 10px;
+    }
+  
+    .about-container h1 {
+      font-size: 2rem;
+    }
+  
+    .about-container p {
+      font-size: 1rem;
+    }
+  }
+  
