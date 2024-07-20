@@ -4,9 +4,12 @@ import { Link, useLocation } from "react-router-dom";
 import { Table, Form, FormControl, Button, Card } from "react-bootstrap";
 import { PencilSquare, Upload } from "react-bootstrap-icons";
 import alternativeImage from "../../Components/assets/alternativeImage.png";
+import {useTheme} from "../../context/ThemeContext"
 import axios from "axios";
 
 export default function Edit() {
+  const API_BASE_URL = "http://localhost/WebApplication2/api";
+  const {theme}=useTheme();
   const location = useLocation();
   const { state } = location;
   const [imageName, setImageName] = useState("");
@@ -43,7 +46,7 @@ export default function Edit() {
   };
 
   const updateImage = (file) => {
-    const url = `http://localhost/fooddeliverysystems/api/restaurant/UpdateImage?id=${
+    const url = `${API_BASE_URL}/restaurant/UpdateImage?id=${
       belongsTo.food.id
     }&resid=${localStorage.getItem("res_id")}`;
     const formData = new FormData();
@@ -73,7 +76,7 @@ export default function Edit() {
 
   const handleNewPlan = () => {
     if (newPlans.price && newPlans.unit) {
-      fetch(`http://localhost/fooddeliverysystems/api/restaurant/InsertOnce`, {
+      fetch(`${API_BASE_URL}/restaurant/InsertOnce`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -94,7 +97,7 @@ export default function Edit() {
 
   const fetchBelongTo = () => {
     fetch(
-      `http://localhost/fooddeliverysystems/api/restaurant/FetchFoodItem?id=${state?.b_id}`
+      `${API_BASE_URL}/restaurant/FetchFoodItem?id=${state?.b_id}`
     )
       .then((response) => response.json())
       .then((data) => {
@@ -110,7 +113,7 @@ export default function Edit() {
 
   const fetchPlans = () => {
     fetch(
-      `http://localhost/fooddeliverysystems/api/restaurant/FetchFoodData?id=${state?.b_id}`
+      `${API_BASE_URL}/restaurant/FetchFoodData?id=${state?.b_id}`
     )
       .then((response) => response.json())
       .then((data) => {
@@ -123,7 +126,7 @@ export default function Edit() {
   };
 
   const fetchCategory = () => {
-    const apiUrl = `http://localhost/fooddeliverysystem/api/restaurant/fetchcategory`;
+    const apiUrl = `${API_BASE_URL}/restaurant/fetchcategory`;
 
     axios
       .get(apiUrl)
@@ -137,7 +140,7 @@ export default function Edit() {
 
   const fetchFoodItem = (category) => {
     if (category) {
-      const apiUrl = `http://localhost/fooddeliverysystem/api/restaurant/fetchfoodbycategory?category=${category}`;
+      const apiUrl = `${API_BASE_URL}/restaurant/fetchfoodbycategory?category=${category}`;
 
       axios
         .get(apiUrl)
@@ -222,7 +225,7 @@ export default function Edit() {
     });
 
     fetch(
-      "http://localhost/fooddeliverysystems/api/restaurant/UpdateFoodItem",
+      `${API_BASE_URL}/restaurant/UpdateFoodItem`,
       {
         method: "PUT",
         body: formData,
@@ -245,7 +248,7 @@ export default function Edit() {
 
   const handleDelete = (id) => {
     fetch(
-      `http://localhost/fooddeliverysystems/api/restaurant/DeleteFoodItemDetail?id=${id}`,
+      `${API_BASE_URL}/restaurant/DeleteFoodItemDetail?id=${id}`,
       {
         method: "DELETE",
       }
@@ -269,6 +272,7 @@ export default function Edit() {
           style={{
             border: "2px solid red",
             borderRadius: "10px",
+
           }}
           className="text-center"
         >
@@ -289,7 +293,7 @@ export default function Edit() {
                 style={{ width: 150 }}
                 src={
                   image
-                    ? `http://localhost/fooddeliverysystems/content/fooditem/${image}`
+                    ? `http://localhost/WebApplication2/content/FoodItems/${image}`
                     : alternativeImage
                 }
                 alt="Food"
