@@ -6,12 +6,13 @@ import { useNavigate } from "react-router-dom";
 import { NavbarHome } from "./components/NavbarHome";
 
 export default function ManageList() {
+  const API_BASE_URL = "http://localhost/WebApplication2/api";
   const Navigate = useNavigate();
   const res_id = localStorage.getItem("res_id");
   const [myList, setMyList] = useState([]);
   const handleDelete = (x) => {
     fetch(
-      `http://localhost/fooddeliverysystems/api/Restaurant/DeleteFoodItemWithDetails?id=${x}`,
+      `${API_BASE_URL}/Restaurant/DeleteFoodItemWithDetails?id=${x}`,
       {
         method: "delete",
       }
@@ -31,7 +32,7 @@ export default function ManageList() {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `http://localhost/fooddeliverysystems/api/Restaurant/GetFoodItemsByRestaurant?&restaurantId=${res_id}`
+          `${API_BASE_URL}/Restaurant/GetFoodItemsByRestaurant?&restaurantId=${res_id}`
         );
         const data = await response.json();
         setMyList(data);
