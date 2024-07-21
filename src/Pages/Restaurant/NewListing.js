@@ -45,16 +45,27 @@ const NewListing = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
   
-    setBelongsto((prevState) => ({
-      ...prevState,
+    // Update state with category and subcategory values
+    const updatedBelongsto = {
+      ...belongsto,
       foodCategory: category?.value || "",
       name: subcategory?.value || "",
-    }));
+    };
   
+    // Log updatedBelongsto to ensure it has the correct values
+    console.log("Updated belongsto state:", updatedBelongsto);
+  
+    // Create formData and append the necessary fields
     const formData = new FormData();
-    formData.append("FoodItem", JSON.stringify(belongsto));
-    if (belongsto.f_image) {
-      formData.append("f_image", belongsto.f_image);
+    formData.append("FoodItem", JSON.stringify(updatedBelongsto));
+    
+    if (file) {
+      formData.append("f_image", file);
+    }
+  
+    // Log formData contents
+    for (let pair of formData.entries()) {
+      console.log(`${pair[0]}: ${pair[1]}`);
     }
   
     try {
@@ -70,15 +81,16 @@ const NewListing = () => {
       console.error("Error submitting form:", error);
     }
   };
-  const handleFileChange = (e) => {
-    const selectedFile = e.target.files[0];
+  
+  
+  
+  const handleFileChange = (event) => {
+    const selectedFile = event.target.files[0];
     setFile(selectedFile);
-    setFilePath(URL.createObjectURL(selectedFile));
-    setBelongsto((prevState) => ({
-      ...prevState,
-      f_image: selectedFile,
-    }));
+    console.log("Selected file:", selectedFile);
   };
+  
+  
   return (
     <>
       <NavbarHome />
