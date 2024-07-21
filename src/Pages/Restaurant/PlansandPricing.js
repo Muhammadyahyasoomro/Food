@@ -20,7 +20,7 @@ export default function PlansandPricing() {
   ];
 
   const { b_id } = location.state;
-
+  const API_BASE_URL = "http://localhost/WebApplication2/api";
   const [unit, setUnit] = useState();
   const [Price, setPrice] = useState();
   const [ServePerPeople, setServeperPeople] = useState();
@@ -29,7 +29,7 @@ export default function PlansandPricing() {
   const HandleSubmit = async () => {
     try {
       const response = await fetch(
-        `http://${IPAdress}/fooddeliverysystems/api/restaurant/AddFoodDetails`,
+        `${API_BASE_URL}/restaurant/AddFoodDetails`,
         {
           method: "POST",
           headers: {
