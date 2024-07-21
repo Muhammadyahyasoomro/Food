@@ -4,8 +4,10 @@ import { Container, Table, Button, Row, Col } from "react-bootstrap";
 import { Trash, PencilSquare, Eye } from "react-bootstrap-icons";
 import { useNavigate } from "react-router-dom";
 import { NavbarHome } from "./components/NavbarHome";
+import { useTheme } from "../../context/ThemeContext";
 
 export default function ManageList() {
+  const {theme}=useTheme();
   const API_BASE_URL = "http://localhost/WebApplication2/api";
   const Navigate = useNavigate();
   const res_id = localStorage.getItem("res_id");
@@ -56,27 +58,27 @@ export default function ManageList() {
       <Container>
         <Row>
           <Col>
-            <Table striped bordered hover responsive>
+            <Table  bordered hover responsive>
               <thead>
-                <tr>
-                  <th>Food name</th>
-                  <th>Category</th>
-                  <th>Ingredients</th>
-                  <th>Description</th>
-                  <th>Taste</th>
-                  <th>Action</th>
+                <tr  style={{borderColor:theme==="light"?"#EBF3F2":"red"}}>
+                  <th style={{backgroundColor:theme==="light"?"white":"black",color:theme==="light"?"black":"white"}}>Food name</th>
+                  <th style={{backgroundColor:theme==="light"?"white":"black",color:theme==="light"?"black":"white"}}>Category</th>
+                  <th style={{backgroundColor:theme==="light"?"white":"black",color:theme==="light"?"black":"white"}}>Ingredients</th>
+                  <th style={{backgroundColor:theme==="light"?"white":"black",color:theme==="light"?"black":"white"}}>Description</th>
+                  <th style={{backgroundColor:theme==="light"?"white":"black",color:theme==="light"?"black":"white"}}>Taste</th>
+                  <th style={{backgroundColor:theme==="light"?"white":"black",color:theme==="light"?"black":"white"}}>Action</th>
                 </tr>
               </thead>
               <tbody>
                 {myList.map((item) => (
-                  <tr key={item.id}>
-                    <td>{item.name}</td>
-                    <td>{item.foodCategory}</td>
-                    <td>{item.ingredients}</td>
-                    <td>{item.description}</td>
-                    <td>{item.taste}</td>
+                  <tr key={item.id}  style={{borderColor:theme==="light"?"#EBF3F2":"red"}}>
+                    <td style={{backgroundColor:theme==="light"?"white":"black",color:theme==="light"?"black":"white"}}>{item.name}</td>
+                    <td style={{backgroundColor:theme==="light"?"white":"black",color:theme==="light"?"black":"white"}}>{item.foodCategory}</td>
+                    <td style={{backgroundColor:theme==="light"?"white":"black",color:theme==="light"?"black":"white"}}>{item.ingredients}</td>
+                    <td style={{backgroundColor:theme==="light"?"white":"black",color:theme==="light"?"black":"white"}}>{item.description}</td>
+                    <td style={{backgroundColor:theme==="light"?"white":"black",color:theme==="light"?"black":"white"}}>{item.taste}</td>
 
-                    <td className="d-flex">
+                    <td className="d-flex"  style={{backgroundColor:theme==="light"?"white":"black",color:theme==="light"?"black":"white"}}>
                       <Button
                         variant="primary"
                         className="me-2"
