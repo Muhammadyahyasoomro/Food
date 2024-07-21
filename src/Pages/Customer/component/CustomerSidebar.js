@@ -1,12 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import toggle from "../../../Components/assets/rider/toggle.png";
-
+import { useTheme } from "../../../context/ThemeContext";
 const CustomerSidebar = ({ isOpen, toggleSidebar }) => {
+  const {theme}=useTheme();
   return (
+    
     <div
       style={{
-        backgroundColor: "#F8F9FA",
+        backgroundColor: theme==="light"?"white":"black",
         height: "100vh",
         width: isOpen ? "250px" : "0", // Adjust width based on isOpen state
         position: "fixed",
