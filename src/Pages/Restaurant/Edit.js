@@ -369,12 +369,7 @@ export default function Edit() {
                             </option>
                           ))}
                         </Form.Control>
-                        <Link
-                          className="bg-danger border-2 rounded border-danger text-white fs-1 text-center align-self-center p-1"
-                          to={"/newitem"}
-                        >
-                          +
-                        </Link>
+                     
                       </Form.Group>
                     </div>
                   )}
