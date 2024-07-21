@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Navbar, Nav, Button, Form, Modal, Row, Col } from "react-bootstrap";
-import logo from "../../../Components/assets/Logo/red.png";
+import logo from "../../../Components/assets/Logo/redx.png";
 import notificationIcon from "../../../Components/assets/Logo/notification.png";
 import { Filter, StarFill } from "react-bootstrap-icons";
 import CustomerSidebar from "./CustomerSidebar";
 import toggle from "../../../Components/assets/rider/toggle.png";
+import { useTheme } from "../../../context/ThemeContext";
 
 export default function Navbarcustomer({ filter, onSearch, onApplyFilters }) {
   const [showFilters, setShowFilters] = useState(false);
+  const {theme,toggleTheme}=useTheme();
   const [filters, setFilters] = useState({
     priceMin: "",
     priceMax: "",
@@ -77,13 +79,12 @@ export default function Navbarcustomer({ filter, onSearch, onApplyFilters }) {
     <>
       <CustomerSidebar isOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
       <Navbar
+      style={{ backgroundColor: theme==="light"?"white":"#212529",color:theme==="light"?"black":"white"}}
         collapseOnSelect
         expand="lg"
-        bg="white"
-        variant="light"
-        className="fixed top-0 left-0 right-0 z-50 p-4 shadow-lg"
+        className="fixed top-0 left-0 right-0 z-50 shadow-lg"
       >
-        <div className="d-flex align-items-center">
+        <div className="d-flex align-items-center" style={{color:theme==="light"?"black":"white"}}>
           <Button
             variant="outline-none"
             className="mr-2"
@@ -103,7 +104,7 @@ export default function Navbarcustomer({ filter, onSearch, onApplyFilters }) {
               width={60}
               className="h-8 mr-2"
             />
-            <span className="text-lg font-semibold">Quetta Cafe'</span>
+            <span className="text-lg font-semibold" style={{color:theme==="light"?"black":"white",fontFamily:"cursive"}}>Quetta Cafe'</span>
           </Navbar.Brand>
         </div>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -112,6 +113,7 @@ export default function Navbarcustomer({ filter, onSearch, onApplyFilters }) {
             <Row className="mx-5" style={{ flexDirection: "row-reverse" }}>
               <Col sm={6}>
                 <Form.Control
+                style={{color:theme==="light"?"black":"white",backgroundColor:theme==="light"?"white":"black"}}
                   type="text"
                   value={searchValue}
                   onChange={handleSearchInputChange}
@@ -131,18 +133,20 @@ export default function Navbarcustomer({ filter, onSearch, onApplyFilters }) {
               </Col>
             </Row>
             <Modal
+            style={{color:theme==="light"?"black":"white",backgroundColor:theme==="light"?"white":"black"}}
               show={showFilters}
               onHide={() => setShowFilters(false)}
               centered
             >
-              <Modal.Header closeButton>
+              <Modal.Header closeButton  style={{color:theme==="light"?"black":"white",backgroundColor:theme==="light"?"white":"black"}}>
                 <Modal.Title>Filters</Modal.Title>
               </Modal.Header>
-              <Modal.Body>
+              <Modal.Body  style={{borderColor:"red",border:"2px solid ",color:theme==="light"?"black":"white",backgroundColor:theme==="light"?"white":"black"}}>
                 <Form>
                   <Form.Group controlId="priceMin">
                     <Form.Label>Minimum Price</Form.Label>
                     <Form.Control
+                     style={{color:theme==="light"?"black":"white",backgroundColor:theme==="light"?"white":"black"}}
                       type="number"
                       placeholder="Min"
                       value={filters.priceMin}
@@ -154,6 +158,7 @@ export default function Navbarcustomer({ filter, onSearch, onApplyFilters }) {
                   <Form.Group controlId="priceMax">
                     <Form.Label>Maximum Price</Form.Label>
                     <Form.Control
+                     style={{color:theme==="light"?"black":"white",backgroundColor:theme==="light"?"white":"black"}}
                       type="number"
                       placeholder="Max"
                       value={filters.priceMax}
@@ -162,11 +167,11 @@ export default function Navbarcustomer({ filter, onSearch, onApplyFilters }) {
                       }
                     />
                   </Form.Group>
-                  <Form.Group controlId="ratingPicker">
+                  <Form.Group controlId="ratingPicker" >
                     <Form.Label>Rating</Form.Label>
                     {renderRatingPicker()}
                   </Form.Group>
-                  <Row className="filter-buttons">
+                  <Row className="filter-buttons ">
                     <Col>
                       <Button
                         variant={filters.homemade ? "danger" : "outline-danger"}
@@ -202,6 +207,20 @@ export default function Navbarcustomer({ filter, onSearch, onApplyFilters }) {
           <a className="text-gray-700 hover:text-gray-900 mr-4">
             <img src={notificationIcon} width={20} alt="Notification" />
           </a>
+          <Button
+          onClick={toggleTheme}
+          style={{
+            backgroundColor: theme === 'light' ? 'black' : 'white',
+            color: theme === 'light' ? 'white' : 'black',
+            border: "none",
+            borderRadius: "2rem",
+            marginRight: "1rem",
+            marginLeft: "1rem",
+            padding: "10px"
+          }}
+        >
+          {theme === 'light' ? 'Dark' : 'Light'} Mode
+        </Button>
           <Button
             variant="outline-danger"
             onClick={() => {
