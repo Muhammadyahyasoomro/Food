@@ -37,20 +37,19 @@ export default function Edit() {
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    setImageName(file.name);
-    setImage(file);
+   
     console.log("Selected Image:", file.name);
 
     // Update the image immediately when selected
     updateImage(file);
   };
-
   const updateImage = (file) => {
+    console.log(belongsTo)
     const url = `${API_BASE_URL}/restaurant/UpdateImage?id=${
       belongsTo.food.id
     }&resid=${localStorage.getItem("res_id")}`;
     const formData = new FormData();
-    formData.append("image", file);
+    formData.append("FoodImage", file);
 
     fetch(url, {
       method: "PUT",
@@ -270,6 +269,7 @@ export default function Edit() {
       <div className="d-flex justify-content-center col-sm-5">
         <Card
           style={{
+            backgroundColor:theme==="light"?"white":"black",color:theme==="light"?"black":"white",
             border: "2px solid red",
             borderRadius: "10px",
 
@@ -279,18 +279,22 @@ export default function Edit() {
           <Card.Body>
             <div
               className="d-flex text-center justify-content-center m-1 align-items-center"
-              style={{ border: "5px solid red" }}
+             
+              style={{backgroundColor:theme==="light"?"white":"black",color:theme==="light"?"black":"white",}}
               onClick={handleUploadClick}
             >
               <input
+              loading="lazy"
+               style={{backgroundColor:theme==="light"?"white":"black",color:theme==="light"?"black":"white", display: "none"}}
                 type="file"
                 onChange={handleImageChange}
                 accept="image/*"
-                style={{ display: "none" }}
+                
                 id="upload"
               />
               <img
-                style={{ width: 150 }}
+              loading="lazy"
+                style={{backgroundColor:theme==="light"?"white":"black",color:theme==="light"?"black":"white", width: 150 }}
                 src={
                   image
                     ? `http://localhost/WebApplication2/content/FoodItems/${image}`
@@ -305,7 +309,7 @@ export default function Edit() {
             </div>
             <Form onSubmit={handleSubmit}>
               {belongsTo.food && (
-                <div>
+                <div style={{backgroundColor:theme==="light"?"white":"black",color:theme==="light"?"black":"white",}}>
                   {isEditing ? (
                     <div>
                       <div
@@ -412,22 +416,22 @@ export default function Edit() {
         <div className="col-sm-3">
           <Table striped bordered hover>
             <thead>
-              <tr>
-                <th>Ready Time</th>
-                <th>Size/Weight</th>
-                <th>Price</th>
-                <th>Serve Per People</th>
-                <th>Action</th>
+              <tr style={{borderColor:theme==="light"?"#EBF3F2":"red"}}>
+                <th  style={{backgroundColor:theme==="light"?"white":"black",color:theme==="light"?"black":"white"}}>Ready Time</th>
+                <th style={{backgroundColor:theme==="light"?"white":"black",color:theme==="light"?"black":"white"}}>Size/Weight</th>
+                <th style={{backgroundColor:theme==="light"?"white":"black",color:theme==="light"?"black":"white"}}>Price</th>
+                <th style={{backgroundColor:theme==="light"?"white":"black",color:theme==="light"?"black":"white"}}>Serve Per People</th>
+                <th style={{backgroundColor:theme==="light"?"white":"black",color:theme==="light"?"black":"white"}}>Action</th>
               </tr>
             </thead>
             <tbody>
               {plans.map((item, index) => (
-                <tr key={index}>
-                  <td>{item.f_readytime}</td>
-                  <td>{item.unit}</td>
-                  <td>{item.price}</td>
-                  <td>{item.peopleperserving}</td>
-                  <td>
+                <tr key={index} style={{borderColor:theme==="light"?"#EBF3F2":"red"}}>
+                  <td style={{backgroundColor:theme==="light"?"white":"black",color:theme==="light"?"black":"white"}}>{item.f_readytime}</td>
+                  <td style={{backgroundColor:theme==="light"?"white":"black",color:theme==="light"?"black":"white"}}>{item.unit}</td>
+                  <td style={{backgroundColor:theme==="light"?"white":"black",color:theme==="light"?"black":"white"}}>{item.price}</td>
+                  <td style={{backgroundColor:theme==="light"?"white":"black",color:theme==="light"?"black":"white"}}>{item.peopleperserving}</td>
+                  <td style={{backgroundColor:theme==="light"?"white":"black",color:theme==="light"?"black":"white"}}>
                     <button
                       className="bg-danger text-white border-0 rounded"
                       onClick={() => handleDelete(item.id)}
@@ -438,39 +442,39 @@ export default function Edit() {
                 </tr>
               ))}
               <tr>
-                <td>
-                  <input
+                <td style={{backgroundColor:theme==="light"?"white":"black",color:theme==="light"?"black":"white"}}>
+                  <input style={{ backgroundColor:theme==="light"?"white":"black",color:theme==="light"?"black":"white"}}
                     type="text"
                     name="f_readytime"
                     onChange={handlePlans}
                     placeholder="10 mins"
                   />
                 </td>
-                <td>
-                  <input
+                <td style={{backgroundColor:theme==="light"?"white":"black",color:theme==="light"?"black":"white"}}>
+                  <input  style={{backgroundColor:theme==="light"?"white":"black",color:theme==="light"?"black":"white"}}
                     type="text"
                     name="unit"
                     onChange={handlePlans}
                     placeholder="Large"
                   />
                 </td>
-                <td>
-                  <input
+                <td  style={{backgroundColor:theme==="light"?"white":"black",color:theme==="light"?"black":"white"}}>
+                  <input style={{backgroundColor:theme==="light"?"white":"black",color:theme==="light"?"black":"white"}}
                     type="text"
                     name="price"
                     onChange={handlePlans}
                     placeholder="10.99 US$"
                   />
                 </td>
-                <td>
-                  <input
+                <td style={{backgroundColor:theme==="light"?"white":"black",color:theme==="light"?"black":"white"}}>
+                  <input style={{backgroundColor:theme==="light"?"white":"black",color:theme==="light"?"black":"white"}}
                     type="text"
                     name="peopleperserving"
                     onChange={handlePlans}
                     placeholder="2"
                   />
                 </td>
-                <td>
+                <td style={{backgroundColor:theme==="light"?"white":"black",color:theme==="light"?"black":"white"}}>
                   <button
                     className="bg-danger border-0 rounded text-white p-2 px-3"
                     onClick={handleNewPlan}
