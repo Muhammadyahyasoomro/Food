@@ -105,7 +105,7 @@ export default function ManageList() {
           </Col>
         </Row>
       </Container>
-      ;
+      
     </div>
   );
 }
