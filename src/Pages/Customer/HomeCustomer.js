@@ -9,6 +9,7 @@ import { CustomerFooter } from "./component/CustomerFooter";
 import { useNavigate } from "react-router-dom";
 
 export default function HomeCustomer() {
+  const API_BASE_URL = `http://localhost/WebApplication2/api`;
   const [searchedValue, setSearchedValue] = useState("");
   const [searchedItems, setSearchedItems] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
@@ -26,7 +27,7 @@ export default function HomeCustomer() {
     const fetchSpecialRestaurants = async () => {
       try {
         const response = await fetch(
-          `http://localhost/FoodDeliverySystems/api/Customer/SpecialRestaurantsForCustomer?customer_id=${localStorage.getItem(
+          `${API_BASE_URL}/Customer/SpecialRestaurantsForCustomer?customer_id=${localStorage.getItem(
             "c_id"
           )}&DiseaseName=${localStorage.getItem("disease")}`
         );
@@ -44,7 +45,7 @@ export default function HomeCustomer() {
   const filterSearch = async (value) => {
     try {
       const response = await fetch(
-        `http://localhost/fooddeliverysystems/api/customer/SearchbyRestaurantOrFoodItem?SearchedValue=${value}`
+        `${API_BASE_URL}/customer/SearchbyRestaurantOrFoodItem?SearchedValue=${value}`
       );
       const data = await response.json();
       setSearchedItems(data.length > 0 ? data : []);
@@ -64,7 +65,7 @@ export default function HomeCustomer() {
         params.append("res_type", filters.res_type);
 
       const response = await fetch(
-        `http://localhost/fooddeliverysystems/api/customer/filterfooditems?${params.toString()}`
+        `${API_BASE_URL}/customer/filterfooditems?${params.toString()}`
       );
 
       const data = await response.json();
@@ -84,7 +85,7 @@ export default function HomeCustomer() {
       {items.map((item, index) => (
         <Col key={index}>
           <FoodCard
-            imageUrl={`http://${process.env.REACTENVIRONMENT}/FoodDeliverySystems/Content/FoodItem/${item.f_image}`}
+            imageUrl={`http://webapplication2/Content/FoodItem/${item.f_image}`}
             rating={item.foodRating}
             title={item.name}
             type={item.res_type}
