@@ -42,7 +42,7 @@ function App() {
   const { theme, toggleTheme } = useTheme();
 
   const appStyles = {
-    backgroundColor: theme === 'light' ? 'white' : '#121212',
+    backgroundColor: theme === 'light' ? 'white' : '#292929',
     color: theme === 'light' ? 'black' : 'white',
     minHeight: '100vh',
     transition: 'all 0.3s ease',
