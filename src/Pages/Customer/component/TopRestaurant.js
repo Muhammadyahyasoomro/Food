@@ -3,7 +3,7 @@ import RestaurantCard from "./RestaurantCard";
 
 export default function TopRestaurant({ dataset, status }) {
   const [restaurants, setRestaurants] = useState([]);
-
+  const API_BASE_URL = `http://localhost/WebApplication2/api`;
   useEffect(() => {
     if (status) {
       // Use the dataset if status is true
@@ -12,7 +12,7 @@ export default function TopRestaurant({ dataset, status }) {
     } else {
       // Fetch data if status is false
       fetch(
-        "http://localhost/fooddeliverysystems/api/customer/GetRestaurants",
+        `${API_BASE_URL}/customer/GetRestaurants`,
         {
           method: "GET",
         }

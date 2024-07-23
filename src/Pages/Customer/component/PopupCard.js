@@ -4,6 +4,7 @@ import { Cart4 } from "react-bootstrap-icons";
 import { useNavigate } from "react-router-dom";
 
 export default function PopupCard({ bid, show, onHide }) {
+  const API_BASE_URL = `http://localhost/WebApplication2/api`;
   const Isschedule = localStorage.getItem("isschedule");
   const [popupCard, setPopupCard] = useState([]);
   const [image, setImage] = useState("");
@@ -17,7 +18,7 @@ export default function PopupCard({ bid, show, onHide }) {
   useEffect(() => {
     if (bid) {
       fetch(
-        `http://localhost/FoodDeliverySystems/api/Customer/GetFoodItemDetailsById?foodItemId=${bid}`
+        `${API_BASE_URL}/Customer/GetFoodItemDetailsById?foodItemId=${bid}`
       )
         .then((response) => {
           if (!response.ok) {
@@ -76,7 +77,7 @@ export default function PopupCard({ bid, show, onHide }) {
 
   const handleAddToCart = () => {
     fetch(
-      `http://localhost/FoodDeliverySystems/api/Customer/AddToCart?fooddetail_id=${selectedOptionId}&customer_id=${localStorage.getItem(
+      `${API_BASE_URL}/Customer/AddToCart?fooddetail_id=${selectedOptionId}&customer_id=${localStorage.getItem(
         "c_id"
       )}&quantity=${quantity}`,
       { method: "POST" }
@@ -98,7 +99,7 @@ export default function PopupCard({ bid, show, onHide }) {
 
   // Default image URL or placeholder image
   const defaultImageUrl =
-    "http://localhost/FoodDeliverySystems/Content/FoodItem/default-image.jpg";
+    "http://localhost/WebApplication2/Content/FoodItems/default-image.jpg";
 
   return (
     <Modal show={show} onHide={onHide} backdrop="static" keyboard={false}>
@@ -114,7 +115,7 @@ export default function PopupCard({ bid, show, onHide }) {
         style={{
           backgroundImage: `url(${
             image
-              ? `http://localhost/FoodDeliverySystems/Content/FoodItem/${image}`
+              ? `http://localhost/WebApplication2/Content/FoodItems/${image}`
               : defaultImageUrl
           })`,
           backgroundSize: "cover",
@@ -125,7 +126,7 @@ export default function PopupCard({ bid, show, onHide }) {
       >
         {/* Fallback img tag for debugging or development */}
         <img
-          src={`http://localhost/FoodDeliverySystems/Content/FoodItem/${image}`}
+          src={`http://localhost/WebApplication2/Content/FoodItems/${image}`}
           alt="Food Item"
           style={{ display: "none" }}
           onError={(e) => {

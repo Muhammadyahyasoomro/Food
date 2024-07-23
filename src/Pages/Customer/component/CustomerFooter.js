@@ -1,13 +1,14 @@
 import React from "react";
-
+import { useTheme } from "../../../context/ThemeContext";
 export const CustomerFooter = () => {
+  const {theme}=useTheme();
   return (
-    <footer class="text-center text-lg-start bg-body-tertiary text-muted">
-      <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
-        <div class="me-5 d-none d-lg-block">
-          <span>Get connected with us on social networks:</span>
+    <footer class="text-center text-lg-start  text-muted"  style={{color:theme==="light"?"black":"white",backgroundColor:theme==="light"?"grey":"black"}} >
+      <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom "  style={{color:theme==="light"?"black":"white",backgroundColor:theme==="light"?"white":"black"}}>
+        <div class=" d-lg-block " style={{color:theme==="light"?"black":"white",backgroundColor:theme==="light"?"white":"black"}}>
+          <span style={{fontFamily:"serif",fontStyle:"oblique",fontSize:"22px"}}>Get connected with us on social networks:</span>
         </div>
-        <div>
+        <div  style={{color:theme==="light"?"black":"white",backgroundColor:theme==="light"?"white":"black"}}>
           <a href="" class="me-4 text-reset">
             <i class="fab fa-linkedin"></i>
           </a>
@@ -17,7 +18,7 @@ export const CustomerFooter = () => {
         </div>
       </section>
 
-      <section class="">
+      <section class=""  style={{color:theme==="light"?"black":"white",backgroundColor:theme==="light"?"white":"black",fontFamily:"cursive"}}>
         <div class="container text-center text-md-start mt-5">
           <div class="row mt-3">
             <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
@@ -76,15 +77,7 @@ export const CustomerFooter = () => {
         </div>
       </section>
 
-      <div
-        class="text-center p-4"
-        style={{ backgroundColor: "rgba(0, 0, 0, 0.05)" }}
-      >
-        © 2021 Copyright:
-        <a class="text-reset fw-bold" href="https://mdbootstrap.com/">
-          MDBootstrap.com
-        </a>
-      </div>
+     
     </footer>
   );
 };

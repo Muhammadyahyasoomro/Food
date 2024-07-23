@@ -3,19 +3,20 @@ import { FoodCard } from "./FoodCard";
 import { Row, Col } from "react-bootstrap";
 
 // Function to render star icons based on rating
-
+const API_BASE_URL = `http://localhost/WebApplication2/api`;
 export default function TapRated() {
   useEffect(() => {
     console.log("hello ");
     const requestOptions = {
       method: "GET",
       headers: {
+        
         "Content-Type": "application/json", // corrected header name
       },
     };
 
     fetch(
-      "http://localhost/fooddeliverysystems/api/customer/Top10FoodItems",
+      `${API_BASE_URL}/customer/Top10FoodItems`,
       requestOptions
     )
       .then((response) => {
@@ -47,6 +48,7 @@ export default function TapRated() {
   ]);
   return (
     <>
+
       <h3
         className="text-center my-3 text-danger fs-2"
         style={{ fontWeight: "bold" }}
@@ -61,7 +63,7 @@ export default function TapRated() {
               <FoodCard
                 imageUrl={
                   item.f_image
-                    ? `http://localhost/FoodDeliverySystems/Content/FoodItem/${
+                    ? `http://localhost/webapiapplication2/Content/FoodItems/${
                         item.f_image //.split(".")[0]
                       }`
                     : ""

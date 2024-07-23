@@ -26,13 +26,14 @@ export const FoodCard = ({
   const handleShowPopup = () => {
     setShowPopup(true);
   };
+  const API_BASE_URL = `http://localhost/WebApplication2/api`;
 
   const handleToggleFavorite = async () => {
     if (!isFav) {
       // Add to favorites
       try {
         const response = await fetch(
-          `http://localhost/FoodDeliverySystems/api/customer/AddToFavourite?customerId=${localStorage.getItem(
+          `${API_BASE_URL}/customer/AddToFavourite?customerId=${localStorage.getItem(
             "c_id"
           )}&foodItemId=${fooddetail_id}`,
           { method: "POST" }
@@ -51,7 +52,7 @@ export const FoodCard = ({
       // Remove from favorites
       try {
         const response = await fetch(
-          `http://localhost/FoodDeliverySystems/api/customer/RemoveToFavourite?favouriteId=${favouriteId}`,
+          `${API_BASE_URL}/customer/RemoveToFavourite?favouriteId=${favouriteId}`,
           { method: "DELETE" }
         );
         if (response.ok) {

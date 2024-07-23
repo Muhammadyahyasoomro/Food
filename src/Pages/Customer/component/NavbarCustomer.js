@@ -79,7 +79,7 @@ export default function Navbarcustomer({ filter, onSearch, onApplyFilters }) {
     <>
       <CustomerSidebar isOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
       <Navbar
-      style={{ backgroundColor: theme==="light"?"white":"#212529",color:theme==="light"?"black":"white"}}
+      style={{ backgroundColor: theme==="light"?"white":"#292929",color:theme==="light"?"black":"white"}}
         collapseOnSelect
         expand="lg"
         className="fixed top-0 left-0 right-0 z-50 shadow-lg"
