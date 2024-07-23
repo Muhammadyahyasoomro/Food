@@ -33,7 +33,7 @@ export default function TopRestaurant({ dataset, status }) {
           );
         });
     }
-  }, [dataset, status]); // Re-run effect when dataset or status changes
+  }, []); 
 
   return (
     <div>
@@ -44,7 +44,7 @@ export default function TopRestaurant({ dataset, status }) {
           ResId={item.restaurantID || item.id}
           rating={item.res_rating}
           type={item.type}
-          isSpecial={status}
+         
         />
       ))}
       {restaurants.map((item) => console.log(item))} {/* Log for debugging */}

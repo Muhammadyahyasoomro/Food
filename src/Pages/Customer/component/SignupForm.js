@@ -4,6 +4,7 @@ import { Display } from "react-bootstrap-icons";
 import { useNavigate } from "react-router-dom";
 
 export const SignupForm = () => {
+  const API_BASE_URL = `http://localhost/WebApplication2/api`;
   const navigate = useNavigate();
   const [customer, setCustomer] = useState({
     c_name: "",
@@ -100,8 +101,9 @@ export const SignupForm = () => {
     }
 
     try {
+     
       const response = await fetch(
-        `http://localhost/FoodDeliverySystems/api/customer/signup`,
+        `${API_BASE_URL}/customer/signup`,
         {
           method: "POST",
           body: formData,
@@ -157,7 +159,7 @@ export const SignupForm = () => {
   const fetchLatestCustomer = async (latitude, longitude) => {
     try {
       const response = await fetch(
-        `http://localhost/FoodDeliverySystems/api/customer/GetLatestCustomer?lat=${latitude}&lon=${longitude}`,
+        `${API_BASE_URL}/customer/GetLatestCustomer?lat=${latitude}&lon=${longitude}`,
         {
           method: "GET",
           headers: {
@@ -185,7 +187,7 @@ export const SignupForm = () => {
   const checkIfInPolygon = async (latitude, longitude) => {
     try {
       const response = await fetch(
-        `http://localhost/FoodDeliverySystems/api/customer/CheckForPolygon?latitude=${latitude}&longitude=${longitude}`,
+        `${API_BASE_URL}/customer/CheckForPolygon?latitude=${latitude}&longitude=${longitude}`,
         {
           method: "GET",
           headers: {
@@ -237,7 +239,7 @@ export const SignupForm = () => {
       });
 
       const response = await fetch(
-        `http://localhost/FoodDeliverySystems/api/Customer/UpdateCustomerZones`,
+        `${API_BASE_URL}/Customer/UpdateCustomerZones`,
         {
           method: "POST",
           body: formData,

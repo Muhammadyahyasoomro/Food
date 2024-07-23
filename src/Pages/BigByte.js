@@ -155,7 +155,7 @@ const BigByte = () => {
             </div>
             <div className="col-md-6 order-md-2 order-1 text-center mb-5 mb-lg-0">
               <img
-                className="img-fluid"
+                className="img-fluid " 
                 src={require("../Components/assets/Logo/HomeRestaurant.png")}
                 alt=""
               />

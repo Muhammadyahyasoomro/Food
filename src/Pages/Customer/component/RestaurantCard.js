@@ -9,42 +9,20 @@ export default function RestaurantCard({
   ResId,
   rating,
   type,
-  isSpecial,
+  
 }) {
   const [ItemList, setItemList] = useState([]);
   const [SpecialItemList, setSpecialItemList] = useState([]);
   const Navigate = useNavigate();
-  const statusSpecial = localStorage.getItem("FoodStatus");
+  
+  const API_BASE_URL = `http://localhost/WebApplication2/api`;
 
   useEffect(() => {
     // Fetch Special Items
-    fetch(
-      `http://${
-        process.env.REACT_APP_SERVER
-      }/FoodDeliverySystems/api/Customer/GetSpecialFooditems?restaurant_id=${ResId}&diseaseName=${localStorage.getItem(
-        "disease"
-      )}`,
-      {
-        method: "GET",
-      }
-    )
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        }
-        throw new Error("Network response was not ok.");
-      })
-      .then((data) => {
-        console.log("Special Items:", data);
-        setSpecialItemList(data);
-      })
-      .catch((error) => {
-        console.error("Error fetching special items:", error);
-      });
-
+ 
     // Fetch Restaurant Items
     fetch(
-      `http://${process.env.REACT_APP_SERVER}/FoodDeliverySystems/api/Customer/GetSpecificRestaurantItemsByTopRating?restaurantId=${ResId}`,
+      `${API_BASE_URL}/Customer/GetSpecificRestaurantItemsByTopRating?restaurantId=${ResId}`,
       {
         method: "GET",
       }
@@ -62,7 +40,7 @@ export default function RestaurantCard({
       .catch((error) => {
         console.error("Error fetching restaurant items:", error);
       });
-  }, [ResId, isSpecial]);
+  }, [ResId]);
 
   const renderStars = (rating) => {
     return "⭐".repeat(rating);
@@ -90,7 +68,7 @@ export default function RestaurantCard({
         className="d-flex flex-nowrap overflow-auto"
         style={{ maxWidth: "100%", overflowX: "auto" }}
       >
-        {statusSpecial === "1" ? (
+        
           <div className="d-flex">
             {SpecialItemList.map((Item) => (
               <div className="my-4 mx-2" key={Item.id}>
@@ -102,7 +80,7 @@ export default function RestaurantCard({
                   }}
                   imageUrl={
                     Item.f_image
-                      ? `http://${process.env.REACT_APP_SERVER}/FoodDeliverySystems/Content/FoodItem/${Item.f_image}`
+                      ? `http://localhost/WebApplication2/Content/FoodItems/${Item.f_image}`
                       : alternativeImage
                   }
                   rating={Item.foodRating}
@@ -113,7 +91,7 @@ export default function RestaurantCard({
               </div>
             ))}
           </div>
-        ) : (
+        
           <div className="d-flex">
             {ItemList.map((Item) => (
               <div className="my-4 mx-2" key={Item.id}>
@@ -125,7 +103,7 @@ export default function RestaurantCard({
                   }}
                   imageUrl={
                     Item.f_image
-                      ? `http://${process.env.REACT_APP_SERVER}/FoodDeliverySystems/Content/FoodItem/${Item.f_image}`
+                      ? `http://localhost/WebApplication2/Content/FoodItems/${Item.f_image}`
                       : alternativeImage
                   }
                   rating={Item.foodRating}
@@ -137,7 +115,7 @@ export default function RestaurantCard({
               </div>
             ))}
           </div>
-        )}
+        
       </div>
     </div>
   );

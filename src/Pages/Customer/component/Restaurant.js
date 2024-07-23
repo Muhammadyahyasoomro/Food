@@ -6,6 +6,8 @@ import { Cart2 } from "react-bootstrap-icons";
 import ViewCart from "./ViewCart";
 
 export default function Restaurant() {
+  const API_BASE_URL = `http://localhost/WebApplication2/api`;
+
   const [showPopup, setShowPopup] = useState(false);
   const [cid, setcid] = useState();
   const location = useLocation();
@@ -34,7 +36,7 @@ export default function Restaurant() {
     handleViewCart();
 
     fetch(
-      `http://localhost/FoodDeliverySystems/api/Customer/SpecificRestaurantItems?restaurantId=${ResId}`,
+      `${API_BASE_URL}/Customer/SpecificRestaurantItems?restaurantId=${ResId}`,
       {
         method: "get",
       }
@@ -54,7 +56,7 @@ export default function Restaurant() {
   }, [ResId]);
   const handleViewCart = () => {
     fetch(
-      `http://localhost/fooddeliverysystems/api/customers/ViewCart?cid=${cid}`
+      `${API_BASE_URL}/customers/ViewCart?cid=${cid}`
     )
       .then((response) => {
         if (!response.ok) {
@@ -94,7 +96,7 @@ export default function Restaurant() {
   };
   const filterSearch = () => {
     fetch(
-      `http://localhost/fooddeliverysystems/api/customers/SearchSpecificRestaurantItems?SearchedValue=${searchedValue}&resid=${ResId}`
+      `${API_BASE_URL}/customers/SearchSpecificRestaurantItems?SearchedValue=${searchedValue}&resid=${ResId}`
     )
       .then((response) => response.json())
       .then((data) => {
@@ -126,7 +128,7 @@ export default function Restaurant() {
               >
                 <div className="card-body d-flex">
                   <img
-                    src={`http://localhost/FoodDeliverySystems/Content/FoodItem/${item.f_image}`}
+                    src={`http://localhost/WebApplication2/Content/FoodItems/${item.f_image}`}
                     className="img-fluid me-3 my-2"
                     style={{
                       borderRadius: "1rem",

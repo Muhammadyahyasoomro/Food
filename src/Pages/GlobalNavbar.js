@@ -10,12 +10,40 @@ export const GlobalNavbar = () => {
     color: theme === 'light' ? 'black' : 'white',
     textDecoration: 'none'
   };
+  const dropdownStyle = {
+    color: theme === 'light' ? 'black' : 'red',
+ 
+    borderColor: theme === 'light' ? 'white' : 'black'
+  };
 
+  const dropdownMenuStyle = {
+    minWidth: '10rem',
+    padding: '0.5rem 0',
+        backgroundColor: theme === 'light' ? 'white' : 'black',
+  };
+  const itemStyle = {
+    backgroundColor: theme === 'light' ? 'white' : 'black',
+    borderColor: theme === 'light' ? 'white' : 'black',
+    
+    padding: 0 // remove padding
+    
+  };
+  const linkStyle = {
+    display: 'block',
+    
+    color: theme === 'light' ? 'black' : 'red',
+    padding: '8px 16px', // add padding to link instead
+    textDecoration: 'none' // ensure no underline
+  };
+
+ 
   return (
-    <Navbar className="navbar-dark " style={{backgroundColor:theme === 'light' ? '#EBF3F2' : '#09222A'}} fixed="top">
-      <Container>
+    
+    <Navbar  style={{backgroundColor:theme === 'light' ? '#EBF3F2' : '#222629'}} fixed="top">
+      <Container style={{content:"none"}}>
+      
        
-        <Navbar.Brand href="/" className="justify-content-center align-items-center">
+        <Navbar.Brand href="/" className="">
           <img
             alt="Company Logo"
             src={require("../Components/assets/Logo/redx.png")}
@@ -33,34 +61,41 @@ export const GlobalNavbar = () => {
             color: theme === 'light' ? 'white' : 'black',
             border: "none",
             borderRadius: "2rem",
-            marginRight: "1rem",
-            marginLeft: "1rem",
+            marginRight: "0.1rem",
+            marginLeft: "0.1rem",
             padding: "10px"
           }}
         >
           {theme === 'light' ? 'Dark' : 'Light'} Mode
         </Button>
-          <NavDropdown title="Login" style={{ color: theme === 'light' ? 'black' : 'red'}} id="navbarScrollingDropdown">
-            <NavDropdown.Item style={{ backgroundColor: theme === 'light' ? 'white' : 'black'}}>
-              <Link to="/loginrider" style={{ color: theme === 'light' ? 'black' : 'red',
-                
-              }}>
-                Rider
-              </Link>
-            </NavDropdown.Item>
-          
-            <NavDropdown.Item style={{ backgroundColor: theme === 'light' ? 'white' : 'black'}} >
-              <Link to="/loginrestaurant" style={{ color: theme === 'light' ? 'black' : 'red',}}>
-                Restaurant
-              </Link>
-            </NavDropdown.Item>
-            
-            <NavDropdown.Item style={{ backgroundColor: theme === 'light' ? 'white' : 'black'}} >
-              <Link to="/loginCustomer" style={{ color: theme === 'light' ? 'black' : 'red',}}>
-                Customer
-              </Link>
-            </NavDropdown.Item>
-          </NavDropdown>
+        <>
+      <style>
+        {`
+          .dropdown-menu {
+            min-width: ${dropdownMenuStyle.minWidth} !important;
+            padding: ${dropdownMenuStyle.padding} !important;
+            background-color: ${dropdownMenuStyle.backgroundColor} !important;
+          }
+        `}
+      </style>
+      <NavDropdown title="Login" style={dropdownStyle}>
+        <NavDropdown.Item style={itemStyle}>
+          <Link to="/loginrider" style={linkStyle}>
+            Rider
+          </Link>
+        </NavDropdown.Item>
+        <NavDropdown.Item style={itemStyle}>
+          <Link to="/loginrestaurant" style={linkStyle}>
+            Restaurant
+          </Link>
+        </NavDropdown.Item>
+        <NavDropdown.Item style={itemStyle}>
+          <Link to="/loginCustomer" style={linkStyle}>
+            Customer
+          </Link>
+        </NavDropdown.Item>
+      </NavDropdown>
+    </>
         </Navbar.Collapse>
       </Container>
     </Navbar>

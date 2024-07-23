@@ -14,7 +14,7 @@ export default function HomeCustomer() {
   const [searchedItems, setSearchedItems] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
   const [orderForAnotherPerson, setOrderForAnotherPerson] = useState(true);
-  const [specialRestaurants, setSpecialRestaurants] = useState([]);
+  
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -23,24 +23,7 @@ export default function HomeCustomer() {
     }
   }, [navigate]);
 
-  useEffect(() => {
-    const fetchSpecialRestaurants = async () => {
-      try {
-        const response = await fetch(
-          `${API_BASE_URL}/Customer/SpecialRestaurantsForCustomer?customer_id=${localStorage.getItem(
-            "c_id"
-          )}&DiseaseName=${localStorage.getItem("disease")}`
-        );
-        const data = await response.json();
-        setSpecialRestaurants(data);
-        console.log("Special restaurants", data);
-      } catch (error) {
-        console.error("There was a problem with the fetch operation:", error);
-      }
-    };
-
-    fetchSpecialRestaurants();
-  }, []);
+  
 
   const filterSearch = async (value) => {
     try {
@@ -101,27 +84,14 @@ export default function HomeCustomer() {
     <>
       <NavbarCustomer onSearch={handleSearch} onApplyFilters={applyFilters} />
       <div className="mx-4">
-        <button
-          className="bg-success text-white fs-4 border border-0 rounded p-2"
-          onClick={() => {
-            setOrderForAnotherPerson(false);
-            localStorage.setItem("FoodStatus", 1);
-          }}
-        >
-          Order For Another Person
-        </button>
-        {orderForAnotherPerson ? (
-          <TopRestaurant dataset={specialRestaurants} status={true} />
-        ) : searchedValue ? (
-          renderFoodCards(searchedItems)
-        ) : filteredItems.length > 0 ? (
-          renderFoodCards(filteredItems)
-        ) : (
+            
+          
+        
           <>
-            <TapRated />
+           
             <TopRestaurant />
           </>
-        )}
+        
         <CustomerFooter />
       </div>
     </>
