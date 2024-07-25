@@ -3,14 +3,16 @@ import { House, Shop } from "react-bootstrap-icons";
 import { FoodCard } from "../component/FoodCard";
 import { useNavigate } from "react-router-dom";
 import alternativeImage from "../../../Components/assets/alternativeImage.png";
+import { useTheme } from "../../../context/ThemeContext";
 
 export default function RestaurantCard({
   ResName,
-  ResId,
+  ResId,  
   rating,
   type,
   
 }) {
+  const {theme}=useTheme();
   const [ItemList, setItemList] = useState([]);
   const [SpecialItemList, setSpecialItemList] = useState([]);
   const Navigate = useNavigate();
@@ -22,7 +24,7 @@ export default function RestaurantCard({
  
     // Fetch Restaurant Items
     fetch(
-      `${API_BASE_URL}/Customer/GetSpecificRestaurantItemsByTopRating?restaurantId=${ResId}`,
+      `${API_BASE_URL}/Customer/DefaultFooditems?restaurantId=${ResId}`,
       {
         method: "GET",
       }
@@ -48,14 +50,15 @@ export default function RestaurantCard({
 
   return (
     <div>
-      <div className="bg-danger p-3 text-white fs-3 text-uppercase text-center">
+      <div style={{backgroundColor:theme==="light"?"#9c032c":"#520218"}} className=" p-3 text-white fs-3 text-uppercase text-center">
         {ResName}
       </div>
       <div
         onClick={() => {
           Navigate("/Restaurant", { state: { id: ResId, name: ResName } });
         }}
-        className="bg-danger text-white text-center "
+        className=" text-white text-center "
+        style={{backgroundColor:theme==="light"?"#9c032c":"#520218",WebkitLineBreak:"loose"}}
       >
         {type ? (
           <House style={{ width: "5rem", height: "3rem" }} />
@@ -69,28 +72,7 @@ export default function RestaurantCard({
         style={{ maxWidth: "100%", overflowX: "auto" }}
       >
         
-          <div className="d-flex">
-            {SpecialItemList.map((Item) => (
-              <div className="my-4 mx-2" key={Item.id}>
-                <FoodCard
-                  className="mx-5"
-                  style={{
-                    maxWidth: "13rem",
-                    maxHeight: "25rem",
-                  }}
-                  imageUrl={
-                    Item.f_image
-                      ? `http://localhost/WebApplication2/Content/FoodItems/${Item.f_image}`
-                      : alternativeImage
-                  }
-                  rating={Item.foodRating}
-                  title={Item.name}
-                  type={Item.res_type}
-                  fooddetail_id={Item.id}
-                />
-              </div>
-            ))}
-          </div>
+         
         
           <div className="d-flex">
             {ItemList.map((Item) => (
@@ -109,7 +91,7 @@ export default function RestaurantCard({
                   rating={Item.foodRating}
                   title={Item.name}
                   type={Item.res_type}
-                  price={Item.price}
+                  price={Item.min_price}
                   fooddetail_id={Item.id}
                 />
               </div>

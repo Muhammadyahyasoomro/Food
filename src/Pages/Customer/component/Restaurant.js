@@ -144,10 +144,10 @@ export default function Restaurant() {
                     </p>
                     <div className="Row d-flex bg-danger rounded align-items-center mx-5 fs-5 p-1">
                       <div className="col-md-6 text-center text-white bg-danger">
-                        From Rs {item.price || "N/A"} pkr
+                        From Rs {item.min_price || "N/A"} pkr
                       </div>
                       <div className="col-md-6 text-danger text-center rounded bg-white">
-                        {item.peopleperserving || "N/A"} people per Serving
+                        {item.people|| "N/A"} people per Serving
                       </div>
                     </div>
                     <p className="card-text p-1 fs-4 rounded text-black text-justify text-center">

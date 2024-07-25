@@ -13,7 +13,7 @@ export const ThemeProvider = ({ children }) => {
   };
   const  CheckNext=()=>{
     setnext((prev)=>(prev+1));  
-    next>=2&&setnext(0)
+    next>2&&setnext(0)
   }
 
   return (
