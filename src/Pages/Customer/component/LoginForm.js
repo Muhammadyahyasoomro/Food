@@ -54,8 +54,8 @@ export const LoginForm = () => {
     const { c_email, c_password } = login;
 
     axios
-      .get(
-        `https://www.quettacafe.com/FoodDeliverySystems/api/Customer/Login`,
+      .post(
+        `http://localhost/WebApplication2/api/Customer/Login`,
         {
           email: c_email,
           password: c_password,
@@ -71,6 +71,8 @@ export const LoginForm = () => {
           localStorage.setItem("lon", location.lon);
           localStorage.setItem("disease", disease);
           navigate("/HomeCustomer");
+        } else if (response.status === 204) {
+          console.error("No account found with the provided email and password.");
         }
       })
       .catch((error) => {
