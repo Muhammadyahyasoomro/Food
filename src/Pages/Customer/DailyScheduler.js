@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useTheme } from "../../context/ThemeContext";
 import { useLocation } from "react-router-dom";
 import {
   Tabs,
@@ -19,6 +20,7 @@ import {
 import Navbarcustomer from "./component/NavbarCustomer";
 
 export default function DailyScheduler() {
+  const {theme}=useTheme();
   const { state: { CartList = [] } = {} } = useLocation();
   const [lunchItems, setLunchItems] = useState([]);
   const [dinnerItems, setDinnerItems] = useState([]);
@@ -106,7 +108,7 @@ export default function DailyScheduler() {
     };
 
     fetch(
-      `http://localhost/FoodDeliverySystems/api/Customer/CreateDailyScheduler?customer_id=${localStorage.getItem(
+      `http://localhost/WebApplication2/api/Customer/CreateDailyScheduler?customer_id=${localStorage.getItem(
         "c_id"
       )}`,
       {
@@ -139,7 +141,7 @@ export default function DailyScheduler() {
       endDate: formattedEndDate, // Use formatted endDate
     };
     fetch(
-      `http://localhost/FoodDeliverySystems/api/Customer/ConfirmDailyScheduler?customer_id=${localStorage.getItem(
+      `http://localhost/WebApplication2/api/Customer/ConfirmDailyScheduler?customer_id=${localStorage.getItem(
         "c_id"
       )}`,
       {
@@ -171,36 +173,38 @@ export default function DailyScheduler() {
   return (
     <>
       <Navbarcustomer />
-      <Box sx={{ width: "100%", typography: "body1" }}>
-        <Tabs value={tabIndex} onChange={handleChangeTab}>
-          <Tab label="Lunch" />
-          <Tab label="Dinner" />
-          <Tab label="Breakfast" />
+      <Box sx={{ width: "100%", typography: "body1" }} style={{backgroundColor:theme==="light"?"white":"black  "}}>
+        <Tabs value={tabIndex} style={{ marginTop:"1rem",marginLeft:"23rem",marginRight:"23rem",backgroundColor:theme==="light"?"white":"black  "}} onChange={handleChangeTab}>
+          <Tab style={{color:theme==="light"?"black":"red",backgroundColor:theme==="light"?"white":"black",letterSpacing:".3rem",fontSize:"1.4rem",fontFamily:"cursive",marginRight:".3rem"}} label="Lunch" />
+          <Tab style={{color:theme==="light"?"black":"red",backgroundColor:theme==="light"?"white":"black",letterSpacing:".3rem",fontSize:"1.4rem",fontFamily:"cursive",marginRight:".3rem"}} label="Dinner" />
+          <Tab style={{color:theme==="light"?"black":"red",backgroundColor:theme==="light"?"white":"black",letterSpacing:".3rem",fontSize:"1.4rem",fontFamily:"cursive",marginRight:".3rem"}} label="Breakfast" />
         </Tabs>
-        <Box p={3}>
-          <Typography variant="h5" component="div">
+        <Box p={5} className="text-center" style={{color:theme==="light"?"black":"red"}}>
+          <Typography variant="h5" component="div" style={{letterSpacing:".3rem",fontFamily:"cursive"}}>
             {tabIndex === 0 && "Lunch Items"}
             {tabIndex === 1 && "Dinner Items"}
             {tabIndex === 2 && "Breakfast Items"}
           </Typography>
           {getCurrentItems().length > 0 ? (
             <>
-              <Table>
-                <TableHead>
-                  <TableRow>
+              <Table className="card container " style={{backgroundColor:theme==="light"?"white":"black"}} >
+                <TableHead className="">
+                  <TableRow  >
+                    <TableCell></TableCell>
                     <TableCell></TableCell>
                     <TableCell>
                       {" "}
-                      <Box sx={{ marginTop: 3 }} className="d-flex ">
+                      <Box sx={{ marginTop: 3 ,color:theme==="light"?"black":"red"}} className="d-flex ">
                         <Typography variant="body1" className="fs-4">
                           Select Time
                         </Typography>
                         <input
+                        style={{color:theme==="light"?"black":"red",backgroundColor:theme==="light"?"white":"black",}}
                           type="time"
                           value={
                             tabIndex === 0
                               ? lunchTime
-                              : tabIndex === 1
+                              : tabIndex === 1  
                               ? dinnerTime
                               : breakfastTime
                           }
@@ -216,22 +220,22 @@ export default function DailyScheduler() {
                   </TableRow>
                   <TableRow>
                     <TableCell
-                      sx={{ padding: "16px 24px", fontWeight: "bold" }}
+                      sx={{ padding: "16px 24px", fontWeight: "bold",color:theme==="light"?"black":"red" }}
                     >
                       Image
                     </TableCell>
                     <TableCell
-                      sx={{ padding: "16px 24px", fontWeight: "bold" }}
+                      sx={{ padding: "16px 24px", fontWeight: "bold" ,color:theme==="light"?"black":"red"}}
                     >
                       Item
                     </TableCell>
                     <TableCell
-                      sx={{ padding: "16px 24px", fontWeight: "bold" }}
+                      sx={{ padding: "16px 24px", fontWeight: "bold",color:theme==="light"?"black":"red" }}
                     >
                       Quantity
                     </TableCell>
                     <TableCell
-                      sx={{ padding: "16px 24px", fontWeight: "bold" }}
+                      sx={{ padding: "16px 24px", fontWeight: "bold",color:theme==="light"?"black":"red" }}
                     >
                       Actions
                     </TableCell>
@@ -240,13 +244,13 @@ export default function DailyScheduler() {
                 <TableBody>
                   {getCurrentItems().map((item, index) => (
                     <TableRow key={index}>
-                      <TableCell sx={{ padding: "16px 24px" }}>
+                      <TableCell sx={{ padding: "16px 24px" ,color:theme==="light"?"black":"white"}}>
                         {item.Image}
                       </TableCell>
-                      <TableCell sx={{ padding: "16px 24px" }}>
+                      <TableCell sx={{ padding: "16px 24px",color:theme==="light"?"black":"white" }}>
                         {item.Name}
                       </TableCell>
-                      <TableCell sx={{ padding: "16px 24px" }}>
+                      <TableCell sx={{ padding: "16px 24px",color:theme==="light"?"black":"white" }}>
                         <Box display="flex" alignItems="center">
                           <Button
                             variant="contained"
