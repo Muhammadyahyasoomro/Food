@@ -9,7 +9,7 @@ export default function Favourites() {
 
   useEffect(() => {
     fetch(
-      `http://localhost/FoodDeliverySystems/api/customer/GetFavouriteItems?customerId=${localStorage.getItem(
+      `http://WebApplication2/FoodDeliverySystems/api/customer/GetFavouriteItems?customerId=${localStorage.getItem(
         "c_id"
       )}`
     )
@@ -25,7 +25,7 @@ export default function Favourites() {
   const handleToggleFavorite = () => {
     // Refresh the list after a change
     fetch(
-      `http://localhost/FoodDeliverySystems/api/customer/GetFavouriteItems?customerId=${localStorage.getItem(
+      `http://localhost/WebApplication2/api/customer/GetFavouriteItems?customerId=${localStorage.getItem(
         "c_id"
       )}`
     )
@@ -52,7 +52,7 @@ export default function Favourites() {
             className="mb-4"
           >
             <FoodCard
-              imageUrl={`http://localhost/FoodDeliverySystems/Content/FoodItem/${item.f_image}`}
+              imageUrl={`http://localhost/WebApplication2/Content/FoodItem/${item.f_image}`}
               title={item.food_name}
               rating={item.foodRating}
               type={item.res_type}

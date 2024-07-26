@@ -1,9 +1,11 @@
 import React, { useDebugValue } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { CartFill, ListCheck } from "react-bootstrap-icons";
+import { useTheme } from "../../../context/ThemeContext";
 const OrderTracker = () => {
+  const {theme}=useTheme();
   return (
-    <div style={{ height: "50px", width: "100%", backgroundColor: "white" }}>
+    <div style={{ height: "50px", width: "100%", backgroundColor: theme==="light"?"white":"#292929" }}>
       <Container fluid>
         <Row style={{ backgroundColor: "orange" }}>
           <Col className="text-center" style={{ backgroundColor: "red" }}>

@@ -55,7 +55,7 @@ export const LoginForm = () => {
 
     axios
       .post(
-        `http://192.168.18.14/WebApplication2/api/Customer/Login`,
+        `http://localhost/WebApplication2/api/Customer/Login`,
         {
           email: c_email,
           password: c_password,

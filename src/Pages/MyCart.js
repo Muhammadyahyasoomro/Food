@@ -5,16 +5,17 @@ import Img from "../../src/Components/assets/Logo/HomeRestaurant.png";
 import ViewCart from "./Customer/component/ViewCart";
 import Navbarcustomer from "./Customer/component/NavbarCustomer";
 import OrderTracker from "./Customer/component/OrderTracker";
-
+import { useTheme } from "../context/ThemeContext";
 export default function MyCart() {
   const [data, setData] = useState([]);
   const [time, setTime] = useState("10:00");
   const c_id = localStorage.getItem("c_id");
+  const {theme}=useTheme();
 
   useEffect(() => {
     localStorage.removeItem("WeeklySchedule");
     fetch(
-      `http://localhost/fooddeliverysystems/api/customer/GetCartedItems?id=${c_id}`
+      `http://localhost/WebApplication2/api/customer/GetCartedItems?id=${c_id}`
     )
       .then((response) => {
         if (!response.ok) {
@@ -50,10 +51,16 @@ export default function MyCart() {
           type="time"
           value={time}
           onChange={handleTimeChange}
-          style={{ padding: "10px", fontSize: "16px" }}
+          style={{
+             padding: "10px",
+              fontSize: "16px",
+               backgroundColor:theme==="light"?"white":"darkgrey",
+               color:theme==="light"?"black":"white",
+               borderRadius:"1rem",
+               borderColor:theme==="light"?"red":"gold"}}
         />
       </div>
-      <div className="myItems" style={{ marginTop: "20px" }}>
+      <div className="myItems" style={{ marginTop: "20px", overflow:"auto",height:"200px",scrollbarColor:"red"}}>
         {data.map((item, index) => (
           <MyItems
             key={index}

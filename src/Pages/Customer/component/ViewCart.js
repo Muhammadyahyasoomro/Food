@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import { ArrowRightCircleFill, ClockHistory } from "react-bootstrap-icons";
 import { useNavigate } from "react-router-dom";
 import Popup from "reactjs-popup";
-import "reactjs-popup/dist/index.css"; // Ensure this is imported
+
+import { useTheme } from "../../../context/ThemeContext";
 
 const ViewCart = ({ CartList, Time }) => {
+  const {theme}=useTheme();
   const [cartdata, setcartdata] = useState();
   const [Checkout, setCheckout] = useState();
   const navigate = useNavigate();
@@ -12,7 +14,7 @@ const ViewCart = ({ CartList, Time }) => {
 
   useEffect(() => {
     fetch(
-      `http://localhost/FoodDeliverySystems/api/Customer/GetCartTotal?customerId=${localStorage.getItem(
+      `http://localhost/WebApplication2/api/Customer/GetCartTotal?customerId=${localStorage.getItem(
         "c_id"
       )}`
     )
@@ -47,7 +49,7 @@ const ViewCart = ({ CartList, Time }) => {
   };
   const handleCheckout = () => {
     fetch(
-      `http://localhost/FoodDeliverySystems/api/Customer/InsertSimpleOrder?customer_id=${localStorage.getItem(
+      `http://localhost/WebApplication2/api/Customer/InsertSimpleOrder?customer_id=${localStorage.getItem(
         "c_id"
       )}&time=${Time}`,
       {
@@ -75,8 +77,8 @@ const ViewCart = ({ CartList, Time }) => {
   };
 
   return cartdata ? (
-    <div className="fixed-bottom w-100">
-      <div className="p-1" style={{ backgroundColor: "#FA813A" }}>
+    <div className="fixed-bottom w-100 ">
+      <div className="p-1" style={{ backgroundColor:theme==="light"?"#FA813A":"black" }}>
         <div className="TotalPrice d-flex justify-content-between align-items-center p-1">
           <div className="text-white">
             <p className="fs-6">{cartdata.TotalQuantity} Item</p>
@@ -85,22 +87,25 @@ const ViewCart = ({ CartList, Time }) => {
           </div>
           <div>
             <Popup
-              trigger={<ClockHistory className="fs-1 text-white mx-2" />}
+              trigger={<ClockHistory className="fs-1 text-white mx-2 " />}
               modal
               closeOnDocumentClick
             >
               {(close) => (
                 <div
-                  className="popup-content bg-white text-center"
+                  className="popup-content  text-center"
                   style={{
-                    borderRadius: "20px 20px 0 0",
-                    borderTop: "3px solid red",
+                    backgroundColor:theme==="light"?"white":"black",
+                    
+                    border:`2px solid ${theme==="light"?"red":"gold"}`,
+                    borderRadius: "50px 50px 50px 50px",
+                    
                     padding: "20px",
                     width: "300px",
-                    marginTop: "5px", // For some spacing from top
+                    // For some spacing from top
                   }}
                 >
-                  <label className="fs-5 mb-3" style={{ display: "block" }}>
+                  <label className="fs-5 mb-3" style={{ display: "block",color:theme==="light"?"black":"white" }}>
                     Schedule Type
                   </label>
                   <div className="mb-3">
@@ -114,14 +119,16 @@ const ViewCart = ({ CartList, Time }) => {
                         border: "1px solid #ccc",
                         width: "100px",
                         margin: "0 auto",
+                        backgroundColor:theme==="light"?"white":"black",
+                        color:theme==="light"?"black":"white"
                       }}
                     >
-                      <option value="Daily">Daily</option>
+                      <option value="Daily" >Daily</option>
                       <option value="Weekly">Weekly</option>
                     </select>
                   </div>
                   <button
-                    className="btn btn-danger mt-3"
+                    className="btn btn-outline-warning mt-3 rounded"
                     onClick={() => {
                       if (scheduleType === "Daily") {
                         handledaily();
@@ -145,7 +152,7 @@ const ViewCart = ({ CartList, Time }) => {
       </div>
     </div>
   ) : (
-    <div>hello view cart is empty</div>
+    <div>Go back Add SomeItems</div>
   );
 };
 
