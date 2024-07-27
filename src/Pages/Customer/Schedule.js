@@ -194,7 +194,7 @@ const Schedule = () => {
   };
 
   const handleConfirmSchedule = () => {
-    const url = `http://localhost/FoodDeliverySystems/api/Customer/StartWeeklyScheduler?customer_id=${localStorage.getItem(
+    const url = `http://localhost/WebApplication2/api/Customer/StartWeeklyScheduler?customer_id=${localStorage.getItem(
       "c_id"
     )}`;
 
@@ -237,7 +237,7 @@ const Schedule = () => {
       redirect: "follow",
     };
 
-    const url = `http://localhost/FoodDeliverySystems/api/Customer/RemoveSchedule?c_id=${c_id}`;
+    const url = `http://localhost/WebApplication2/api/Customer/RemoveSchedule?c_id=${c_id}`;
 
     fetch(url, requestOptions)
       .then((response) => {
@@ -296,7 +296,7 @@ const Schedule = () => {
     console.log("Schedule 2D Array:", schedule);
 
     const url =
-      "http://localhost/FoodDeliverySystems/api/Customer/CreateWeeklyMenu?customerId=1";
+      "http://localhost/WebApplication2/api/Customer/CreateWeeklyMenu?customerId=1";
 
     fetch(url, {
       method: "POST",
@@ -390,7 +390,7 @@ const Schedule = () => {
                                 >
                                   <Col xs={3}>
                                     <Image
-                                      src={item.image} // Adjust image source
+                                      src={`http://localhost/WebApplication2/content/FoodItems/${item.image}`} // Adjust image source
                                       thumbnail
                                       style={{ width: "3rem", height: "3rem" }}
                                     />
