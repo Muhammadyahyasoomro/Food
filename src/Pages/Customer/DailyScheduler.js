@@ -225,7 +225,7 @@ export default function DailyScheduler() {
                       Image
                     </TableCell>
                     <TableCell
-                      sx={{ padding: "16px 24px", fontWeight: "bold" ,color:theme==="light"?"black":"red"}}
+                      sx={{ padding: "16px 24px", fontWeight: "bold",color:theme==="light"?"black":"red" }}
                     >
                       Item
                     </TableCell>
@@ -244,13 +244,14 @@ export default function DailyScheduler() {
                 <TableBody>
                   {getCurrentItems().map((item, index) => (
                     <TableRow key={index}>
-                      <TableCell sx={{ padding: "16px 24px" ,color:theme==="light"?"black":"white"}}>
-                        {item.Image}
+                      <TableCell sx={{ padding: "16px 24px" ,color:theme==="light"?"black":"red"}}>
+                      <img className="rounded-5 border border-2 border-danger" style={{width:"60px", height:"60px"}} src={`http://localhost/WebApplication2/content/FoodItems/${item.Image}` } alt="Food Item" />
+
                       </TableCell>
-                      <TableCell sx={{ padding: "16px 24px",color:theme==="light"?"black":"white" }}>
+                      <TableCell className="text-capitalize" sx={{ padding: "16px 24px" ,color:theme==="light"?"black":"red"}}>
                         {item.Name}
                       </TableCell>
-                      <TableCell sx={{ padding: "16px 24px",color:theme==="light"?"black":"white" }}>
+                      <TableCell sx={{ padding: "16px 24px",color:theme==="light"?"black":"red" }}>
                         <Box display="flex" alignItems="center">
                           <Button
                             variant="contained"
