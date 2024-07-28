@@ -91,6 +91,8 @@ export const FoodCard = ({
           border: "2px solid red",
           borderRadius: "10px",
           position: "relative",
+          width:"13rem",
+          
         }}
       >
         <div
@@ -109,6 +111,7 @@ export const FoodCard = ({
           variant="top"
           src={imageUrl}
           height={"150rem"}
+          
           style={{ borderTopLeftRadius: "10px", borderTopRightRadius: "10px" }}
         />
         <Card.Body className="" style={{ backgroundColor: "#FAD9D9" }}>
