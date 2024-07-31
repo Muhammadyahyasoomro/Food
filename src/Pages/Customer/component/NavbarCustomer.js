@@ -7,10 +7,12 @@ import { Filter, StarFill } from "react-bootstrap-icons";
 import CustomerSidebar from "./CustomerSidebar";
 import toggle from "../../../Components/assets/rider/toggle.png";
 import { useTheme } from "../../../context/ThemeContext";
-
-export default function Navbarcustomer({ filter, onSearch, onApplyFilters }) {
-  const [showFilters, setShowFilters] = useState(false);
+import { useSearch } from "../../../context/SearchContext";
+export default function Navbarcustomer() {
+  const {setSearch}=useSearch();
+  
   const {theme,toggleTheme}=useTheme();
+ 
   const [filters, setFilters] = useState({
     priceMin: "",
     priceMax: "",
@@ -19,7 +21,7 @@ export default function Navbarcustomer({ filter, onSearch, onApplyFilters }) {
     restaurant: false,
   });
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [searchValue, setSearchValue] = useState("");
+  
   const Navigate = useNavigate();
 
   const handleFilterChange = (filterName, value) => {
@@ -51,25 +53,9 @@ export default function Navbarcustomer({ filter, onSearch, onApplyFilters }) {
     return <div>{stars}</div>;
   };
 
-  const handleSearchInputChange = (e) => {
-    const { value } = e.target;
-    setSearchValue(value);
-    onSearch(value);
-  };
+  
 
-  const handleApplyFilters = () => {
-    const res_type = filters.homemade ? "1" : filters.restaurant ? "0" : null;
-
-    const filterParams = {
-      priceMin: filters.priceMin,
-      priceMax: filters.priceMax,
-      rating: filters.rating,
-      res_type: res_type,
-    };
-
-    onApplyFilters(filterParams);
-    setShowFilters(false);
-  };
+ 
 
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
@@ -112,95 +98,21 @@ export default function Navbarcustomer({ filter, onSearch, onApplyFilters }) {
           <Nav className="mr-auto">
             <Row className="mx-5" style={{ flexDirection: "row-reverse" }}>
               <Col sm={6}>
-                <Form.Control
-                style={{color:theme==="light"?"black":"white",backgroundColor:theme==="light"?"white":"black"}}
-                  type="text"
-                  value={searchValue}
-                  onChange={handleSearchInputChange}
+                <input type="text"
+                style={{
+                  color:theme==="light"?"black":"black",
+                  backgroundColor:theme==="light"?"white":"white",
+                  border:"1px solid black",borderRadius:"1rem",padding:".5rem"
+
+                }}
+                  onChange={(x)=>{setSearch(x.target.value)}}
+                 
                   placeholder="Search..."
                 />
               </Col>
-              <Col
-                sm={6}
-                className="d-flex justify-content-end align-items-center"
-              >
-                <Button
-                  variant="outline-danger"
-                  onClick={() => setShowFilters(true)}
-                >
-                  <Filter /> Filter
-                </Button>
-              </Col>
+             
             </Row>
-            <Modal
-            style={{color:theme==="light"?"black":"white",backgroundColor:theme==="light"?"white":"black"}}
-              show={showFilters}
-              onHide={() => setShowFilters(false)}
-              centered
-            >
-              <Modal.Header closeButton  style={{color:theme==="light"?"black":"white",backgroundColor:theme==="light"?"white":"black"}}>
-                <Modal.Title>Filters</Modal.Title>
-              </Modal.Header>
-              <Modal.Body  style={{borderColor:"red",border:"2px solid ",color:theme==="light"?"black":"white",backgroundColor:theme==="light"?"white":"black"}}>
-                <Form>
-                  <Form.Group controlId="priceMin">
-                    <Form.Label>Minimum Price</Form.Label>
-                    <Form.Control
-                     style={{color:theme==="light"?"black":"white",backgroundColor:theme==="light"?"white":"black"}}
-                      type="number"
-                      placeholder="Min"
-                      value={filters.priceMin}
-                      onChange={(e) =>
-                        handleFilterChange("priceMin", e.target.value)
-                      }
-                    />
-                  </Form.Group>
-                  <Form.Group controlId="priceMax">
-                    <Form.Label>Maximum Price</Form.Label>
-                    <Form.Control
-                     style={{color:theme==="light"?"black":"white",backgroundColor:theme==="light"?"white":"black"}}
-                      type="number"
-                      placeholder="Max"
-                      value={filters.priceMax}
-                      onChange={(e) =>
-                        handleFilterChange("priceMax", e.target.value)
-                      }
-                    />
-                  </Form.Group>
-                  <Form.Group controlId="ratingPicker" >
-                    <Form.Label>Rating</Form.Label>
-                    {renderRatingPicker()}
-                  </Form.Group>
-                  <Row className="filter-buttons ">
-                    <Col>
-                      <Button
-                        variant={filters.homemade ? "danger" : "outline-danger"}
-                        onClick={() =>
-                          handleFilterChange("homemade", !filters.homemade)
-                        }
-                      >
-                        HomeMade
-                      </Button>
-                    </Col>
-                    <Col>
-                      <Button
-                        variant={
-                          filters.restaurant ? "danger" : "outline-danger"
-                        }
-                        onClick={() =>
-                          handleFilterChange("restaurant", !filters.restaurant)
-                        }
-                      >
-                        Restaurant
-                      </Button>
-                    </Col>
-                  </Row>
-                  <Button variant="primary" onClick={handleApplyFilters}>
-                    Apply Filters
-                  </Button>
-                </Form>
-              </Modal.Body>
-            </Modal>
+           
           </Nav>
         </Navbar.Collapse>
         <div className="d-flex align-items-center">

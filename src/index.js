@@ -5,6 +5,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import { ThemeProvider } from "../src/context/ThemeContext";
 import { CategoryProvider } from "./context/CategoryContext";
+import { SearchProvider } from "./context/SearchContext";
 import reportWebVitals from "./reportWebVitals";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -12,7 +13,9 @@ root.render(
   <React.StrictMode>
     <ThemeProvider>
       <CategoryProvider>
+        <SearchProvider>
       <App />
+      </SearchProvider>
       </CategoryProvider>
       
     </ThemeProvider>

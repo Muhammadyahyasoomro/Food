@@ -7,12 +7,14 @@ import TapRated from "./component/TapRated";
 import TopRestaurant from "./component/TopRestaurant";
 import { CustomerFooter } from "./component/CustomerFooter";
 import { useNavigate } from "react-router-dom";
+import { useSearch } from "../../context/SearchContext";
+import alternativeImage from "../../../src/Components/assets/alternativeImage.png";
 
 export default function HomeCustomer() {
   const API_BASE_URL = `http://localhost/WebApplication2/api`;
-  const [searchedValue, setSearchedValue] = useState("");
+ const {search,setSearch}=useSearch("null");
   const [searchedItems, setSearchedItems] = useState([]);
-  const [filteredItems, setFilteredItems] = useState([]);
+  
   const [orderForAnotherPerson, setOrderForAnotherPerson] = useState(true);
   
   const navigate = useNavigate();
@@ -25,44 +27,11 @@ export default function HomeCustomer() {
 
   
 
-  const filterSearch = async (value) => {
-    try {
-      const response = await fetch(
-        `${API_BASE_URL}/customer/SearchbyRestaurantOrFoodItem?SearchedValue=${value}`
-      );
-      const data = await response.json();
-      setSearchedItems(data.length > 0 ? data : []);
-    } catch (error) {
-      console.error("Error fetching search results:", error);
-    }
-  };
+ 
 
-  const applyFilters = async (filters) => {
-    try {
-      const params = new URLSearchParams();
+ 
 
-      if (filters.priceMin) params.append("minPrice", filters.priceMin);
-      if (filters.priceMax) params.append("maxPrice", filters.priceMax);
-      if (filters.rating) params.append("rating", filters.rating);
-      if (filters.res_type !== null)
-        params.append("res_type", filters.res_type);
-
-      const response = await fetch(
-        `${API_BASE_URL}/customer/filterfooditems?${params.toString()}`
-      );
-
-      const data = await response.json();
-      setFilteredItems(data.length > 0 ? data : []);
-    } catch (error) {
-      console.error("Error fetching filtered results:", error);
-    }
-  };
-
-  const handleSearch = (value) => {
-    setSearchedValue(value);
-    filterSearch(value);
-  };
-
+ 
   const renderFoodCards = (items) => (
     <Row xs={1} md={2} lg={4} className="g-3">
       {items.map((item, index) => (
@@ -79,18 +48,57 @@ export default function HomeCustomer() {
       ))}
     </Row>
   );
+const searchFunction=async ()=>{
+  try {
+    const response = await fetch(`http://localhost/WebApplication2/api/Customer/SearchFood?SearchedValue=${search}`);
+    const json = await response.json();
+    setSearchedItems(json)
+   
+   console.log(json)
+ } catch (error) {
+   console.error(error);
+ } finally {
+  
+ }
+}
+  useEffect(()=>{
+   
+    searchFunction();
+
+  },[search])
 
   return (
     <>
-      <NavbarCustomer onSearch={handleSearch} onApplyFilters={applyFilters} />
+   
+      <NavbarCustomer onSearch={setSearch}  />
       <div className="mx-4">
-            
-          
-        
-          <>
+           {searchedItems.length>0?(<>{search} </>):(<><TopRestaurant /></>)}
            
-            <TopRestaurant />
-          </>
+           <div className="d-flex">
+            {searchedItems.map((Item) => (
+              <div className="my-4 mx-2" key={Item.id}>
+                <FoodCard
+                  className="mx-5"
+                  style={{
+                    maxWidth: "13rem",
+                    maxHeight: "25rem",
+                  }}
+                  imageUrl={
+                    Item.f_image
+                      ? `http://localhost/WebApplication2/Content/FoodItems/${Item.f_image}`
+                      : alternativeImage
+                  }
+                  rating={Item.foodRating}
+                  title={Item.name}
+                  type={Item.res_type}
+                  price={Item.min_price}
+                  fooddetail_id={Item.id}
+                />
+              </div>
+            ))}
+          </div>
+           
+         
         
         <CustomerFooter />
       </div>

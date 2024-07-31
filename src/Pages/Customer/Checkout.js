@@ -22,7 +22,12 @@ export default function Checkout() {
     (acc, item) => acc + 60,
     0
   ); // Calculate total shipping fee
-
+const handleAddress=()=>{
+ fetch(`http://localhost/WebApplication2/api/Customer/HandleAddress?address=${address}&customer_id=${localStorage.getItem("c_id")}`,{
+  method:"POST",
+  
+ })
+}
   const placeOrder = async () => {
     try {
       const customerId = localStorage.getItem("c_id");
@@ -80,7 +85,7 @@ export default function Checkout() {
                 variant="outline-danger rounded-5"
                 style={{letterSpacing:"0.5rem",fontFamily:"cursive"}}
                 className="w-100 mt-3"
-                onClick={() => console.log("Add new address")}
+                onClick={() => handleAddress()}
               >
                 Confirm your Address
               </Button>

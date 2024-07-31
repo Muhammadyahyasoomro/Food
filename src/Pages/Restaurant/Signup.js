@@ -10,9 +10,7 @@ export default function Signup() {
       <br />
       <br />
       <br />
-      <h4 style={{ color: "red" }} className="text-center text-capitalize">
-        Register to get started your Journey as a BigChef
-      </h4>
+     
       <SignupForm />
       <WhyJoinBig />
     </div>

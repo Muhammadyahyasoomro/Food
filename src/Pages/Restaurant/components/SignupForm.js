@@ -1,7 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import {
+  Button,
+  Card,
+  Form,
+  Alert,
+  Spinner,
+  Container,
+  Row,
+  Col,
+} from "react-bootstrap";
+import {useTheme} from "../../../context/ThemeContext";
 
 export const SignupForm = () => {
+  const {theme}=useTheme();
   const navigate = useNavigate();
   const [restaurant, setRestaurant] = useState({
     res_name: "",
@@ -34,7 +46,7 @@ export const SignupForm = () => {
 
   // Fetch area name using Google Maps API
   const fetchAreaName = async (latitude, longitude) => {
-    const apiKey = "AIzaSyDUzYaiX303nr6XqMvtl8OEgFYIKc2scgI";
+    const apiKey = "YOUR_API_KEY_HERE";
     const response = await fetch(
       `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${apiKey}`
     );
@@ -264,100 +276,105 @@ export const SignupForm = () => {
   };
 
   return (
-    <div className="container mt-5">
-      <div className="row justify-content-center">
-        <div className="col-xs-12 col-md-6">
-          <div
-            className="mt-5 bg-danger p-2"
-            style={{ marginTop: 100, textAlign: "center" }}
-          >
-            <form onSubmit={onCreateRestaurant}>
-              <div className="form-group">
-                <input
-                  className="form-control m-1"
-                  type="text"
-                  name="res_name"
-                  placeholder="Restaurant Name"
-                  value={restaurant.res_name}
-                  onChange={handleInputChange}
-                />
-              </div>
-              <div className="form-group">
-                <input
-                  className="form-control m-1"
-                  type="email"
-                  name="res_email"
-                  placeholder="Email"
-                  value={restaurant.res_email}
-                  onChange={handleInputChange}
-                />
-              </div>
-              <div className="form-group">
-                <input
-                  className="form-control m-1"
-                  type="password"
-                  name="res_password"
-                  placeholder="Password"
-                  value={restaurant.res_password}
-                  onChange={handleInputChange}
-                />
-              </div>
-              <div className="form-group">
-                <input
-                  className="form-control m-1"
-                  type="text"
-                  name="res_phone"
-                  placeholder="Phone"
-                  value={restaurant.res_phone}
-                  onChange={handleInputChange}
-                />
-              </div>
-              <div className="form-group">
-                <textarea
-                  className="form-control m-1"
-                  name="res_address"
-                  placeholder="Address"
-                  value={restaurant.res_address}
-                  onChange={handleInputChange}
-                />
-              </div>
-              <div className="form-group">
-                <label>
-                  Upload Restaurant Banner:
-                  <input
-                    className="form-control m-1"
-                    type="file"
-                    name="res_image"
-                    onChange={handleInputChange}
-                  />
-                </label>
-              </div>
-              <div className="form-group">
-                <label>
-                  <input
-                    className="form-check-input m-1"
-                    type="checkbox"
-                    name="isHomechef"
-                    checked={restaurant.isHomechef}
-                    onChange={handleInputChange}
-                  />
-                  Register as Home Chef
-                </label>
-              </div>
-              <div className="form-group">
-                <button
-                  className="btn btn-primary mt-2"
-                  type="submit"
-                  disabled={loading}
-                >
-                  {loading ? "Creating..." : "Create Restaurant"}
-                </button>
-              </div>
-              {error && <p className="text-danger mt-3">{error}</p>}
-            </form>
+    <Container className="d-flex justify-content-center">
+      <Card className="p-5 shadow-sm w-100 " style={{ maxWidth: "600px",backgroundColor:theme==="light"?"white":"black",color:theme==="light"?"black":"white" }}>
+        <h2 className="text-center mb-4">Become a Chef</h2>
+        <Form onSubmit={onCreateRestaurant}>
+          <Form.Group controlId="formName" className="mb-3">
+            <Form.Label className="font-weight-bold">Restaurant / Business Name</Form.Label>
+            <Form.Control
+              type="text"
+              name="res_name"
+              placeholder="Restaurant Name"
+              value={restaurant.res_name}
+              onChange={handleInputChange}
+              className="p-3"
+            />
+          </Form.Group>
+
+          <Form.Group controlId="formEmail" className="mb-3">
+            <Form.Label className="font-weight-bold">Email</Form.Label>
+            <Form.Control
+              type="email"
+              name="res_email"
+              placeholder="Email"
+              value={restaurant.res_email}
+              onChange={handleInputChange}
+              className="p-3"
+            />
+          </Form.Group>
+
+          <Form.Group controlId="formPassword" className="mb-3">
+            <Form.Label className="font-weight-bold">Password</Form.Label>
+            <Form.Control
+              type="password"
+              name="res_password"
+              placeholder="Password"
+              value={restaurant.res_password}
+              onChange={handleInputChange}
+              className="p-3"
+            />
+          </Form.Group>
+
+          <Form.Group controlId="formPhone" className="mb-3">
+            <Form.Label className="font-weight-bold">Phone</Form.Label>
+            <Form.Control
+              type="text"
+              name="res_phone"
+              placeholder="Phone"
+              value={restaurant.res_phone}
+              onChange={handleInputChange}
+              className="p-3"
+            />
+          </Form.Group>
+
+          <Form.Group controlId="formAddress" className="mb-3">
+            <Form.Label className="font-weight-bold">Address</Form.Label>
+            <Form.Control
+              type="text"
+              name="res_address"
+              placeholder="Address"
+              value={restaurant.res_address}
+              onChange={handleInputChange}
+              className="p-3"
+            />
+          </Form.Group>
+
+          <Form.Group controlId="formImage" className="mb-3">
+            <Form.Label className="font-weight-bold">Banner Image</Form.Label>
+            <Form.Control
+              type="file"
+              name="res_image"
+              accept="image/*"
+              onChange={handleInputChange}
+              className="p-3"
+            />
+          </Form.Group>
+
+          <Form.Group controlId="formIsHomechef" className="mb-3">
+            <Form.Check
+              type="checkbox"
+              name="isHomechef"
+              label="Register as Home Chef"
+              checked={restaurant.isHomechef}
+              onChange={handleInputChange}
+              className="font-weight-bold"
+            />
+          </Form.Group>
+
+          {error && (
+            <Alert variant="danger" className="text-center">
+              {error}
+            </Alert>
+          )}
+
+          <div className="d-grid">
+            <Button type="submit" variant="primary" disabled={loading} className="p-3">
+              {loading ? <Spinner animation="border" size="sm" /> : "Sign Up"}
+            </Button>
           </div>
-        </div>
-      </div>
-    </div>
+        </Form>
+      </Card>
+    </Container>
   );
 };
