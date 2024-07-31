@@ -118,8 +118,12 @@ export default function PopupCard({ bid, show, onHide }) {
               ? `http://localhost/WebApplication2/Content/FoodItems/${image}`
               : defaultImageUrl
           })`,
-          backgroundSize: "cover",
+          backgroundSize:"31.2rem 15rem",
+          backgroundRepeat:"no-repeat",
+          
+          
           height: "10rem",
+          
           backgroundColor: !image ? "gray" : "transparent", // Fallback color
         }}
         className="bg-danger"
@@ -171,8 +175,11 @@ export default function PopupCard({ bid, show, onHide }) {
                   </Col>
                   <Col md={4}>{item.unit}</Col>
                   <Col md={4}>{item.price}</Col>
+                 
                 </Row>
+                
               ))}
+              
             </div>
           </div>
         </div>
