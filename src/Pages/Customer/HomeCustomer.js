@@ -72,7 +72,7 @@ const searchFunction=async ()=>{
    
       <NavbarCustomer onSearch={setSearch}  />
       <div className="mx-4">
-           {searchedItems.length>0?(<>{search} </>):(<><TopRestaurant /></>)}
+           {searchedItems.length>0&&search?(<>{search} </>):(<><TopRestaurant /></>)}
            
            <div className="d-flex">
             {searchedItems.map((Item) => (
