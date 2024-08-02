@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { StarFill } from "react-bootstrap-icons";
 import toggle from "../../../Components/assets/rider/toggle.png";
@@ -7,12 +7,22 @@ import { Button } from "react-bootstrap";
 
 const CustomerSidebar = ({ isOpen, toggleSidebar }) => {
   const { theme } = useTheme();
+const [filterType,setFilterType]=useState();
+const [rating,setRating]=useState();
+const [min,setMin]=useState();
+const [max,setMax]=useState();
 
   const renderStars = (count) => {
     return Array(count).fill(0).map((_, i) => (
       <StarFill key={i} style={{ color: "gold" }} />
     ));
   };
+ const  handleHomechef=()=>{
+setFilterType(1);
+ }
+ const  handleRestaurant=()=>{
+  setFilterType(0);
+ }
   const handleApplyfilters=()=>{
 
   }
@@ -88,35 +98,35 @@ const CustomerSidebar = ({ isOpen, toggleSidebar }) => {
               <div className="filter-item text-danger">
                 <label>Price Range</label>
                 <div>
-                  <input type="text" placeholder="Min" style={{ width: "45%", marginRight: "10%" }} />
-                  <input type="text" placeholder="Max" style={{ width: "45%" }} />
+                  <input type="text" placeholder="Min" style={{ width: "45%", marginRight: "10%" }} onChange={()=>{setMin()}} />
+                  <input type="text" placeholder="Max" style={{ width: "45%" }} onChange={()=>{setMax()}} />
                 </div>
               </div>
               <div className="text-danger " style={{color:"white",fontSize:"1rem",fontFamily:"cursive"}}>
                 <label>By Rating</label>
-                <div >
+                <div  onClick={()=>{setRating(5)}}>
                   {renderStars(5)}
                 </div>
-                <div >
+                <div onClick={()=>{setRating(4)}}>
                   {renderStars(4)}
                 </div>
-                <div>
+                <div onClick={()=>{setRating(3)}}>
                   {renderStars(3)}
                 </div>
-                <div>
+                <div onClick={()=>{setRating(2)}}>
                   {renderStars(2)}
                 </div>
-                <div>
+                <div onClick={()=>{setRating(1)}}>
                   {renderStars(1)}
                 </div>
               </div>
               <div className=" d-flex  ">
                 
-              <button  className=" btn btn-outline-danger me-1" >
+              <button  className=" btn btn-outline-danger me-1" onClick={()=>{handleHomechef()}} style={{backgroundColor:filterType===1?"red":"black",color:filterType===1?"white":"red"}} >
                 HomeChef
                </button>  
                
-               <button  className=" btn btn-outline-danger " >
+               <button  className=" btn btn-outline-danger " onClick={()=>{handleRestaurant()}} style={{backgroundColor:filterType===0?"red":"black",color:filterType===0?"white":"red"}} >
                 Restaurant
                </button>
                   
