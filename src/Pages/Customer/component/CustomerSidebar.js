@@ -1,19 +1,53 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { StarFill } from "react-bootstrap-icons";
 import toggle from "../../../Components/assets/rider/toggle.png";
 import { useTheme } from "../../../context/ThemeContext";
+import { Button } from "react-bootstrap";
 
 const CustomerSidebar = ({ isOpen, toggleSidebar }) => {
   const { theme } = useTheme();
+
+  const renderStars = (count) => {
+    return Array(count).fill(0).map((_, i) => (
+      <StarFill key={i} style={{ color: "gold" }} />
+    ));
+  };
 
   return (
     <div>
       <style>
         {`
-.custom-scrollbar {
-  scrollbar-width: thin;
-  scrollbar-color: red black;
-}
+          .custom-scrollbar {
+            scrollbar-width: thin;
+            scrollbar-color: red black;
+          }
+          .sidebar-link {
+            color: ${theme === "light" ? "black" : "red"};
+            font-family: cursive;
+            text-decoration: none;
+          }
+          .filter-section {
+            padding: 1rem;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 1rem;
+          }
+          .filter-item {
+            margin-bottom: 1rem;
+          }
+          .filter-item label {
+            display: block;
+            margin-bottom: 0.5rem;
+          }
+          .filter-item input[type="text"] {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 0.5rem;
+            box-sizing: border-box;
+          }
+          .filter-item input[type="checkbox"] {
+            margin-right: 0.5rem;
+          }
         `}
       </style>
       <div
@@ -22,15 +56,15 @@ const CustomerSidebar = ({ isOpen, toggleSidebar }) => {
           backgroundColor: theme === "light" ? "white" : "black",
           color: "green",
           height: "100vh",
-          width: isOpen ? "250px" : "0", // Adjust width based on isOpen state
+          width: isOpen ? "250px" : "0",
           position: "fixed",
           top: 0,
           left: 0,
           zIndex: 1050,
-          padding: isOpen ? "1rem" : "0", // Adjust padding based on isOpen state
+          padding: isOpen ? "1rem" : "0",
           borderRight: "1px solid #ddd",
           overflowY: "auto",
-          transition: "width 0.3s ease", // Smooth transition for width
+          transition: "width 0.3s ease",
         }}
       >
         <div
@@ -45,140 +79,72 @@ const CustomerSidebar = ({ isOpen, toggleSidebar }) => {
           </Link>
         </div>
         {isOpen && (
-          <ul style={{ listStyleType: "none", padding: 0 }}>
-            <li style={{ marginBottom: "1rem" }}>
-              <Link
-                to="/HomeCustomer"
-                style={{
-                  color: theme === "light" ? "black" : "red",
-                  fontFamily: "cursive",
-                }}
-              >
-                Home
-              </Link>
-            </li>
-            <li style={{ marginBottom: "1rem" }}>
-              <Link
-                to="/customer/myOrders"
-                style={{
-                  color: theme === "light" ? "black" : "red",
-                  fontFamily: "cursive",
-                }}
-              >
-                My Orders
-              </Link>
-            </li>
-            <li style={{ marginBottom: "1rem" }}>
-              <Link
-                to="/Mycart"
-                style={{
-                  color: theme === "light" ? "black" : "red",
-                  fontFamily: "cursive",
-                }}
-              >
-                My Cart
-              </Link>
-            </li>
-            <li style={{ marginBottom: "1rem" }}>
-              <Link
-                to="/customer/schedule"
-                style={{
-                  color: theme === "light" ? "black" : "red",
-                  fontFamily: "cursive",
-                }}
-              >
-                My Weekly Schedule
-              </Link>
-            </li>
-            <li style={{ marginBottom: "1rem" }}>
-              <Link
-                to="/customer/daily"
-                style={{
-                  color: theme === "light" ? "black" : "red",
-                  fontFamily: "cursive",
-                }}
-              >
-                My Daily Schedule
-              </Link>
-            </li>
-            <li style={{ marginBottom: "1rem" }}>
-              <Link
-                to="/Checkout"
-                style={{
-                  color: theme === "light" ? "black" : "red",
-                  fontFamily: "cursive",
-                }}
-              >
-                Checkout
-              </Link>
-            </li>
-            <li style={{ marginBottom: "1rem" }}>
-              <Link
-                to="/Customer/MyDisease"
-                style={{
-                  color: theme === "light" ? "black" : "red",
-                  fontFamily: "cursive",
-                }}
-              >
-                My Disease
-              </Link>
-            </li>
-            <li style={{ marginBottom: "1rem" }}>
-              <Link
-                to="/HelpCenter"
-                style={{
-                  color: theme === "light" ? "black" : "red",
-                  fontFamily: "cursive",
-                }}
-              >
-                Help Center
-              </Link>
-            </li>
-            <li style={{ marginBottom: "1rem" }}>
-              <Link
-                to="/Favourites"
-                style={{
-                  color: theme === "light" ? "black" : "red",
-                  fontFamily: "cursive",
-                }}
-              >
-                Favourites
-              </Link>
-            </li>
-            <li style={{ marginBottom: "1rem" }}>
-              <Link
-                to="/InviteFriends"
-                style={{
-                  color: theme === "light" ? "black" : "red",
-                  fontFamily: "cursive",
-                }}
-              >
-                Invite Friends
-              </Link>
-            </li>
-            <li style={{ marginBottom: "1rem" }}>
-              <Link
-                to="/SavedAddresses"
-                style={{
-                  color: theme === "light" ? "black" : "red",
-                  fontFamily: "cursive",
-                }}
-              >
-                Saved Addresses
-              </Link>
-            </li>
-            <li style={{ marginBottom: "1rem" }}>
-              <Link
-                to="/LogOut"
-                style={{
-                  color: theme === "light" ? "black" : "red",
-                  fontFamily: "cursive",
-                }}
-              >
-                Log Out
-              </Link>
-            </li>
-          </ul>
+          <>
+            <div className="filter-box  border-top border-bottom border-3 rounded border-danger py-2  ">
+              <h5 className="text-danger text-center">Filters</h5>
+              <div className="filter-item text-danger">
+                <label>Price Range</label>
+                <div>
+                  <input type="text" placeholder="Min" style={{ width: "45%", marginRight: "10%" }} />
+                  <input type="text" placeholder="Max" style={{ width: "45%" }} />
+                </div>
+              </div>
+              <div className="text-danger " style={{color:"white",fontSize:"1rem",fontFamily:"cursive"}}>
+                <label>By Rating</label>
+                <div >
+                  {renderStars(5)}
+                </div>
+                <div >
+                  {renderStars(4)}
+                </div>
+                <div>
+                  {renderStars(3)}
+                </div>
+                <div>
+                  {renderStars(2)}
+                </div>
+                <div>
+                  {renderStars(1)}
+                </div>
+              </div>
+              <div className=" d-flex  ">
+                
+              <button  className=" btn btn-outline-danger me-1" >
+                HomeChef
+               </button>  
+               
+               <button  className=" btn btn-outline-danger " >
+                Restaurant
+               </button>
+                  
+              
+              </div>
+              <div ><button className="container border-0 bg-danger text-white py-2 my-2">Apply Filters</button></div>
+              {/* Add more filters as needed */}
+            </div>
+            <ul style={{ listStyleType: "none", padding: 0 }}>
+              {[
+                { to: "/HomeCustomer", text: "Home" },
+                { to: "/customer/myOrders", text: "My Orders" },
+                { to: "/Mycart", text: "My Cart" },
+                { to: "/customer/schedule", text: "My Weekly Schedule" },
+                { to: "/customer/daily", text: "My Daily Schedule" },
+                { to: "/Checkout", text: "Checkout" },
+                { to: "/Customer/MyDisease", text: "My Disease" },
+                { to: "/HelpCenter", text: "Help Center" },
+                { to: "/Favourites", text: "Favourites" },
+                { to: "/InviteFriends", text: "Invite Friends" },
+                { to: "/SavedAddresses", text: "Saved Addresses" },
+                { to: "/LogOut", text: "Log Out" },
+              ].map((item, index) => (
+                <li key={index} style={{ marginBottom: "1rem" }}>
+                  <Link to={item.to} className="sidebar-link">
+                    {item.text}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </>
         )}
       </div>
     </div>
