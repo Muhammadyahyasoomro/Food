@@ -13,6 +13,9 @@ const CustomerSidebar = ({ isOpen, toggleSidebar }) => {
       <StarFill key={i} style={{ color: "gold" }} />
     ));
   };
+  const handleApplyfilters=()=>{
+
+  }
 
   return (
     <div>
@@ -119,7 +122,7 @@ const CustomerSidebar = ({ isOpen, toggleSidebar }) => {
                   
               
               </div>
-              <div ><button className="container border-0 bg-danger text-white py-2 my-2">Apply Filters</button></div>
+              <div ><button className="container border-0 bg-danger text-white py-2 my-2" onClick={handleApplyfilters()} >Apply Filters</button></div>
               {/* Add more filters as needed */}
             </div>
             <ul style={{ listStyleType: "none", padding: 0 }}>
