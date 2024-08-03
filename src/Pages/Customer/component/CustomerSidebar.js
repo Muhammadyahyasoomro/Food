@@ -23,6 +23,12 @@ setFilterType(1);
  const  handleRestaurant=()=>{
   setFilterType(0);
  }
+ const handleResetFilters = () => {
+  setFilterType(null);
+  setRating(null);
+  setMin("");
+  setMax("");
+};
   const handleApplyfilters=()=>{
 console.log(min+"minValue");
 console.log(max+"maxValue");
@@ -105,36 +111,37 @@ console.log(rating+"rating");
                   <input type="text" placeholder="Max" style={{ width: "45%" }} onChange={(event)=>{setMax(event.target.value)}} />
                 </div>
               </div>
-              <div className="text-danger " style={{color:"white",fontSize:"1rem",fontFamily:"cursive"}}>
+              <div className="text-danger " style={{color:"white",fontSize:"1rem",fontFamily:"cursive", backgroundColor:theme==="light"?"white":"black"}}>
                 <label>Min Rating</label>
-                <div style={{backgroundColor:rating===5?"grey":"white"}}  onClick={()=>{setRating(5)}}>
+                <div style={{backgroundColor:rating===5?"red":""}}  onClick={()=>{setRating(5)}}>
                   {renderStars(5)}
                 </div>
-                <div style={{backgroundColor:rating===4?"grey":"white"}} onClick={()=>{setRating(4)}}>
+                <div style={{backgroundColor:rating===4?"red":""}} onClick={()=>{setRating(4)}}>
                   {renderStars(4)}
                 </div>
-                <div style={{backgroundColor:rating===3?"grey":"white"}} onClick={()=>{setRating(3)}}>
+                <div style={{backgroundColor:rating===3?"red":""}} onClick={()=>{setRating(3)}}>
                   {renderStars(3)}
                 </div>
-                <div style={{backgroundColor:rating===2?"grey":"white"}} onClick={()=>{setRating(2)}}>
+                <div style={{backgroundColor:rating===2?"red":""}} onClick={()=>{setRating(2)}}>
                   {renderStars(2)}
                 </div>
-                <div style={{backgroundColor:rating===1?"grey":"white"}} onClick={()=>{setRating(1)}}>
+                <div style={{backgroundColor:rating===1?"red":""}} onClick={()=>{setRating(1)}}>
                   {renderStars(1)}
                 </div>
               </div>
               <div className=" d-flex  ">
                 
-              <button  className=" btn btn-outline-danger me-1" onClick={()=>{handleHomechef()}} style={{backgroundColor:filterType===1?"red":"black",color:filterType===1?"white":"red"}} >
+              <button  className=" btn btn-outline-danger me-1" onClick={()=>{handleHomechef()}} style={{backgroundColor:filterType===1?"red":"",color:filterType===1?"white":"red"}} >
                 HomeChef
                </button>  
                
-               <button  className=" btn btn-outline-danger " onClick={()=>{handleRestaurant()}} style={{backgroundColor:filterType===0?"red":"black",color:filterType===0?"white":"red"}} >
+               <button  className=" btn btn-outline-danger " onClick={()=>{handleRestaurant()}} style={{backgroundColor:filterType===0?"red":"",color:filterType===0?"white":"red"}} >
                 Restaurant
                </button>
                   
               
               </div>
+              <div ><button className="container border-0 bg-grey text-black py-2 my-2" onClick={()=>{handleResetFilters()}} >cancel</button></div>
               <div ><button className="container border-0 bg-danger text-white py-2 my-2" onClick={()=>{handleApplyfilters()}} >Apply Filters</button></div>
               {/* Add more filters as needed */}
             </div>
