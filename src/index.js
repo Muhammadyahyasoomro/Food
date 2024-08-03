@@ -7,6 +7,7 @@ import { ThemeProvider } from "../src/context/ThemeContext";
 import { CategoryProvider } from "./context/CategoryContext";
 import { SearchProvider } from "./context/SearchContext";
 import reportWebVitals from "./reportWebVitals";
+import { FilterProvider } from "./context/FilterContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -14,7 +15,9 @@ root.render(
     <ThemeProvider>
       <CategoryProvider>
         <SearchProvider>
+          <FilterProvider>
       <App />
+      </FilterProvider>
       </SearchProvider>
       </CategoryProvider>
       

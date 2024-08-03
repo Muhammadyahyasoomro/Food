@@ -3,14 +3,14 @@ import { Link } from "react-router-dom";
 import { StarFill } from "react-bootstrap-icons";
 import toggle from "../../../Components/assets/rider/toggle.png";
 import { useTheme } from "../../../context/ThemeContext";
+import { useFilter } from "../../../context/FilterContext";
 import { Button } from "react-bootstrap";
 
 const CustomerSidebar = ({ isOpen, toggleSidebar }) => {
   const { theme } = useTheme();
-const [filterType,setFilterType]=useState();
-const [rating,setRating]=useState();
-const [min,setMin]=useState();
-const [max,setMax]=useState();
+
+
+const {filterType,setFilterType,rating,setRating,min,setMin,max,setMax}=useFilter();
 
   const renderStars = (count) => {
     return Array(count).fill(0).map((_, i) => (
@@ -24,7 +24,10 @@ setFilterType(1);
   setFilterType(0);
  }
   const handleApplyfilters=()=>{
-
+console.log(min+"minValue");
+console.log(max+"maxValue");
+console.log(filterType+"typeValue");
+console.log(rating+"rating");
   }
 
   return (
@@ -98,8 +101,8 @@ setFilterType(1);
               <div className="filter-item text-danger">
                 <label>Price Range</label>
                 <div>
-                  <input type="text" placeholder="Min" style={{ width: "45%", marginRight: "10%" }} onChange={()=>{setMin()}} />
-                  <input type="text" placeholder="Max" style={{ width: "45%" }} onChange={()=>{setMax()}} />
+                  <input type="text" placeholder="Min" style={{ width: "45%", marginRight: "10%" }} onChange={(event)=>{setMin(event.target.value)}} />
+                  <input type="text" placeholder="Max" style={{ width: "45%" }} onChange={(event)=>{setMax(event.target.value)}} />
                 </div>
               </div>
               <div className="text-danger " style={{color:"white",fontSize:"1rem",fontFamily:"cursive"}}>
@@ -132,7 +135,7 @@ setFilterType(1);
                   
               
               </div>
-              <div ><button className="container border-0 bg-danger text-white py-2 my-2" onClick={handleApplyfilters()} >Apply Filters</button></div>
+              <div ><button className="container border-0 bg-danger text-white py-2 my-2" onClick={()=>{handleApplyfilters()}} >Apply Filters</button></div>
               {/* Add more filters as needed */}
             </div>
             <ul style={{ listStyleType: "none", padding: 0 }}>
