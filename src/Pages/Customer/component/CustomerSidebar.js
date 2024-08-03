@@ -106,20 +106,20 @@ console.log(rating+"rating");
                 </div>
               </div>
               <div className="text-danger " style={{color:"white",fontSize:"1rem",fontFamily:"cursive"}}>
-                <label>By Rating</label>
-                <div  onClick={()=>{setRating(5)}}>
+                <label>Min Rating</label>
+                <div style={{backgroundColor:rating===5?"grey":"white"}}  onClick={()=>{setRating(5)}}>
                   {renderStars(5)}
                 </div>
-                <div onClick={()=>{setRating(4)}}>
+                <div style={{backgroundColor:rating===4?"grey":"white"}} onClick={()=>{setRating(4)}}>
                   {renderStars(4)}
                 </div>
-                <div onClick={()=>{setRating(3)}}>
+                <div style={{backgroundColor:rating===3?"grey":"white"}} onClick={()=>{setRating(3)}}>
                   {renderStars(3)}
                 </div>
-                <div onClick={()=>{setRating(2)}}>
+                <div style={{backgroundColor:rating===2?"grey":"white"}} onClick={()=>{setRating(2)}}>
                   {renderStars(2)}
                 </div>
-                <div onClick={()=>{setRating(1)}}>
+                <div style={{backgroundColor:rating===1?"grey":"white"}} onClick={()=>{setRating(1)}}>
                   {renderStars(1)}
                 </div>
               </div>
