@@ -12,7 +12,8 @@ export const FilterProvider = ({ children }) => {
 
  
  const ApplyFilter=()=>{
-    console.log("filteredApplied");
+    // console.log("filteredApplied");
+    // http://localhost/WebApplication2/api/Customer/GetFilteredFoodItems?resType=true&minPrice=0&maxPrice=200&minRating=3
  }
 
   return (

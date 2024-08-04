@@ -56,7 +56,7 @@ export default function Restaurant() {
   }, [ResId]);
   const handleViewCart = () => {
     fetch(
-      `${API_BASE_URL}/customers/ViewCart?cid=${cid}`
+      `${API_BASE_URL}/customer/ViewCart?cid=${cid}`
     )
       .then((response) => {
         if (!response.ok) {
@@ -96,7 +96,7 @@ export default function Restaurant() {
   };
   const filterSearch = () => {
     fetch(
-      `${API_BASE_URL}/customers/SearchSpecificRestaurantItems?SearchedValue=${searchedValue}&resid=${ResId}`
+      `${API_BASE_URL}/customer/SearchSpecificRestaurantItems?SearchedValue=${searchedValue}&resid=${ResId}`
     )
       .then((response) => response.json())
       .then((data) => {
