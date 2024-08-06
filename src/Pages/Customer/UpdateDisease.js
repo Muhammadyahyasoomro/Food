@@ -11,7 +11,7 @@ export default function UpdateDisease() {
   const Navigate = useNavigate();
   const handleUpdate = () => {
     fetch(
-      `http://localhost/FoodDeliverySystems/api/customer/UpdateDisease?customer_id=${localStorage.getItem(
+      `http://localhost/WebApplication2/api/customer/UpdateDisease?customer_id=${localStorage.getItem(
         "c_id"
       )}&disease=${disease}`,
       {
@@ -26,7 +26,7 @@ export default function UpdateDisease() {
   };
   const FetchDisease = () => {
     fetch(
-      `http://localhost/FoodDeliverySystems/api/customer/GetCustomerDisease?customer_id=${localStorage.getItem(
+      `http://localhost/WebApplication2/api/customer/GetCustomerDisease?customer_id=${localStorage.getItem(
         "c_id"
       )}`
     )

@@ -25,7 +25,7 @@ const MyOrders = () => {
 
   useEffect(() => {
     fetch(
-      `http://localhost/FoodDeliverySystems/api/customer/GetMySimpleOrder?customer_ID=${localStorage.getItem(
+      `http://localhost/WebApplication2/api/customer/GetMySimpleOrder?customer_ID=${localStorage.getItem(
         "c_id"
       )}`
     )
@@ -36,7 +36,7 @@ const MyOrders = () => {
       .catch((error) => console.error("Error fetching orders:", error));
 
     fetch(
-      `http://localhost/FoodDeliverySystems/api/Customer/GetAllJobs?Customer_id=${localStorage.getItem(
+      `http://localhost/WebApplication2/api/Customer/GetAllJobs?Customer_id=${localStorage.getItem(
         "c_id"
       )}`
     )
@@ -64,7 +64,7 @@ const MyOrders = () => {
   // Fetch order details and show in modal
   const handleOrderDetails = (orderId) => {
     fetch(
-      `http://localhost/FoodDeliverySystems/api/customer/GetMyOrderDetails?oid=${orderId}`
+      `http://localhost/WebApplication2/api/customer/GetMyOrderDetails?oid=${orderId}`
     )
       .then((response) => {
         if (!response.ok) {
@@ -90,7 +90,7 @@ const MyOrders = () => {
   const handleCancelOrder = () => {
     const { id } = modalInfo;
     fetch(
-      `http://localhost/FoodDeliverySystems/api/customer/CancelMYOrder?orderId=${id}`,
+      `http://localhost/WebApplication2/api/customer/CancelMYOrder?orderId=${id}`,
       {
         method: "POST",
       }
@@ -116,7 +116,7 @@ const MyOrders = () => {
   const handleDeleteSchedule = () => {
     const { id } = modalInfo;
     fetch(
-      `http://localhost/FoodDeliverySystems/api/Customer/DeleteJob?jobName=${id}`,
+      `http://localhost/WebApplication2/api/Customer/DeleteJob?jobName=${id}`,
       {
         method: "DELETE",
       }
@@ -307,7 +307,7 @@ const MyOrders = () => {
                     <td>{item.Price}</td>
                     <td>
                       <img
-                        src={`http://localhost/fooddeliverysystems/Content/FoodItem/${item.Image}`}
+                        src={`http://localhost/WebApplication2/Content/FoodItem/${item.Image}`}
                         alt={item.Name}
                         style={{ width: "100px" }}
                       />

@@ -4,6 +4,7 @@ import { NavbarHome } from "./components/NavbarHome";
 import { useLocation } from "react-router-dom";
 
 export default function Read() {
+  const API_BASE_URL = `http://localhost/WebApplication2/api`;
   const [productDetails, setProductDetails] = useState({
     f_image: "product_image_url",
     f_ingredients: "Product ingredients",
@@ -25,7 +26,7 @@ export default function Read() {
 
     // Fetch product details from API
     fetch(
-      `http://localhost/FoodDeliverySystem/api/Restaurant/ProductDetails?bId=${value}`
+      `${API_BASE_URL}/Restaurant/ProductDetails?bId=${value}`
     )
       .then((response) => response.json())
       .then((data) => {
@@ -46,7 +47,7 @@ export default function Read() {
             <Row className="mt-5">
               <Col xs={12} md={6} className="text-center">
                 <Image
-                  src={`http://localhost/FoodDeliverySystem/Content/Images/belongsto/${productDetails.f_image}`}
+                  src={`http://localhost/WebApplication2/Content/FoodItems/${productDetails.f_image}`}
                   fluid
                   width={350}
                 />

@@ -296,7 +296,7 @@ const Schedule = () => {
     console.log("Schedule 2D Array:", schedule);
 
     const url =
-      "http://localhost/WebApplication2/api/Customer/CreateWeeklyMenu?customerId=1";
+      `http://localhost/WebApplication2/api/Customer/CreateWeeklyMenu?customerId=${localStorage.getItem("c_id")}`;
 
     fetch(url, {
       method: "POST",

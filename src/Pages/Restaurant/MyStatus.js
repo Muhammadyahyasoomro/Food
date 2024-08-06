@@ -12,7 +12,7 @@ export default function MyStatus() {
     event.preventDefault(); // Prevent default form submission behavior
 
     // Construct URL with query parameters
-    const url = `http://localhost/FoodDeliverySystems/api/Restaurant/OffDayScheduler?id=${localStorage.getItem(
+    const url = `http://localhost/WebApplication2/api/Restaurant/OffDayScheduler?id=${localStorage.getItem(
       "res_id"
     )}&status=true&startDate=${startDate}&endDate=${endDate}`;
 

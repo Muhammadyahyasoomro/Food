@@ -11,7 +11,7 @@ export default function SeeDetails() {
   const fetchOrderDetails = () => {
     axios
       .get(
-        `http://localhost/FoodDeliverySystems/api/Restaurant/getorderdetail?orderId=${orderid}`
+        `http://localhost/WebApplication2/api/Restaurant/getorderdetail?orderId=${orderid}`
       )
       .then((response) => {
         setOrderDetails(response.data);
@@ -52,7 +52,7 @@ export default function SeeDetails() {
                 <td>{item.Price}</td>
                 <td>
                   <img
-                    src={`http://${IpAddress}/FoodDeliverySystems/Content/FoodItem/${item.Image}`}
+                    src={`http://${IpAddress}/WebApplication2/Content/FoodItems/${item.Image}`}
                     alt={item.f_image}
                     style={{ width: "100px", height: "100px" }}
                   />
@@ -67,7 +67,7 @@ export default function SeeDetails() {
           className="bg-danger text-white border-0 rounded p-2"
           onClick={() => {
             fetch(
-              `http://localhost/FoodDeliverySystems/api/Restaurant/OrderIsReady?orderId=${orderid}`,
+              `http://localhost/WebApplication2/api/Restaurant/OrderIsReady?orderId=${orderid}`,
               {
                 method: "POST", // Assuming OrderIsReady endpoint accepts POST method
                 headers: {
