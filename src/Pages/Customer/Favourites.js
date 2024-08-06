@@ -9,7 +9,7 @@ export default function Favourites() {
 
   useEffect(() => {
     fetch(
-      `http://WebApplication2/FoodDeliverySystems/api/customer/GetFavouriteItems?customerId=${localStorage.getItem(
+      `http://WebApplication2/WebApplication2/api/customer/GetFavouriteItems?customerId=${localStorage.getItem(
         "c_id"
       )}`
     )
