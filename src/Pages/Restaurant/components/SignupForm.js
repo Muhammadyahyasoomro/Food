@@ -24,6 +24,9 @@ export const SignupForm = () => {
     res_image: null,
     isHomechef: false,
   });
+
+  const API_BASE_URL = `http://localhost/WebApplication2/api`;
+
   const [lat, setLat] = useState(null);
   const [lon, setLon] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -46,7 +49,8 @@ export const SignupForm = () => {
 
   // Fetch area name using Google Maps API
   const fetchAreaName = async (latitude, longitude) => {
-    const apiKey = "YOUR_API_KEY_HERE";
+    
+    const apiKey = "AIzaSyDUzYaiX303nr6XqMvtl8OEgFYIKc2scgI";
     const response = await fetch(
       `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${apiKey}`
     );
@@ -170,7 +174,7 @@ export const SignupForm = () => {
   const fetchLatestRestaurant = async (latitude, longitude) => {
     try {
       const response = await fetch(
-        `http://localhost/FoodDeliverySystems/api/Restaurant/GetLatestRestaurant?lat=${latitude}&lon=${longitude}`,
+        `${API_BASE_URL}/Restaurant/GetLatestRestaurant?lat=${latitude}&lon=${longitude}`,
         {
           method: "GET",
           headers: {
@@ -198,7 +202,7 @@ export const SignupForm = () => {
   const checkIfInPolygon = async (latitude, longitude) => {
     try {
       const response = await fetch(
-        `http://localhost/FoodDeliverySystems/api/restaurant/CheckForPolygon?latitude=${latitude}&longitude=${longitude}`,
+        `${API_BASE_URL}/restaurant/CheckForPolygon?latitude=${latitude}&longitude=${longitude}`,
         {
           method: "GET",
           headers: {
@@ -242,7 +246,7 @@ export const SignupForm = () => {
       formData.append("longitude", longitude);
 
       const response = await fetch(
-        `http://localhost/FoodDeliverySystems/api/Restaurant/UpdateRestaurantZones`,
+        `${API_BASE_URL}/Restaurant/UpdateRestaurantZones`,
         {
           method: "POST",
           body: formData,

@@ -56,7 +56,11 @@ export default function NewListingCategory() {
         { value: "saag", label: "Saag" },
         { value: "korma", label: "Korma" },
         { value: "achar_gosht", label: "Achar Gosht" },
-        { value: "paye", label: "Paye" }
+        { value: "paye", label: "Paye" },
+        { value: "pizza", label: "Pizza" },
+        { value: "burger", label: "Burger" },
+        { value: "lasagna", label: "Lasagna" },
+        { value: "ramen", label: "Ramen" }
       ]
     },
     { 
@@ -70,7 +74,11 @@ export default function NewListingCategory() {
         { value: "tandoori_chicken", label: "Tandoori Chicken" },
         { value: "malai_boti", label: "Malai Boti" },
         { value: "reshmi_kebab", label: "Reshmi Kebab" },
-        { value: "grilled_fish", label: "Grilled Fish" }
+        { value: "grilled_fish", label: "Grilled Fish" },
+        { value: "steak", label: "Steak" },
+        { value: "ribs", label: "Ribs" },
+        { value: "pulled_pork", label: "Pulled Pork" },
+        { value: "satay", label: "Satay" }
       ]
     },
     { 
@@ -83,7 +91,12 @@ export default function NewListingCategory() {
         { value: "chapati", label: "Chapati" },
         { value: "kulcha", label: "Kulcha" },
         { value: "puri", label: "Puri" },
-        { value: "saffron_rice", label: "Saffron Rice" }
+        { value: "saffron_rice", label: "Saffron Rice" },
+        { value: "baguette", label: "Baguette" },
+        { value: "sourdough", label: "Sourdough" },
+        { value: "ciabatta", label: "Ciabatta" },
+        { value: "focaccia", label: "Focaccia" },
+        { value: "sushi_rice", label: "Sushi Rice" }
       ]
     },
     { 
@@ -96,7 +109,12 @@ export default function NewListingCategory() {
         { value: "golgappa", label: "Golgappa/Pani Puri" },
         { value: "dahi_bhalla", label: "Dahi Bhalla" },
         { value: "bun_kebab", label: "Bun Kebab" },
-        { value: "rolls", label: "Rolls (Chicken/Mutton/Beef)" }
+        { value: "rolls", label: "Rolls (Chicken/Mutton/Beef)" },
+        { value: "tacos", label: "Tacos" },
+        { value: "gyros", label: "Gyros" },
+        { value: "hot_dog", label: "Hot Dog" },
+        { value: "poutine", label: "Poutine" },
+        { value: "empanadas", label: "Empanadas" }
       ]
     },
     { 
@@ -108,7 +126,12 @@ export default function NewListingCategory() {
         { value: "bhindi_masala", label: "Bhindi Masala" },
         { value: "baingan_bharta", label: "Baingan Bharta" },
         { value: "dal_tadka", label: "Dal Tadka" },
-        { value: "paneer_dishes", label: "Paneer Dishes" }
+        { value: "paneer_dishes", label: "Paneer Dishes" },
+        { value: "ratatouille", label: "Ratatouille" },
+        { value: "falafel", label: "Falafel" },
+        { value: "hummus", label: "Hummus" },
+        { value: "gazpacho", label: "Gazpacho" },
+        { value: "vegetable_curry", label: "Vegetable Curry" }
       ]
     },
     { 
@@ -120,7 +143,12 @@ export default function NewListingCategory() {
         { value: "fried_fish", label: "Fried Fish" },
         { value: "grilled_fish", label: "Grilled Fish" },
         { value: "fish_tikka", label: "Fish Tikka" },
-        { value: "seafood_biryani", label: "Seafood Biryani" }
+        { value: "seafood_biryani", label: "Seafood Biryani" },
+        { value: "lobster_thermidor", label: "Lobster Thermidor" },
+        { value: "shrimp_scampi", label: "Shrimp Scampi" },
+        { value: "clam_chowder", label: "Clam Chowder" },
+        { value: "ceviche", label: "Ceviche" },
+        { value: "sushi", label: "Sushi" }
       ]
     },
     { 
@@ -132,7 +160,12 @@ export default function NewListingCategory() {
         { value: "chicken_wings", label: "Chicken Wings" },
         { value: "shish_taouk", label: "Shish Taouk" },
         { value: "cheese_balls", label: "Cheese Balls" },
-        { value: "stuffed_peppers", label: "Stuffed Peppers" }
+        { value: "stuffed_peppers", label: "Stuffed Peppers" },
+        { value: "bruschetta", label: "Bruschetta" },
+        { value: "mozzarella_sticks", label: "Mozzarella Sticks" },
+        { value: "nachos", label: "Nachos" },
+        { value: "deviled_eggs", label: "Deviled Eggs" },
+        { value: "dim_sum", label: "Dim Sum" }
       ]
     },
     { 
@@ -147,7 +180,12 @@ export default function NewListingCategory() {
         { value: "halwa", label: "Halwa (Gajar, Suji, etc.)" },
         { value: "ras_malai", label: "Ras Malai" },
         { value: "falooda", label: "Falooda" },
-        { value: "sheer_khurma", label: "Sheer Khurma" }
+        { value: "sheer_khurma", label: "Sheer Khurma" },
+        { value: "tiramisu", label: "Tiramisu" },
+        { value: "cheesecake", label: "Cheesecake" },
+        { value: "macarons", label: "Macarons" },
+        { value: "brownies", label: "Brownies" },
+        { value: "pavlova", label: "Pavlova" }
       ]
     },
     { 
@@ -156,82 +194,166 @@ export default function NewListingCategory() {
       subcategories: [
         { value: "lassi", label: "Lassi (Sweet/Salted)" },
         { value: "chai", label: "Chai (Tea)" },
-        { value: "green_tea", label: "Green Tea (Kahwa)" },
+        { value: "green_tea", label: "Green Tea" },
+        { value: "qehwa", label: "Qehwa" },
+        { value: "falooda", label: "Falooda" },
+        { value: "milkshakes", label: "Milkshakes" },
+        { value: "smoothies", label: "Smoothies" },
+        { value: "lemonade", label: "Lemonade" },
         { value: "sherbet", label: "Sherbet" },
-        { value: "rooh_afza", label: "Rooh Afza" },
-        { value: "falooda_drink", label: "Falooda Drink" }
+        { value: "coffee", label: "Coffee" },
+        { value: "mojito", label: "Mojito" },
+        { value: "soda", label: "Soda" },
+        { value: "cocktails", label: "Cocktails" }
       ]
     },
     { 
-      value: "salads_sides", 
-      label: "Salads & Sides", 
+      value: "cheese_products", 
+      label: "Cheese Products", 
       subcategories: [
-        { value: "raita", label: "Raita" },
-        { value: "kachumber_salad", label: "Kachumber Salad" },
-        { value: "achar", label: "Achar (Pickles)" },
-        { value: "chutney", label: "Chutney (Mint, Tamarind, etc.)" },
-        { value: "fresh_salad", label: "Fresh Salad" }
+        { value: "cheese_pizza", label: "Cheese Pizza" },
+        { value: "mac_and_cheese", label: "Mac and Cheese" },
+        { value: "cheese_burger", label: "Cheese Burger" },
+        { value: "cheese_fondue", label: "Cheese Fondue" },
+        { value: "cheese_sandwich", label: "Cheese Sandwich" },
+        { value: "cheese_fries", label: "Cheese Fries" },
+        { value: "cheese_stuffed_crust_pizza", label: "Cheese Stuffed Crust Pizza" },
+        { value: "cheese_omelette", label: "Cheese Omelette" },
+        { value: "quesadilla", label: "Quesadilla" },
+        { value: "cheese_enchiladas", label: "Cheese Enchiladas" },
+        { value: "grilled_cheese_sandwich", label: "Grilled Cheese Sandwich" },
+        { value: "cheese_lasagna", label: "Cheese Lasagna" },
+        { value: "cheese_tacos", label: "Cheese Tacos" },
+        { value: "mozzarella_sticks", label: "Mozzarella Sticks" },
+        { value: "cheese_souffle", label: "Cheese Soufflé" }
       ]
     },
     { 
-      value: "soups_stews", 
-      label: "Soups & Stews", 
+      value: "peshawari_cuisine", 
+      label: "Peshawari Cuisine", 
       subcategories: [
-        { value: "yakhni", label: "Yakhni" },
-        { value: "lentil_soup", label: "Lentil Soup" },
-        { value: "chicken_corn_soup", label: "Chicken Corn Soup" },
-        { value: "hot_and_sour_soup", label: "Hot and Sour Soup" }
+        { value: "chapli_kebab", label: "Chapli Kebab" },
+        { value: "peshawari_namak_mandi_karahi", label: "Peshawari Namak Mandi Karahi" },
+        { value: "kabuli_pulao", label: "Kabuli Pulao" },
+        { value: "peshawari_naan", label: "Peshawari Naan" },
+        { value: "mutton_karahi", label: "Mutton Karahi" },
+        { value: "afghani_pulao", label: "Afghani Pulao" },
+        { value: "peshawari_tikka", label: "Peshawari Tikka" },
+        { value: "peshawari_chapli_kebab", label: "Peshawari Chapli Kebab" },
+        { value: "afghani_boti", label: "Afghani Boti" },
+        { value: "peshawari_samosa", label: "Peshawari Samosa" },
+        { value: "peshawari_chicken_karahi", label: "Peshawari Chicken Karahi" },
+        { value: "qehwa", label: "Qehwa" },
+        { value: "peshawari_lamb_pulav", label: "Peshawari Lamb Pulav" },
+        { value: "kebab_karahi", label: "Kebab Karahi" }
       ]
     },
     { 
-      value: "regional_specialties", 
-      label: "Regional Specialties", 
+      value: "sindhi_cuisine", 
+      label: "Sindhi Cuisine", 
       subcategories: [
-        { 
-          value: "sindhi_cuisine", 
-          label: "Sindhi Cuisine", 
-          subcategories: [
-            { value: "sindhi_biryani", label: "Sindhi Biryani" },
-            { value: "sindhi_curry", label: "Sindhi Curry" },
-            { value: "sindhi_saag", label: "Saag" }
-          ]
-        },
-        { 
-          value: "punjabi_cuisine", 
-          label: "Punjabi Cuisine", 
-          subcategories: [
-            { value: "sarson_ka_saag", label: "Sarson Ka Saag" },
-            { value: "makki_ki_roti", label: "Makki Ki Roti" },
-            { value: "butter_chicken", label: "Butter Chicken" }
-          ]
-        },
-        { 
-          value: "balochi_cuisine", 
-          label: "Balochi Cuisine", 
-          subcategories: [
-            { value: "sajji", label: "Sajji" },
-            { value: "kaak", label: "Kaak" }
-          ]
-        },
-        { 
-          value: "pashtun_cuisine", 
-          label: "Pashtun Cuisine", 
-          subcategories: [
-            { value: "chapli_kebab", label: "Chapli Kebab" },
-            { value: "kabuli_pulao", label: "Kabuli Pulao" }
-          ]
-        },
-        { 
-          value: "kashmiri_cuisine", 
-          label: "Kashmiri Cuisine", 
-          subcategories: [
-            { value: "rogan_josh", label: "Rogan Josh" },
-            { value: "gushtaba", label: "Gushtaba" }
-          ]
-        }
+        { value: "sindhi_biryani", label: "Sindhi Biryani" },
+        { value: "sindhi_karhi", label: "Sindhi Karhi" },
+        { value: "sai_bhaji", label: "Sai Bhaji" },
+        { value: "sindhi_kadhi", label: "Sindhi Kadhi" },
+        { value: "dal_pakwan", label: "Dal Pakwan" },
+        { value: "bhugal_ghost", label: "Bhugal Ghost" },
+        { value: "sindhi_pulao", label: "Sindhi Pulao" },
+        { value: "sindhi_fish", label: "Sindhi Fish" },
+        { value: "koki", label: "Koki" },
+        { value: "seviyan", label: "Seviyan" },
+        { value: "mitho_lolo", label: "Mitho Lolo" },
+        { value: "sindhi_sai_bhaji", label: "Sindhi Sai Bhaji" },
+        { value: "sindhi_dal", label: "Sindhi Dal" },
+        { value: "sindhi_alu_tikki", label: "Sindhi Alu Tikki" },
+        { value: "taryal_patata", label: "Taryal Patata" }
+      ]
+    },{ 
+      value: "kpk_cuisine", 
+      label: "KPK Cuisine", 
+      subcategories: [
+        { value: "chapli_kebab", label: "Chapli Kebab" },
+        { value: "kabuli_pulao", label: "Kabuli Pulao" },
+        { value: "lamb_karahi", label: "Lamb Karahi" },
+        { value: "peshawari_namak_mandi_karahi", label: "Peshawari Namak Mandi Karahi" },
+        { value: "afghani_boti", label: "Afghani Boti" },
+        { value: "tikka_karahi", label: "Tikka Karahi" },
+        { value: "namkeen_tikka", label: "Namkeen Tikka" },
+        { value: "peshawari_tikka", label: "Peshawari Tikka" },
+        { value: "chapli_burger", label: "Chapli Burger" },
+        { value: "qehwa", label: "Qehwa" }
+      ]
+    },
+    { 
+      value: "punjabi_cuisine", 
+      label: "Punjabi Cuisine", 
+      subcategories: [
+        { value: "sarson_ka_saag", label: "Sarson Ka Saag" },
+        { value: "makki_ki_roti", label: "Makki Ki Roti" },
+        { value: "butter_chicken", label: "Butter Chicken" },
+        { value: "punjabi_kadhi", label: "Punjabi Kadhi" },
+        { value: "chole_bhature", label: "Chole Bhature" },
+        { value: "amritsari_fish", label: "Amritsari Fish" },
+        { value: "paneer_tikka", label: "Paneer Tikka" },
+        { value: "lassi", label: "Lassi" },
+        { value: "aloo_paratha", label: "Aloo Paratha" },
+        { value: "chicken_tikka", label: "Chicken Tikka" },
+        { value: "methi_chicken", label: "Methi Chicken" },
+        { value: "punjabi_samosa", label: "Punjabi Samosa" },
+        { value: "punjabi_rajma", label: "Punjabi Rajma" },
+        { value: "dal_makhani", label: "Dal Makhani" },
+        { value: "punjabi_pulao", label: "Punjabi Pulao" }
+      ]
+    },
+    { 
+      value: "balochi_cuisine", 
+      label: "Balochi Cuisine", 
+      subcategories: [
+        { value: "sajji", label: "Sajji" },
+        { value: "kaak", label: "Kaak" },
+        { value: "balochi_pulao", label: "Balochi Pulao" },
+        { value: "balochi_karahi", label: "Balochi Karahi" },
+        { value: "balochi_korma", label: "Balochi Korma" },
+        { value: "landi", label: "Landi" },
+        { value: "balochi_tikka", label: "Balochi Tikka" },
+        { value: "shahi_pulao", label: "Shahi Pulao" }
+      ]
+    },
+    { 
+      value: "siraiki_cuisine", 
+      label: "Siraiki Cuisine", 
+      subcategories: [
+        { value: "sohan_halwa", label: "Sohan Halwa" },
+        { value: "siraiki_biryani", label: "Siraiki Biryani" },
+        { value: "siraiki_karhi", label: "Siraiki Karhi" },
+        { value: "saag", label: "Saag" },
+        { value: "makai_ki_roti", label: "Makai Ki Roti" },
+        { value: "bhuge_chawal", label: "Bhuge Chawal" },
+        { value: "siraiki_daal", label: "Siraiki Daal" },
+        { value: "bhindi_ghosht", label: "Bhindi Ghosht" }
+      ]
+    },
+    { 
+      value: "urdu_speaking_cuisine", 
+      label: "Urdu Speaking Cuisine", 
+      subcategories: [
+        { value: "nihari", label: "Nihari" },
+        { value: "haleem", label: "Haleem" },
+        { value: "biryani", label: "Biryani" },
+        { value: "qeema", label: "Qeema" },
+        { value: "kofta", label: "Kofta" },
+        { value: "seekh_kebab", label: "Seekh Kebab" },
+        { value: "karhai", label: "Karhai" },
+        { value: "kat_a_kat", label: "Kat-a-Kat" },
+        { value: "paya", label: "Paya" },
+        { value: "sindhi_biryani", label: "Sindhi Biryani" },
+        { value: "sheer_khurma", label: "Sheer Khurma" },
+        { value: "rabri", label: "Rabri" }
       ]
     }
+    
   ];
+  
 
   const getSubcategories = (category) => {
     if (category && category.subcategories) {

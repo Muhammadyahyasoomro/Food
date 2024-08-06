@@ -168,7 +168,7 @@ export default function DashBoard() {
               </tbody>
             </table>
           ) : (
-            <p>No pending orders available.</p>
+            <p>No started orders available.</p>
           )}
         </Tab>
       </Tabs>
