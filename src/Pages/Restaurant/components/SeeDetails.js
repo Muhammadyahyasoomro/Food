@@ -26,9 +26,10 @@ export default function SeeDetails() {
 
   const [orderDetails, setOrderDetails] = useState([]);
   return (
+    <>
     <div>
       <NavbarHome />
-      <div>
+      <div className="container">
         <h2 className="text-center bg-warning">Order Details</h2>
         <Table striped bordered hover size="sm">
           <thead>
@@ -59,43 +60,49 @@ export default function SeeDetails() {
                 </td>
               </tr>
             ))}
+            <tr>
+            <td className="border-0" colSpan={6}><button
+            className="container bg-danger text-white border border-0 p-2 rounded"
+     
+     onClick={() => {
+       fetch(
+         `http://localhost/WebApplication2/api/Restaurant/OrderIsReady?orderId=${orderid}`,
+         {
+           method: "POST", // Assuming OrderIsReady endpoint accepts POST method
+           headers: {
+             "Content-Type": "application/json",
+           },
+         }
+       )
+         .then((response) => {
+           if (response.ok) {
+             alert("Order status updated successfully.");
+             Navigate("/trackorder");
+
+             // Optionally, you can perform additional actions upon success
+           } else {
+             alert("Failed to update order status.");
+             // Handle error cases if necessary
+           }
+         })
+         .catch((error) => {
+           console.error("Error updating order status:", error);
+           alert("Failed to update order status.");
+           // Handle any network or fetch related errors
+         });
+     }}
+   >
+     Order is Ready
+   </button></td>
+            </tr>
           </tbody>
         </Table>
       </div>
-      <div style={{ marginLeft: "50rem" }}>
-        <button
-          className="bg-danger text-white border-0 rounded p-2"
-          onClick={() => {
-            fetch(
-              `http://localhost/WebApplication2/api/Restaurant/OrderIsReady?orderId=${orderid}`,
-              {
-                method: "POST", // Assuming OrderIsReady endpoint accepts POST method
-                headers: {
-                  "Content-Type": "application/json",
-                },
-              }
-            )
-              .then((response) => {
-                if (response.ok) {
-                  alert("Order status updated successfully.");
-                  Navigate("/trackorder");
-
-                  // Optionally, you can perform additional actions upon success
-                } else {
-                  alert("Failed to update order status.");
-                  // Handle error cases if necessary
-                }
-              })
-              .catch((error) => {
-                console.error("Error updating order status:", error);
-                alert("Failed to update order status.");
-                // Handle any network or fetch related errors
-              });
-          }}
-        >
-          Order is Ready
-        </button>
-      </div>
+     
+      
+      
     </div>
+     
+    </>
   );
 }

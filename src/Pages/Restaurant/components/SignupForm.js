@@ -122,6 +122,7 @@ export const SignupForm = () => {
     }
 
     try {
+      
       const response = await fetch(
         `http://localhost/WebApplication2/api/restaurant/signup`,
         {
@@ -141,7 +142,9 @@ export const SignupForm = () => {
       }
 
       const data = await response.json();
-      console.log("Signup response:", data);
+
+      console.log("Signup response:", data.status);
+      
 
       const latestRestaurant = await fetchLatestRestaurant(lat, lon);
 
@@ -369,6 +372,7 @@ export const SignupForm = () => {
           {error && (
             <Alert variant="danger" className="text-center">
               {error}
+              
             </Alert>
           )}
 
