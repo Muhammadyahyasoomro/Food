@@ -77,7 +77,7 @@ export default function SeeDetails() {
          .then((response) => {
            if (response.ok) {
              alert("Order status updated successfully.");
-             Navigate("/trackorder");
+             Navigate("/trackorder",{ state: { orderid: orderid } });
 
              // Optionally, you can perform additional actions upon success
            } else {
