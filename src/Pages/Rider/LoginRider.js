@@ -27,7 +27,7 @@ export const LoginRider = () => {
 
     axios
       .get(
-        `http://localhost/FoodDeliverySystems/api/rider/Login?email=${email}&password=${password}`
+        `http://localhost/webapplication2/api/rider/Login?email=${email}&password=${password}`
       )
       .then((response) => {
         console.log(response.status + " login api call result");

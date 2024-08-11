@@ -28,7 +28,7 @@ export const MyRides = () => {
     const fetchTodaysEarnings = async () => {
       try {
         const response = await fetch(
-          `http://localhost/FoodDeliverySystems/api/Rider/GetTodaysEarnings?riderId=${localStorage.getItem(
+          `http://localhost/webapplication2/api/Rider/GetTodaysEarnings?riderId=${localStorage.getItem(
             "riderId"
           )}`
         );
@@ -50,7 +50,7 @@ export const MyRides = () => {
     const fetchMonthlyEarnings = async () => {
       try {
         const response = await fetch(
-          `http://localhost/FoodDeliverySystems/api/Rider/GetMonthlyEarnings?riderId=${localStorage.getItem(
+          `http://localhost/webapplication2/api/Rider/GetMonthlyEarnings?riderId=${localStorage.getItem(
             "riderId"
           )}`
         );
@@ -73,7 +73,7 @@ export const MyRides = () => {
     const fetchLifeTimeEarnings = async () => {
       try {
         const response = await fetch(
-          `http://localhost/FoodDeliverySystems/api/Rider/GetLifetimeEarnings?riderId=${localStorage.getItem(
+          `http://localhost/webapplication2/api/Rider/GetLifetimeEarnings?riderId=${localStorage.getItem(
             "riderId"
           )}`
         );

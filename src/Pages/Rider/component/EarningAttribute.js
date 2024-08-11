@@ -15,7 +15,7 @@ export default function EarningAttribute(props) {
     >
       <h6 style={{ color: "white" }}>{props.attributeHeader}</h6>
       <div
-        style={{ backgroundColor: "white", border: "none", borderRadius: 5 }}
+        style={{ backgroundColor: "black", border: "none", borderRadius: 5 }}
       >
         <h6>{props.attributeValue}</h6>
       </div>

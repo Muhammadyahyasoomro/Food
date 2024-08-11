@@ -159,6 +159,7 @@ console.log(rating+"rating");
                 { to: "/InviteFriends", text: "Invite Friends" },
                 { to: "/SavedAddresses", text: "Saved Addresses" },
                 { to: "/LogOut", text: "Log Out" },
+                {to: "/customer/MyOrderHistory", text : "My Order History"}
               ].map((item, index) => (
                 <li key={index} style={{ marginBottom: "1rem" }}>
                   <Link to={item.to} className="sidebar-link">

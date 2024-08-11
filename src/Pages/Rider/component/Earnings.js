@@ -1,6 +1,7 @@
 import React from "react";
 import EarningAttribute from "./EarningAttribute";
 import "./Earned.css";
+import { colors } from "@mui/material";
 
 export default function Earnings(props) {
   return (
@@ -26,6 +27,7 @@ export default function Earnings(props) {
           />
           <EarningAttribute
             attributeHeader="Earning"
+           
             attributeValue={props.data.Earning}
           />
           <EarningAttribute

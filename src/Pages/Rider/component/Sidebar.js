@@ -1,12 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import toggleImg from "../../../Components/assets/rider/toggle.png";
-
+import { useTheme } from "../../../context/ThemeContext";
 const Sidebar = ({ isOpen, toggleSidebar }) => {
+  const {theme}=useTheme();
   return (
     <div
       style={{
-        backgroundColor: "#F8F9FA",
+        backgroundColor: theme==="light"?"#F8F9FA":"#292939",
         height: "100vh",
         width: isOpen ? "250px" : "0",
         position: "fixed",
@@ -17,11 +18,13 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
         borderRight: isOpen ? "1px solid #ddd" : "none",
         overflowY: "auto",
         transition: "width 0.3s ease, padding 0.3s ease",
+        
       }}
     >
       {isOpen && (
         <div
           style={{
+           
             marginBottom: "2rem",
             marginTop: "1.25rem",
             textAlign: "center",
@@ -33,19 +36,19 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
         </div>
       )}
       {isOpen && (
-        <ul style={{ listStyleType: "none", padding: 0 }}>
-          <li style={{ marginBottom: "1rem" }}>
-            <Link to="/HomeRider">Home</Link>
+        <ul style={{ listStyleType: "none", padding: 0,  }}>
+          <li style={{ marginBottom: "1rem", }}>
+            <Link to="/BigRides" style={{color:theme==="light"?"black":"red",fontFamily:"cursive",fontSize:"1.1rem"}}>Home</Link>
           </li>
-          <li style={{ marginBottom: "1rem" }}>
-            <Link to="/MyRides">My Rides</Link>
+          <li style={{ marginBottom: "1rem", }}>
+            <Link to="/MyRides" style={{color:theme==="light"?"black":"red",fontFamily:"cursive",fontSize:"1.1rem"}}>My Rides</Link>
           </li>
-          <li style={{ marginBottom: "1rem" }}>
-            <Link to="/History">History</Link>
+          <li style={{ marginBottom: "1rem", }}>
+            <Link to="/History" style={{color:theme==="light"?"black":"red",fontFamily:"cursive",fontSize:"1.1rem"}} >History</Link>
           </li>
 
           <li style={{ marginBottom: "1rem" }}>
-            <Link to="/WorkingZonePage">Update Working Zone</Link>
+            <Link to="/WorkingZonePage" style={{color:theme==="light"?"black":"red",fontFamily:"cursive",fontSize:"1.1rem"}}>Update Working Zone</Link>
           </li>
         </ul>
       )}
