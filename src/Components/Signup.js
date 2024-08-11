@@ -55,7 +55,7 @@ export const Signup = () => {
     if (Object.keys(validationErrors).length === 0) {
       setFormValidated(true);
       axios
-        .post("http://localhost/FoodDeliverySystems/api/rider/signup", rider)
+        .post("http://localhost/webapplication2/api/rider/signup", rider)
         .then((response) => {
           console.log(response.data);
           Navigate(`/LoginRider`);
