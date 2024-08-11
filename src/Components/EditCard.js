@@ -15,7 +15,7 @@ export default function EditCard() {
   const [plans, setPlans] = useState([]);
   const fetchPlans = () => {
     fetch(
-      `http://localhost/FoodDeliverySystem/api/Restaurant/fetchplansandpricing?bid=${state.b_id}`
+      `http://localhost/webapplication2/api/Restaurant/fetchplansandpricing?bid=${state.b_id}`
     )
       .then((response) => response.json())
       .then((data) => {
@@ -31,7 +31,7 @@ export default function EditCard() {
   });
   const fetchBelongto = () => {
     fetch(
-      `http://localhost/FoodDeliverySystem/api/Restaurant/fetchBelongsto?bid=${state.b_id}`
+      `http://localhost/webapplication2/api/Restaurant/fetchBelongsto?bid=${state.b_id}`
     )
       .then((response) => response.json())
       .then((data) => {
@@ -49,7 +49,7 @@ export default function EditCard() {
   }, []);
 
   const fetchCategory = () => {
-    const apiUrl = `http://localhost/FoodDeliverySystem/api/Restaurant/fetchcategory`;
+    const apiUrl = `http://localhost/webapplication2/api/Restaurant/fetchcategory`;
 
     axios
       .get(apiUrl)
@@ -63,7 +63,7 @@ export default function EditCard() {
 
   const fetchFoodItem = (category) => {
     if (category) {
-      const apiUrl = `http://localhost/FoodDeliverySystem/api/Restaurant/fetchfoodbycategory?category=${category}`;
+      const apiUrl = `http://localhost/webapplication2/api/Restaurant/fetchfoodbycategory?category=${category}`;
 
       axios
         .get(apiUrl)
