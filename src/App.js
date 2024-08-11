@@ -35,6 +35,7 @@ import TrackRider from './Pages/Restaurant/trackRider';
 import Favourites from './Pages/Customer/Favourites';
 import BigRides from './Pages/Rider/BigRides';
 import UpdateDisease from './Pages/Customer/UpdateDisease';
+import CustomerHistory from './Pages/Customer/CustomerHistory';
 
 setBasePath('https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.15.0/cdn/');
 
@@ -84,6 +85,8 @@ function App() {
           <Route exact path="/customer/myOrders" Component={MyOrders} />
           <Route exact path="/customer/schedule" Component={Schedule} />
           <Route exact path="/customer/daily" Component={DailyScheduler} />
+          <Route exact path="/customer/MyOrderHistory" Component={CustomerHistory} />
+          
         </Routes>
       </BrowserRouter>
     </div>
