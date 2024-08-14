@@ -228,7 +228,7 @@ useEffect(()=>{
         <p>Pickup: ({RestaurantLat}, {RestaurantLong})</p>
         <p>Dropoff: ({CustomerLat}, {CustomerLong})</p>
         <p>Distance: {distance} km</p>
-        {status === "not_pickedup"&&distance!=0 && (
+        {status === "not_pickedup" && (
           <button
             onClick={handleAcceptOrder}
             className="bg-danger text-white p-2 border border-0 rounded fs-4"

@@ -186,7 +186,7 @@ const MyOrders = () => {
           </Tab>
           <Tab eventKey="myschedule" title="My Schedule">
             <Row className="d-flex flex-column align-items-center">
-              {scheduleOrders.map((schedule, index) => (
+              {scheduleOrders.length>0&&scheduleOrders.map((schedule, index) => (
                 <Col sm={12} md={6} lg={4} key={index} className="mb-3">
                   <Card>
                     <Card.Body>
