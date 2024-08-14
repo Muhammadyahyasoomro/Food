@@ -9,8 +9,10 @@ import { CustomerFooter } from "./component/CustomerFooter";
 import { useNavigate } from "react-router-dom";
 import { useSearch } from "../../context/SearchContext";
 import alternativeImage from "../../../src/Components/assets/alternativeImage.png";
+import { useFilter } from "../../context/FilterContext";
 
 export default function HomeCustomer() {
+  const {foodData} =useFilter();
   const API_BASE_URL = `http://localhost/WebApplication2/api`;
  const {search,setSearch}=useSearch("null");
   const [searchedItems, setSearchedItems] = useState([]);
@@ -32,12 +34,12 @@ export default function HomeCustomer() {
  
 
  
-  const renderFoodCards = (items) => (
+  const renderFoodCards = (foodlist) => (
     <Row xs={1} md={2} lg={4} className="g-3">
-      {items.map((item, index) => (
+      {foodlist.map((item, index) => (
         <Col key={index}>
           <FoodCard
-            imageUrl={`http://webapplication2/Content/FoodItem/${item.f_image}`}
+            imageUrl={`http://webapplication2/Content/FoodItems/${item.f_image}`}
             rating={item.foodRating}
             title={item.name}
             type={item.res_type}
@@ -97,7 +99,31 @@ const searchFunction=async ()=>{
               </div>
             ))}
           </div>
-           
+          
+
+          <div className="filtered-items d-flex">
+            {foodData.map((Item) => (
+              <div className="my-4 mx-2" key={Item.id}>
+                <FoodCard
+                  className="mx-5"
+                  style={{
+                    maxWidth: "13rem",
+                    maxHeight: "25rem",
+                  }}
+                  imageUrl={
+                    Item.f_image
+                      ? `http://localhost/WebApplication2/Content/FoodItems/${Item.f_image}`
+                      : alternativeImage
+                  }
+                  rating={Item.foodRating}
+                  title={Item.food_name}
+                  type={Item.res_type}
+                  price={Item.price}
+                  fooddetail_id={Item.id}
+                />
+              </div>
+            ))}
+          </div>
          
         
         <CustomerFooter />

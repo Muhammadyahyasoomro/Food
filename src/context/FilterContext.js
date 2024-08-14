@@ -1,23 +1,33 @@
-// ThemeContext.js
-
 import React, { createContext, useState, useContext } from 'react';
 
 const FilterContext = createContext();
 
 export const FilterProvider = ({ children }) => {
-  const [filterType,setFilterType]=useState();
-  const [rating,setRating]=useState();
-  const [min,setMin]=useState();
-  const [max,setMax]=useState();
+  const [filterType, setFilterType] = useState('');
+  const [rating, setRating] = useState(0);
+  const [min, setMin] = useState(0);
+  const [max, setMax] = useState(Infinity);
+  const [foodData, setFoodData] = useState([]);
 
- 
- const ApplyFilter=()=>{
-    // console.log("filteredApplied");
-    // http://localhost/WebApplication2/api/Customer/GetFilteredFoodItems?resType=true&minPrice=0&maxPrice=200&minRating=3
- }
+  const ApplyFilter = () => {
+    fetch(`http://localhost/webapplication2/api/customer/GetFilteredFoodItems?resType=${filterType}&minPrice=${min}&maxPrice=${max}&minRating=${rating}`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log(`food data`);
+        console.log(data);
+        setFoodData(data)})
+      .catch((error) => {
+        console.error('There was a problem with the fetch operation:', error);
+      });
+  };
 
   return (
-    <FilterContext.Provider value={{filterType,setFilterType,rating,setRating,min,setMin,max,setMax}}>
+    <FilterContext.Provider value={{ ApplyFilter, foodData, filterType, setFilterType, rating, setRating, min, setMin, max, setMax }}>
       {children}
     </FilterContext.Provider>
   );
