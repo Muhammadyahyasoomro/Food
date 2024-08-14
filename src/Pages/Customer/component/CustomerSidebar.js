@@ -10,7 +10,7 @@ const CustomerSidebar = ({ isOpen, toggleSidebar }) => {
   const { theme } = useTheme();
 
 
-const {filterType,setFilterType,rating,setRating,min,setMin,max,setMax}=useFilter();
+const {ApplyFilter,filterType,setFilterType,rating,setRating,min,setMin,max,setMax}=useFilter();
 
   const renderStars = (count) => {
     return Array(count).fill(0).map((_, i) => (
@@ -34,6 +34,7 @@ console.log(min+"minValue");
 console.log(max+"maxValue");
 console.log(filterType+"typeValue");
 console.log(rating+"rating");
+ApplyFilter();
   }
 
   return (

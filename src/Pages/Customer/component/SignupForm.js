@@ -1,23 +1,28 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
-import { Display } from "react-bootstrap-icons";
+import { Container, Row, Col, Card, Form, Button, Badge, Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { useTheme } from "../../../context/ThemeContext";
 
 export const SignupForm = () => {
+  const { theme } = useTheme();
   const API_BASE_URL = `http://localhost/WebApplication2/api`;
   const navigate = useNavigate();
+
   const [customer, setCustomer] = useState({
     c_name: "",
     c_email: "",
     c_password: "",
     phoneno: "",
     address: "",
-    disease: "",
+    disease: [],
   });
+
   const [lat, setLat] = useState(null);
   const [lon, setLon] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  const diseases = ["Lactose", "BP", "Sugar", "Gluten", "Nut Allergy", "Celiac"];
 
   useEffect(() => {
     if ("geolocation" in navigator) {
@@ -33,119 +38,49 @@ export const SignupForm = () => {
     }
   }, []);
 
-  const fetchAreaName = async (latitude, longitude) => {
-    const apiKey = "AIzaSyDUzYaiX303nr6XqMvtl8OEgFYIKc2scgI";
-    const response = await fetch(
-      `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${apiKey}`
-    );
-    const data = await response.json();
-    if (data.results.length > 0) {
-      const area = data.results[0].address_components.find(
-        (component) =>
-          component.types.includes("sublocality") ||
-          component.types.includes("locality")
-      );
-      return area ? area.long_name : "DefaultArea";
-    }
-    return "DefaultArea";
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setCustomer((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
   };
 
-  const createPolygon = (latitude, longitude, radius = 5) => {
-    const EARTH_RADIUS = 6371; // Earth's radius in km
-    const d = radius / EARTH_RADIUS; // angular distance in radians
-    const coordinates = [];
+  const handleDiseaseChange = (event) => {
+    const selectedDiseases = Array.from(event.target.selectedOptions, (option) => option.value);
+    setCustomer((prevState) => ({
+      ...prevState,
+      disease: selectedDiseases,
+    }));
+  };
 
-    for (let i = 0; i < 360; i += 72) {
-      // 72 degrees step for 5 points
-      const bearing = i * (Math.PI / 180); // convert degrees to radians
-      const latRadians = latitude * (Math.PI / 180); // convert latitude to radians
-      const lonRadians = longitude * (Math.PI / 180); // convert longitude to radians
-
-      const newLat = Math.asin(
-        Math.sin(latRadians) * Math.cos(d) +
-          Math.cos(latRadians) * Math.sin(d) * Math.cos(bearing)
-      );
-      const newLon =
-        lonRadians +
-        Math.atan2(
-          Math.sin(bearing) * Math.sin(d) * Math.cos(latRadians),
-          Math.cos(d) - Math.sin(latRadians) * Math.sin(newLat)
-        );
-
-      coordinates.push({
-        latitude: newLat * (180 / Math.PI), // convert back to degrees
-        longitude: newLon * (180 / Math.PI), // convert back to degrees
-      });
-    }
-
-    return coordinates;
+  const removeDisease = (diseaseToRemove) => {
+    setCustomer((prevState) => ({
+      ...prevState,
+      disease: prevState.disease.filter((disease) => disease !== diseaseToRemove),
+    }));
   };
 
   const onCreateCustomer = async (event) => {
     event.preventDefault();
-
-    //setLoading(true);
+    setLoading(true);
     setError(null);
 
-    const formData = new FormData();
-    formData.append("name", customer.c_name);
-    formData.append("email", customer.c_email);
-    formData.append("password", customer.c_password);
-    formData.append("phone", customer.phoneno);
-    formData.append("address", customer.address);
-    formData.append("disease", customer.disease);
-
-    if (lat !== null && lon !== null) {
-      formData.append("latitude", lat);
-      formData.append("longitude", lon);
-    }
-
     try {
-     
+      const diseaseString = customer.disease.join(",");
       const response = await fetch(
-        `${API_BASE_URL}/customer/signup`,
+        `${API_BASE_URL}/customer/Signup?name=${customer.c_name}&email=${customer.c_email}&password=${customer.c_password}&phone=${customer.phoneno}&address=${customer.address}&disease=${diseaseString}&lat=${lat}&lon=${lon}`,
         {
           method: "POST",
-          body: formData,
-          headers: {
-            Accept: "*/*",
-          },
         }
       );
 
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(
-          errorData.message || `HTTP error! Status: ${response.status}`
-        );
+        throw new Error("Failed to sign up customer.");
       }
 
       const data = await response.json();
       console.log("Signup response:", data);
-
-      const latestCustomer = await fetchLatestCustomer(lat, lon);
-
-      //      const polygonExists = await checkIfInPolygon(lat, lon);
-
-      //    const areaName = await fetchAreaName(lat, lon);
-
-      // if (polygonExists) {
-      //   await updateCustomerZones(
-      //     lat,
-      //     lon,
-      //     latestCustomer.customer_id,
-      //     areaName
-      //   );
-      // } else {
-      //   const workingZone = createPolygon(lat, lon, 5); // Create a 5 km radius polygon
-      //   await updateCustomerZones(
-      //     lat,
-      //     lon,
-      //     latestCustomer.id,
-      //     areaName,
-      //     workingZone
-      //   );
-      // }
 
       navigate("/LoginCustomer");
     } catch (error) {
@@ -156,236 +91,118 @@ export const SignupForm = () => {
     }
   };
 
-  const fetchLatestCustomer = async (latitude, longitude) => {
-    try {
-      const response = await fetch(
-        `${API_BASE_URL}/customer/GetLatestCustomer?lat=${latitude}&lon=${longitude}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "*/*",
-          },
-        }
-      );
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(
-          errorData.message || `HTTP error! Status: ${response.status}`
-        );
-      }
-
-      const data = await response.json();
-      console.log("Latest customer data:", data);
-      return data;
-    } catch (error) {
-      console.error("Error fetching latest customer:", error);
-    }
-  };
-
-  const checkIfInPolygon = async (latitude, longitude) => {
-    try {
-      const response = await fetch(
-        `${API_BASE_URL}/customer/CheckForPolygon?latitude=${latitude}&longitude=${longitude}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "*/*",
-          },
-        }
-      );
-
-      if (!response.ok) {
-        // Assuming 404 means no polygon found
-        return false;
-      }
-
-      const data = await response.json();
-      console.log("Polygon check data:", data);
-      return data.length > 0;
-    } catch (error) {
-      console.error("Error checking polygon:", error);
-      return false;
-    }
-  };
-
-  const updateCustomerZones = async (
-    latitude,
-    longitude,
-    customerId,
-    areaName,
-    workingZone = null
-  ) => {
-    try {
-      if (!workingZone) {
-        workingZone = createPolygon(latitude, longitude, 5);
-      }
-
-      const formData = new FormData();
-      formData.append("workingZone", JSON.stringify(workingZone));
-      formData.append("restaurant_id", customerId); // Ensure this is the correct ID
-      formData.append("areaname", areaName);
-      formData.append("latitude", latitude);
-      formData.append("longitude", longitude);
-
-      console.log("Form Data being sent to UpdateCustomerZones:", {
-        workingZone,
-        restaurant_id: customerId,
-        areaname: areaName,
-        latitude,
-        longitude,
-      });
-
-      const response = await fetch(
-        `${API_BASE_URL}/Customer/UpdateCustomerZones`,
-        {
-          method: "POST",
-          body: formData,
-          headers: {
-            Accept: "*/*",
-          },
-        }
-      );
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(
-          errorData.message || `HTTP error! Status: ${response.status}`
-        );
-      }
-
-      const data = await response.json();
-      console.log("Update zones response:", data);
-    } catch (error) {
-      console.error("Error updating zones:", error);
-    }
-  };
-
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setCustomer((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-
-    console.log(customer);
-  };
-
   return (
+    <div className="" style={{marginTop:"5rem"}}>
     <Container className="mt-5">
       <Row className="justify-content-center">
         <Col xs={12} md={6}>
-          <Card
-            className="mt-5 bg-danger p-2"
-            style={{ marginTop: 100, textAlign: "center" }}
-          >
+          <Card className="p-4 shadow-lg" style={{ backgroundColor: theme === "light" ? "#f8f9fa" : "#343a40", color: theme === "light" ? "#000" : "#fff" }}>
+            <h2 className="text-center mb-4">Customer Signup</h2>
             <Form onSubmit={onCreateCustomer}>
               <Form.Group controlId="formBasicName">
+                <Form.Label>Name</Form.Label>
                 <Form.Control
-                  className="m-1"
                   type="text"
                   name="c_name"
-                  placeholder="Name"
+                  placeholder="Enter your name"
                   value={customer.c_name}
                   onChange={handleInputChange}
+                  required
                 />
               </Form.Group>
-              <Form.Group controlId="formBasicEmail">
+
+              <Form.Group controlId="formBasicEmail" className="mt-3">
+                <Form.Label>Email</Form.Label>
                 <Form.Control
-                  className="m-1"
-                  type="text"
+                  type="email"
                   name="c_email"
-                  placeholder="Email"
+                  placeholder="Enter your email"
                   value={customer.c_email}
                   onChange={handleInputChange}
+                  required
                 />
               </Form.Group>
 
-              <Form.Group controlId="formBasicPassword">
+              <Form.Group controlId="formBasicPassword" className="mt-3">
+                <Form.Label>Password</Form.Label>
                 <Form.Control
-                  className="m-1"
                   type="password"
                   name="c_password"
-                  placeholder="Password"
+                  placeholder="Enter your password"
                   value={customer.c_password}
                   onChange={handleInputChange}
+                  required
                 />
-              </Form.Group>
-              <Form.Group controlId="formBasicPhone">
-                <Form.Control
-                  className="m-1"
-                  type="text"
-                  name="phoneno"
-                  placeholder="Phone Number"
-                  value={customer.phoneno}
-                  onChange={handleInputChange}
-                />
-              </Form.Group>
-              <Form.Group controlId="formBasicAddress">
-                <Form.Control
-                  className="m-1"
-                  type="text"
-                  name="address"
-                  placeholder="Address"
-                  value={customer.address}
-                  onChange={handleInputChange}
-                />
-              </Form.Group>
-              <Form.Group controlId="formBasicDisease">
-                <Row className="fs-5 container  text-white">
-                  Do you have any Disease?
-                </Row>
-                <Row
-                  className="fs-4 text-white"
-                  style={{ display: "inline-list-item" }}
-                >
-                  <Col>
-                    <input
-                      type="radio"
-                      name="disease"
-                      onChange={handleInputChange}
-                      value="lactose"
-                    />{" "}
-                    Lactose
-                  </Col>
-                  <Col className="fs-4 text-white">
-                    <input
-                      type="radio"
-                      name="disease"
-                      onChange={handleInputChange}
-                      value="bp"
-                    />
-                    BP{" "}
-                  </Col>
-                  <Col className="fs-4 text-white">
-                    {" "}
-                    <input
-                      type="radio"
-                      name="disease"
-                      onChange={handleInputChange}
-                      value="sugar"
-                    />{" "}
-                    sugar
-                  </Col>
-                </Row>
               </Form.Group>
 
-              <Button
-                className="m-1"
-                variant="primary"
-                type="submit"
-                disabled={loading}
-              >
-                {loading ? "Creating..." : "Create Customer"}
+              <Form.Group controlId="formBasicPhone" className="mt-3">
+                <Form.Label>Phone Number</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="phoneno"
+                  placeholder="Enter your phone number"
+                  value={customer.phoneno}
+                  onChange={handleInputChange}
+                  required
+                />
+              </Form.Group>
+
+              <Form.Group controlId="formBasicAddress" className="mt-3">
+                <Form.Label>Address</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="address"
+                  placeholder="Enter your address"
+                  value={customer.address}
+                  onChange={handleInputChange}
+                  required
+                />
+              </Form.Group>
+
+              <Form.Group controlId="formBasicDisease" className="mt-3">
+                <Form.Label>Select Diseases (if any)</Form.Label>
+                <Form.Control
+                  as="select"
+                  multiple
+                  name="disease"
+                  value={customer.disease}
+                  onChange={handleDiseaseChange}
+                  className="form-select"
+                >
+                  {diseases.map((disease) => (
+                    <option key={disease} value={disease}>
+                      {disease}
+                    </option>
+                  ))}
+                </Form.Control>
+              </Form.Group>
+
+              <Row className="mt-2 g-1">
+                {customer.disease.map((disease) => (
+                  <Col key={disease} className="mb-2">
+                    <Badge
+                      pill
+                      bg="success"
+                      onClick={() => removeDisease(disease)}
+                      className="fs-6 p-2"
+                      style={{ cursor: "pointer" }}
+                    >
+                      {disease} &times;
+                    </Badge>
+                  </Col>
+                ))}
+              </Row>
+
+              <Button className="mt-4 w-100" variant="primary" type="submit" disabled={loading}>
+                {loading ? <Spinner animation="border" size="sm" /> : "Sign Up"}
               </Button>
-              {error && <p style={{ color: "red" }}>{error}</p>}
+              {error && <p className="text-danger mt-3">{error}</p>}
             </Form>
           </Card>
         </Col>
       </Row>
     </Container>
+    </div>
   );
 };
 
