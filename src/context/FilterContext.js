@@ -4,7 +4,7 @@ const FilterContext = createContext();
 
 export const FilterProvider = ({ children }) => {
   const [filterType, setFilterType] = useState(false);
-  const [rating, setRating] = useState(0.0);
+  const [rating, setRating] = useState(0.1);
   const [min, setMin] = useState(0);
   const [max, setMax] = useState(1000);
   const [foodData, setFoodData] = useState([]);
