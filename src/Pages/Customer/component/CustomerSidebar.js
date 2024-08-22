@@ -9,33 +9,42 @@ import { Button } from "react-bootstrap";
 const CustomerSidebar = ({ isOpen, toggleSidebar }) => {
   const { theme } = useTheme();
 
-
-const {ApplyFilter,filterType,setFilterType,rating,setRating,min,setMin,max,setMax}=useFilter();
+  const {
+    ApplyFilter,
+    filterType,
+    setFilterType,
+    rating,
+    setRating,
+    min,
+    setMin,
+    max,
+    setMax,
+  } = useFilter();
 
   const renderStars = (count) => {
-    return Array(count).fill(0).map((_, i) => (
-      <StarFill key={i} style={{ color: "gold" }} />
-    ));
+    return Array(count)
+      .fill(0)
+      .map((_, i) => <StarFill key={i} style={{ color: "gold" }} />);
   };
- const  handleHomechef=()=>{
-setFilterType(1);
- }
- const  handleRestaurant=()=>{
-  setFilterType(0);
- }
- const handleResetFilters = () => {
-  setFilterType(null);
-  setRating(null);
-  setMin("");
-  setMax("");
-};
-  const handleApplyfilters=()=>{
-console.log(min+"minValue");
-console.log(max+"maxValue");
-console.log(filterType+"typeValue");
-console.log(rating+"rating");
-ApplyFilter();
-  }
+  const handleHomechef = () => {
+    setFilterType(1);
+  };
+  const handleRestaurant = () => {
+    setFilterType(0);
+  };
+  const handleResetFilters = () => {
+    setFilterType(null);
+    setRating(null);
+    setMin("");
+    setMax("");
+  };
+  const handleApplyfilters = () => {
+    console.log(min + "minValue");
+    console.log(max + "maxValue");
+    console.log(filterType + "typeValue");
+    console.log(rating + "rating");
+    ApplyFilter();
+  };
 
   return (
     <div>
@@ -108,42 +117,122 @@ ApplyFilter();
               <div className="filter-item text-danger">
                 <label>Price Range</label>
                 <div>
-                  <input type="text" placeholder="Min" style={{ width: "45%", marginRight: "10%" }} onChange={(event)=>{setMin(event.target.value)}} />
-                  <input type="text" placeholder="Max" style={{ width: "45%" }} onChange={(event)=>{setMax(event.target.value)}} />
+                  <input
+                    type="text"
+                    placeholder="Min"
+                    style={{ width: "45%", marginRight: "10%" }}
+                    onChange={(event) => {
+                      setMin(event.target.value);
+                    }}
+                  />
+                  <input
+                    type="text"
+                    placeholder="Max"
+                    style={{ width: "45%" }}
+                    onChange={(event) => {
+                      setMax(event.target.value);
+                    }}
+                  />
                 </div>
               </div>
-              <div className="text-danger " style={{color:"white",fontSize:"1rem",fontFamily:"cursive", backgroundColor:theme==="light"?"white":"black"}}>
+              <div
+                className="text-danger "
+                style={{
+                  color: "white",
+                  fontSize: "1rem",
+                  fontFamily: "cursive",
+                  backgroundColor: theme === "light" ? "white" : "black",
+                }}
+              >
                 <label>Min Rating</label>
-                <div style={{backgroundColor:rating===5?"red":""}}  onClick={()=>{setRating(5)}}>
+                <div
+                  style={{ backgroundColor: rating === 5 ? "red" : "" }}
+                  onClick={() => {
+                    setRating(5);
+                  }}
+                >
                   {renderStars(5)}
                 </div>
-                <div style={{backgroundColor:rating===4?"red":""}} onClick={()=>{setRating(4)}}>
+                <div
+                  style={{ backgroundColor: rating === 4 ? "red" : "" }}
+                  onClick={() => {
+                    setRating(4);
+                  }}
+                >
                   {renderStars(4)}
                 </div>
-                <div style={{backgroundColor:rating===3?"red":""}} onClick={()=>{setRating(3)}}>
+                <div
+                  style={{ backgroundColor: rating === 3 ? "red" : "" }}
+                  onClick={() => {
+                    setRating(3);
+                  }}
+                >
                   {renderStars(3)}
                 </div>
-                <div style={{backgroundColor:rating===2?"red":""}} onClick={()=>{setRating(2)}}>
+                <div
+                  style={{ backgroundColor: rating === 2 ? "red" : "" }}
+                  onClick={() => {
+                    setRating(2);
+                  }}
+                >
                   {renderStars(2)}
                 </div>
-                <div style={{backgroundColor:rating===1?"red":""}} onClick={()=>{setRating(1)}}>
+                <div
+                  style={{ backgroundColor: rating === 1 ? "red" : "" }}
+                  onClick={() => {
+                    setRating(1);
+                  }}
+                >
                   {renderStars(1)}
                 </div>
               </div>
               <div className=" d-flex  ">
-                
-              <button  className=" btn btn-outline-danger me-1" onClick={()=>{handleHomechef()}} style={{backgroundColor:filterType===1?"red":"",color:filterType===1?"white":"red"}} >
-                HomeChef
-               </button>  
-               
-               <button  className=" btn btn-outline-danger " onClick={()=>{handleRestaurant()}} style={{backgroundColor:filterType===0?"red":"",color:filterType===0?"white":"red"}} >
-                Restaurant
-               </button>
-                  
-              
+                <button
+                  className=" btn btn-outline-danger me-1"
+                  onClick={() => {
+                    handleHomechef();
+                  }}
+                  style={{
+                    backgroundColor: filterType === 1 ? "red" : "",
+                    color: filterType === 1 ? "white" : "red",
+                  }}
+                >
+                  HomeChef
+                </button>
+
+                <button
+                  className=" btn btn-outline-danger "
+                  onClick={() => {
+                    handleRestaurant();
+                  }}
+                  style={{
+                    backgroundColor: filterType === 0 ? "red" : "",
+                    color: filterType === 0 ? "white" : "red",
+                  }}
+                >
+                  Restaurant
+                </button>
               </div>
-              <div ><button className="container border-0 bg-grey text-black py-2 my-2" onClick={()=>{handleResetFilters()}} >cancel</button></div>
-              <div ><button className="container border-0 bg-danger text-white py-2 my-2" onClick={()=>{handleApplyfilters()}} >Apply Filters</button></div>
+              <div>
+                <button
+                  className="container border-0 bg-grey text-black py-2 my-2"
+                  onClick={() => {
+                    handleResetFilters();
+                  }}
+                >
+                  cancel
+                </button>
+              </div>
+              <div>
+                <button
+                  className="container border-0 bg-danger text-white py-2 my-2"
+                  onClick={() => {
+                    handleApplyfilters();
+                  }}
+                >
+                  Apply Filters
+                </button>
+              </div>
               {/* Add more filters as needed */}
             </div>
             <ul style={{ listStyleType: "none", padding: 0 }}>
@@ -160,7 +249,7 @@ ApplyFilter();
                 { to: "/InviteFriends", text: "Invite Friends" },
                 { to: "/SavedAddresses", text: "Saved Addresses" },
                 { to: "/LogOut", text: "Log Out" },
-                {to: "/customer/MyOrderHistory", text : "My Order History"}
+                { to: "/customer/MyOrderHistory", text: "My Order History" },
               ].map((item, index) => (
                 <li key={index} style={{ marginBottom: "1rem" }}>
                   <Link to={item.to} className="sidebar-link">
