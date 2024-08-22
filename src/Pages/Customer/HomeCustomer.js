@@ -29,20 +29,36 @@ export default function HomeCustomer() {
 
   const renderFoodCards = (foodlist) => (
     <Row xs={2} md={4} lg={6} className="g-3">
-      {foodlist.map((item, index) => (
-        <Col key={index}>
-          <FoodCard
-            imageUrl={`http://localhost/webapplication2/Content/FoodItems/${item.f_image}`}
-            rating={item.foodRating}
-            title={item.name}
-            type={item.res_type}
-            price={item.Price}
-            bid={item.id}
-          />
-        </Col>
-      ))}
+      {rating > 0
+        ? foodlist
+            .filter((x) => x.foodRating >= rating)
+            .map((item, index) => (
+              <Col key={index}>
+                <FoodCard
+                  imageUrl={`http://localhost/webapplication2/Content/FoodItems/${item.f_image}`}
+                  rating={item.foodRating}
+                  title={item.name}
+                  type={item.res_type}
+                  price={item.Price}
+                  bid={item.id}
+                />
+              </Col>
+            ))
+        : foodlist.map((item, index) => (
+            <Col key={index}>
+              <FoodCard
+                imageUrl={`http://localhost/webapplication2/Content/FoodItems/${item.f_image}`}
+                rating={item.foodRating}
+                title={item.name}
+                type={item.res_type}
+                price={item.Price}
+                bid={item.id}
+              />
+            </Col>
+          ))}
     </Row>
   );
+
   const searchFunction = async () => {
     try {
       const response = await fetch(
