@@ -3,7 +3,7 @@ import React, { createContext, useState, useContext } from "react";
 const FilterContext = createContext();
 
 export const FilterProvider = ({ children }) => {
-  const [filterType, setFilterType] = useState("");
+  const [filterType, setFilterType] = useState(false);
   const [rating, setRating] = useState(0.0);
   const [min, setMin] = useState(0);
   const [max, setMax] = useState(1000);

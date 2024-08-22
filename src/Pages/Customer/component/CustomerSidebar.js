@@ -27,10 +27,10 @@ const CustomerSidebar = ({ isOpen, toggleSidebar }) => {
       .map((_, i) => <StarFill key={i} style={{ color: "gold" }} />);
   };
   const handleHomechef = () => {
-    setFilterType(1);
+    setFilterType(true);
   };
   const handleRestaurant = () => {
-    setFilterType(0);
+    setFilterType(false);
   };
   const handleResetFilters = () => {
     setFilterType(null);
@@ -39,11 +39,11 @@ const CustomerSidebar = ({ isOpen, toggleSidebar }) => {
     setMax("");
   };
   const handleApplyfilters = () => {
+    ApplyFilter();
     console.log(min + "minValue");
     console.log(max + "maxValue");
     console.log(filterType + "typeValue");
     console.log(rating + "rating");
-    ApplyFilter();
   };
 
   return (
@@ -193,8 +193,8 @@ const CustomerSidebar = ({ isOpen, toggleSidebar }) => {
                     handleHomechef();
                   }}
                   style={{
-                    backgroundColor: filterType === 1 ? "red" : "",
-                    color: filterType === 1 ? "white" : "red",
+                    backgroundColor: filterType === true ? "red" : "",
+                    color: filterType === true ? "white" : "red",
                   }}
                 >
                   HomeChef
@@ -206,8 +206,8 @@ const CustomerSidebar = ({ isOpen, toggleSidebar }) => {
                     handleRestaurant();
                   }}
                   style={{
-                    backgroundColor: filterType === 0 ? "red" : "",
-                    color: filterType === 0 ? "white" : "red",
+                    backgroundColor: filterType === false ? "red" : "",
+                    color: filterType === false ? "white" : "red",
                   }}
                 >
                   Restaurant
