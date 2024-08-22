@@ -31,7 +31,7 @@ export default function HomeCustomer() {
     <Row xs={2} md={4} lg={6} className="g-3">
       {rating > 0
         ? foodlist
-            .filter((x) => x.foodRating >= rating)
+            .filter((item) => item.foodRating >= rating)
             .map((item, index) => (
               <Col key={index}>
                 <FoodCard
