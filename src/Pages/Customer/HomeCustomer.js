@@ -42,6 +42,7 @@ export default function HomeCustomer() {
                   price={item.Price}
                   bid={item.id}
                 />
+                {item.res_type}
               </Col>
             ))
         : foodlist.map((item, index) => (
