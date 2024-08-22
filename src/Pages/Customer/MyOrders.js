@@ -150,98 +150,100 @@ const MyOrders = () => {
         >
           <Tab eventKey="myorders" title="My Orders">
             <Row className="d-flex flex-column align-items-center">
-              {orders.map((order) => (
-                <Col sm={12} md={6} lg={4} key={order.id} className="mb-3">
-                  <Card>
-                    <Card.Body>
-                      <Card.Title className="">Order </Card.Title>
-                      <Card.Text>Status: {order.status}</Card.Text>
-                      <Card.Text>Time Left: {order.TimeLeft}</Card.Text>
-                      <Button
-                        variant="danger"
-                        className="me-2"
-                        onClick={() => openModal("cancelOrder", order.id)}
-                      >
-                        Cancel Order
-                      </Button>
-                      {order.status === "accepted" && (
+              {orders.length > 0 &&
+                orders.map((order) => (
+                  <Col sm={12} md={6} lg={4} key={order.id} className="mb-3">
+                    <Card>
+                      <Card.Body>
+                        <Card.Title className="">Order </Card.Title>
+                        <Card.Text>Status: {order.status}</Card.Text>
+                        <Card.Text>Time Left: {order.TimeLeft}</Card.Text>
                         <Button
-                          variant="primary"
-                          onClick={() => trackOrder(order.id)}
+                          variant="danger"
+                          className="me-2"
+                          onClick={() => openModal("cancelOrder", order.id)}
                         >
-                          Track Order
+                          Cancel Order
                         </Button>
-                      )}
-                      <Button
-                        variant="secondary"
-                        onClick={() => handleOrderDetails(order.id)}
-                      >
-                        See details
-                      </Button>
-                    </Card.Body>
-                  </Card>
-                </Col>
-              ))}
+                        {order.status === "accepted" && (
+                          <Button
+                            variant="primary"
+                            onClick={() => trackOrder(order.id)}
+                          >
+                            Track Order
+                          </Button>
+                        )}
+                        <Button
+                          variant="secondary"
+                          onClick={() => handleOrderDetails(order.id)}
+                        >
+                          See details
+                        </Button>
+                      </Card.Body>
+                    </Card>
+                  </Col>
+                ))}
             </Row>
           </Tab>
           <Tab eventKey="myschedule" title="My Schedule">
             <Row className="d-flex flex-column align-items-center">
-              {scheduleOrders.length>0&&scheduleOrders.map((schedule, index) => (
-                <Col sm={12} md={6} lg={4} key={index} className="mb-3">
-                  <Card>
-                    <Card.Body>
-                      <Card.Title className="fw-bold">
-                        {schedule["Schedule Name"]}
-                      </Card.Title>
-                      <Table striped bordered hover size="sm">
-                        <tbody>
-                          <tr>
-                            <td>
-                              <strong>Schedule Name:</strong>
-                            </td>
-                            <td>{schedule["Schedule Name"]}</td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <strong>Description:</strong>
-                            </td>
-                            <td>{schedule.Description}</td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <strong>Frequency Type:</strong>
-                            </td>
-                            <td>{schedule["Frequency Type"]}</td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <strong>Day:</strong>
-                            </td>
-                            <td>{schedule.Day}</td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <strong>Start Time:</strong>
-                            </td>
-                            <td>{schedule["Start Time"]}</td>
-                          </tr>
-                        </tbody>
-                      </Table>
-                      <div className="d-flex justify-content-between">
-                        <Button
-                          variant="danger"
-                          className="me-2"
-                          onClick={() =>
-                            openModal("deleteSchedule", schedule["Job Name"])
-                          }
-                        >
-                          <Trash /> Delete
-                        </Button>
-                      </div>
-                    </Card.Body>
-                  </Card>
-                </Col>
-              ))}
+              {scheduleOrders.length > 0 &&
+                scheduleOrders.map((schedule, index) => (
+                  <Col sm={12} md={6} lg={4} key={index} className="mb-3">
+                    <Card>
+                      <Card.Body>
+                        <Card.Title className="fw-bold">
+                          {schedule["Schedule Name"]}
+                        </Card.Title>
+                        <Table striped bordered hover size="sm">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <strong>Schedule Name:</strong>
+                              </td>
+                              <td>{schedule["Schedule Name"]}</td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <strong>Description:</strong>
+                              </td>
+                              <td>{schedule.Description}</td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <strong>Frequency Type:</strong>
+                              </td>
+                              <td>{schedule["Frequency Type"]}</td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <strong>Day:</strong>
+                              </td>
+                              <td>{schedule.Day}</td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <strong>Start Time:</strong>
+                              </td>
+                              <td>{schedule["Start Time"]}</td>
+                            </tr>
+                          </tbody>
+                        </Table>
+                        <div className="d-flex justify-content-between">
+                          <Button
+                            variant="danger"
+                            className="me-2"
+                            onClick={() =>
+                              openModal("deleteSchedule", schedule["Job Name"])
+                            }
+                          >
+                            <Trash /> Delete
+                          </Button>
+                        </div>
+                      </Card.Body>
+                    </Card>
+                  </Col>
+                ))}
             </Row>
           </Tab>
         </Tabs>

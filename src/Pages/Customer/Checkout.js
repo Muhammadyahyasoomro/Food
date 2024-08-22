@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Card, Container, Form, ListGroup } from "react-bootstrap";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -6,7 +6,7 @@ import Navbarcustomer from "./component/NavbarCustomer";
 import { useTheme } from "../../context/ThemeContext";
 
 export default function Checkout() {
-  const {theme}=useTheme();
+  const { theme } = useTheme();
   const [address, setAddress] = useState("");
   const location = useLocation();
   const navigate = useNavigate();
@@ -18,16 +18,39 @@ export default function Checkout() {
     (acc, item) => acc + item.total_quantity,
     0
   );
-  const totalShippingFee = data.reduce(
-    (acc, item) => acc + 60,
-    0
-  ); // Calculate total shipping fee
-const handleAddress=()=>{
- fetch(`http://localhost/WebApplication2/api/Customer/HandleAddress?address=${address}&customer_id=${localStorage.getItem("c_id")}`,{
-  method:"POST",
-  
- })
-}
+  const totalShippingFee = data.reduce((acc, item) => acc + 60, 0); // Calculate total shipping fee
+  const handleAddress = () => {
+    fetch(
+      `http://localhost/WebApplication2/api/Customer/HandleAddress?address=${address}&customer_id=${localStorage.getItem(
+        "c_id"
+      )}`,
+      {
+        method: "POST",
+      }
+    )
+      .then((response) => {
+        return response.status;
+      })
+      .then((status) => {
+        if (status == 200) {
+          alert("address updated successfully");
+        }
+      });
+  };
+  useEffect(() => {
+    fetch(
+      `http://localhost/WebApplication2/api/customer/getaddress?customer_id=${localStorage.getItem(
+        "c_id"
+      )}`,
+      { method: "GET" }
+    )
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        setAddress(data);
+      });
+  }, []);
   const placeOrder = async () => {
     try {
       const customerId = localStorage.getItem("c_id");
@@ -69,12 +92,21 @@ const handleAddress=()=>{
       <Navbarcustomer />
       <Container className="py-3">
         <Card className="mb-3">
-          <Card.Body style={{backgroundColor:theme==="light"?"white":"#292929",color:theme==="light"?"black":"#fff",border:`2px solid ${theme==="light"?"white":"gold"}`}}>
-            <Form >
+          <Card.Body
+            style={{
+              backgroundColor: theme === "light" ? "white" : "#292929",
+              color: theme === "light" ? "black" : "#fff",
+              border: `2px solid ${theme === "light" ? "white" : "gold"}`,
+            }}
+          >
+            <Form>
               <Form.Group controlId="formAddress">
                 <Form.Label>Shipping Address</Form.Label>
                 <Form.Control
-                style={{color:theme==="light"?"black":"white",backgroundColor:theme==="light"?"white":"#292929"}}
+                  style={{
+                    color: theme === "light" ? "black" : "white",
+                    backgroundColor: theme === "light" ? "white" : "#292929",
+                  }}
                   type="text"
                   placeholder="Enter your shipping address"
                   value={address}
@@ -83,7 +115,7 @@ const handleAddress=()=>{
               </Form.Group>
               <Button
                 variant="outline-danger rounded-5"
-                style={{letterSpacing:"0.5rem",fontFamily:"cursive"}}
+                style={{ letterSpacing: "0.5rem", fontFamily: "cursive" }}
                 className="w-100 mt-3"
                 onClick={() => handleAddress()}
               >
@@ -94,10 +126,24 @@ const handleAddress=()=>{
         </Card>
 
         <Card className="mb-3">
-          <Card.Body style={{backgroundColor:theme==="light"?"white":"#292929",color:theme==="light"?"black":"#fff",border:`2px solid ${theme==="light"?"white":"gold"}`}}>
+          <Card.Body
+            style={{
+              backgroundColor: theme === "light" ? "white" : "#292929",
+              color: theme === "light" ? "black" : "#fff",
+              border: `2px solid ${theme === "light" ? "white" : "gold"}`,
+            }}
+          >
             <h5>Payment Method</h5>
             <Card className="mb-2">
-              <Card.Body style={{color:theme==="light"?"black":"white",backgroundColor:theme==="light"?"white":"#292929"}} className="text-center">Please make Cash ready  at the time of Delivery</Card.Body>
+              <Card.Body
+                style={{
+                  color: theme === "light" ? "black" : "white",
+                  backgroundColor: theme === "light" ? "white" : "#292929",
+                }}
+                className="text-center"
+              >
+                Please make Cash ready at the time of Delivery
+              </Card.Body>
             </Card>
           </Card.Body>
         </Card>
@@ -107,20 +153,54 @@ const handleAddress=()=>{
             data.length > 0 &&
             data.map((item, index) => (
               <Card className="mb-3" key={index}>
-                <Card.Body style={{backgroundColor:theme==="light"?"white":"#292929",color:theme==="light"?"black":"#fff",border:`2px solid ${theme==="light"?"white":"gold"}`}}>
+                <Card.Body
+                  style={{
+                    backgroundColor: theme === "light" ? "white" : "#292929",
+                    color: theme === "light" ? "black" : "#fff",
+                    border: `2px solid ${theme === "light" ? "white" : "gold"}`,
+                  }}
+                >
                   <h5>Order {item.restaurant_id}:</h5>
                   <ListGroup variant="flush">
-                    <ListGroup.Item className="d-flex justify-content-between" style={{color:theme==="light"?"black":"white",backgroundColor:theme==="light"?"white":"#292929",borderBottom:`1px solid ${theme==="light"?"black":"white"}`}}>
+                    <ListGroup.Item
+                      className="d-flex justify-content-between"
+                      style={{
+                        color: theme === "light" ? "black" : "white",
+                        backgroundColor:
+                          theme === "light" ? "white" : "#292929",
+                        borderBottom: `1px solid ${
+                          theme === "light" ? "black" : "white"
+                        }`,
+                      }}
+                    >
                       <div>Total Price:</div>
                       <div>Rs. {item.total_price}</div>
                     </ListGroup.Item>
-                    <ListGroup.Item className="d-flex justify-content-between" style={{color:theme==="light"?"black":"white",backgroundColor:theme==="light"?"white":"#292929",
-                      borderBottom:`1px solid ${theme==="light"?"black":"white"}`}}>
+                    <ListGroup.Item
+                      className="d-flex justify-content-between"
+                      style={{
+                        color: theme === "light" ? "black" : "white",
+                        backgroundColor:
+                          theme === "light" ? "white" : "#292929",
+                        borderBottom: `1px solid ${
+                          theme === "light" ? "black" : "white"
+                        }`,
+                      }}
+                    >
                       <div>Total Quantity:</div>
                       <div>{item.total_quantity}</div>
                     </ListGroup.Item>
-                    <ListGroup.Item className="d-flex justify-content-between" style={{color:theme==="light"?"black":"white",backgroundColor:theme==="light"?"white":"#292929",
-                      borderBottom:`1px solid ${theme==="light"?"black":"white"}`}}>
+                    <ListGroup.Item
+                      className="d-flex justify-content-between"
+                      style={{
+                        color: theme === "light" ? "black" : "white",
+                        backgroundColor:
+                          theme === "light" ? "white" : "#292929",
+                        borderBottom: `1px solid ${
+                          theme === "light" ? "black" : "white"
+                        }`,
+                      }}
+                    >
                       <div>Shipping Fee:</div>
                       <div>Rs. 60</div>
                     </ListGroup.Item>
@@ -131,25 +211,63 @@ const handleAddress=()=>{
         </div>
 
         <Card className="mb-3">
-          <Card.Body style={{backgroundColor:theme==="light"?"white":"#292929",color:theme==="light"?"black":"#fff",border:`2px solid ${theme==="light"?"white":"gold"}`}}>
+          <Card.Body
+            style={{
+              backgroundColor: theme === "light" ? "white" : "#292929",
+              color: theme === "light" ? "black" : "#fff",
+              border: `2px solid ${theme === "light" ? "white" : "gold"}`,
+            }}
+          >
             <ListGroup variant="flush">
-              <ListGroup.Item className="d-flex justify-content-between" style={{color:theme==="light"?"black":"white",backgroundColor:theme==="light"?"white":"#292929",
-                      borderBottom:`1px solid ${theme==="light"?"black":"white"}`}}>
+              <ListGroup.Item
+                className="d-flex justify-content-between"
+                style={{
+                  color: theme === "light" ? "black" : "white",
+                  backgroundColor: theme === "light" ? "white" : "#292929",
+                  borderBottom: `1px solid ${
+                    theme === "light" ? "black" : "white"
+                  }`,
+                }}
+              >
                 <div>Subtotal:</div>
                 <div>Rs. {subtotal}</div>
               </ListGroup.Item>
-              <ListGroup.Item className="d-flex justify-content-between"style={{color:theme==="light"?"black":"white",backgroundColor:theme==="light"?"white":"#292929",
-                      borderBottom:`1px solid ${theme==="light"?"black":"white"}`}}>
+              <ListGroup.Item
+                className="d-flex justify-content-between"
+                style={{
+                  color: theme === "light" ? "black" : "white",
+                  backgroundColor: theme === "light" ? "white" : "#292929",
+                  borderBottom: `1px solid ${
+                    theme === "light" ? "black" : "white"
+                  }`,
+                }}
+              >
                 <div>Total Quantity:</div>
                 <div>{totalQuantity}</div>
               </ListGroup.Item>
-              <ListGroup.Item className="d-flex justify-content-between"style={{color:theme==="light"?"black":"white",backgroundColor:theme==="light"?"white":"#292929",
-                      borderBottom:`1px solid ${theme==="light"?"black":"white"}`}}>
+              <ListGroup.Item
+                className="d-flex justify-content-between"
+                style={{
+                  color: theme === "light" ? "black" : "white",
+                  backgroundColor: theme === "light" ? "white" : "#292929",
+                  borderBottom: `1px solid ${
+                    theme === "light" ? "black" : "white"
+                  }`,
+                }}
+              >
                 <div>Total Shipping Fee:</div>
                 <div>Rs. {totalShippingFee}</div>
               </ListGroup.Item>
-              <ListGroup.Item className="d-flex justify-content-between font-weight-bold"style={{color:theme==="light"?"black":"white",backgroundColor:theme==="light"?"white":"#292929",
-                      borderBottom:`1px solid ${theme==="light"?"black":"white"}`}}>
+              <ListGroup.Item
+                className="d-flex justify-content-between font-weight-bold"
+                style={{
+                  color: theme === "light" ? "black" : "white",
+                  backgroundColor: theme === "light" ? "white" : "#292929",
+                  borderBottom: `1px solid ${
+                    theme === "light" ? "black" : "white"
+                  }`,
+                }}
+              >
                 <div>Total:</div>
                 <div>Rs. {subtotal + totalShippingFee}</div>
               </ListGroup.Item>
@@ -157,7 +275,11 @@ const handleAddress=()=>{
           </Card.Body>
         </Card>
 
-        <Button variant="outline-danger rounded-3" className="w-100" onClick={placeOrder}>
+        <Button
+          variant="outline-danger rounded-3"
+          className="w-100"
+          onClick={placeOrder}
+        >
           Place Order
         </Button>
       </Container>
