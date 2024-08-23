@@ -17,8 +17,6 @@ export default function HomeCustomer() {
   const { search, setSearch } = useSearch("null");
   const [searchedItems, setSearchedItems] = useState([]);
 
-  const [orderForAnotherPerson, setOrderForAnotherPerson] = useState(true);
-
   const navigate = useNavigate();
 
   useEffect(() => {

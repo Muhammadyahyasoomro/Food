@@ -7,15 +7,20 @@ import CustomerSidebar from "./CustomerSidebar";
 import toggle from "../../../Components/assets/rider/toggle.png";
 import { useTheme } from "../../../context/ThemeContext";
 import { useSearch } from "../../../context/SearchContext";
-
+import { useHealth } from "../../../context/HealthContext";
 export default function Navbarcustomer() {
+  const { isHealthyMode, toggleHealth } = useHealth();
   const { setSearch } = useSearch();
   const { theme, toggleTheme } = useTheme();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
   const Navigate = useNavigate();
 
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
+  };
+  const toggleHealthMode = () => {
+    toggleHealth();
   };
 
   return (
@@ -86,6 +91,19 @@ export default function Navbarcustomer() {
           </Nav>
         </Navbar.Collapse>
         <div className="d-flex align-items-center">
+          <Button
+            onClick={toggleHealthMode}
+            style={{
+              backgroundColor: isHealthyMode ? "#28a745" : "#dc3545",
+              color: "white",
+              border: "none",
+              borderRadius: "2rem",
+              marginRight: "1rem",
+              padding: "10px",
+            }}
+          >
+            {isHealthyMode ? "Healthy Mode" : "Cheat Mode"}
+          </Button>
           <a className="text-gray-700 hover:text-gray-900 mr-4">
             <img src={notificationIcon} width={20} alt="Notification" />
           </a>

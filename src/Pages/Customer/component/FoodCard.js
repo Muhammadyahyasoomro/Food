@@ -1,8 +1,15 @@
 import React, { useState } from "react";
 import { Card, Badge, Button } from "react-bootstrap";
-import { House, Shop, Heart, HeartFill } from "react-bootstrap-icons";
+import {
+  House,
+  Shop,
+  Heart,
+  HeartFill,
+  HeartPulseFill,
+} from "react-bootstrap-icons";
 import PopupCard from "./PopupCard";
 import { useNavigate } from "react-router-dom";
+import { SlTag } from "@shoelace-style/shoelace";
 
 export const FoodCard = ({
   imageUrl,
@@ -91,8 +98,7 @@ export const FoodCard = ({
           border: "2px solid red",
           borderRadius: "10px",
           position: "relative",
-          width:"13rem",
-          
+          width: "13rem",
         }}
       >
         <div
@@ -111,7 +117,6 @@ export const FoodCard = ({
           variant="top"
           src={imageUrl}
           height={"150rem"}
-          
           style={{ borderTopLeftRadius: "10px", borderTopRightRadius: "10px" }}
         />
         <Card.Body className="" style={{ backgroundColor: "#FAD9D9" }}>
@@ -123,6 +128,14 @@ export const FoodCard = ({
             style={{ letterSpacing: "5px" }}
           >
             <Badge bg="danger">{renderStars(rating)}</Badge>
+          </Card.Text>
+          <Card.Text
+            className="text-center fs-3"
+            style={{ letterSpacing: "5px" }}
+          >
+            <div style={{ fontFamily: "cursive", color: "green" }}>
+              <HeartPulseFill />
+            </div>
           </Card.Text>
         </Card.Body>
         <Card.Text

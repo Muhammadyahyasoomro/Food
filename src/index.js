@@ -8,20 +8,22 @@ import { CategoryProvider } from "./context/CategoryContext";
 import { SearchProvider } from "./context/SearchContext";
 import reportWebVitals from "./reportWebVitals";
 import { FilterProvider } from "./context/FilterContext";
+import { HealthProvider } from "./context/HealthContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <ThemeProvider>
-      <CategoryProvider>
-        <SearchProvider>
-          <FilterProvider>
-      <App />
-      </FilterProvider>
-      </SearchProvider>
-      </CategoryProvider>
-      
-    </ThemeProvider>
+    <HealthProvider>
+      <ThemeProvider>
+        <CategoryProvider>
+          <SearchProvider>
+            <FilterProvider>
+              <App />
+            </FilterProvider>
+          </SearchProvider>
+        </CategoryProvider>
+      </ThemeProvider>
+    </HealthProvider>
   </React.StrictMode>
 );
 
