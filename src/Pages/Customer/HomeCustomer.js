@@ -82,60 +82,37 @@ export default function HomeCustomer() {
       <div className="mx-4">
         {foodData.length > 0 && foodData && renderFoodCards(foodData)}
         {searchedItems.length > 0 && search ? (
-          <>{search} </>
+          <>
+            {search}
+            <div className="d-flex">
+              {searchedItems.map((Item) => (
+                <div className="my-4 mx-2" key={Item.id}>
+                  <FoodCard
+                    className="mx-5"
+                    style={{
+                      maxWidth: "13rem",
+                      maxHeight: "25rem",
+                    }}
+                    imageUrl={
+                      Item.f_image
+                        ? `http://localhost/WebApplication2/Content/FoodItems/${Item.f_image}`
+                        : alternativeImage
+                    }
+                    rating={Item.foodRating}
+                    title={Item.name}
+                    type={Item.res_type}
+                    price={Item.min_price}
+                    fooddetail_id={Item.id}
+                  />
+                </div>
+              ))}
+            </div>{" "}
+          </>
         ) : (
           <>
             <TopRestaurant />
           </>
         )}
-
-        <div className="d-flex">
-          {searchedItems.map((Item) => (
-            <div className="my-4 mx-2" key={Item.id}>
-              <FoodCard
-                className="mx-5"
-                style={{
-                  maxWidth: "13rem",
-                  maxHeight: "25rem",
-                }}
-                imageUrl={
-                  Item.f_image
-                    ? `http://localhost/WebApplication2/Content/FoodItems/${Item.f_image}`
-                    : alternativeImage
-                }
-                rating={Item.foodRating}
-                title={Item.name}
-                type={Item.res_type}
-                price={Item.min_price}
-                fooddetail_id={Item.id}
-              />
-            </div>
-          ))}
-        </div>
-
-        <div className="filtered-items d-flex">
-          {foodData.map((Item) => (
-            <div className="my-4 mx-2" key={Item.id}>
-              <FoodCard
-                className="mx-5"
-                style={{
-                  maxWidth: "13rem",
-                  maxHeight: "25rem",
-                }}
-                imageUrl={
-                  Item.f_image
-                    ? `http://localhost/WebApplication2/Content/FoodItems/${Item.f_image}`
-                    : alternativeImage
-                }
-                rating={Item.foodRating}
-                title={Item.food_name}
-                type={Item.res_type}
-                price={Item.price}
-                fooddetail_id={Item.id}
-              />
-            </div>
-          ))}
-        </div>
 
         <CustomerFooter />
       </div>
