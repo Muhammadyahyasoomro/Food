@@ -10,8 +10,10 @@ import { useNavigate } from "react-router-dom";
 import { useSearch } from "../../context/SearchContext";
 import alternativeImage from "../../../src/Components/assets/alternativeImage.png";
 import { useFilter } from "../../context/FilterContext";
+import { useHealth } from "../../context/HealthContext";
 
 export default function HomeCustomer() {
+  const { isHealthyMode } = useHealth();
   const { foodData, rating } = useFilter();
   const API_BASE_URL = `http://localhost/WebApplication2/api`;
   const { search, setSearch } = useSearch("null");
@@ -110,6 +112,7 @@ export default function HomeCustomer() {
           </>
         ) : (
           <>
+            {" "}
             <TopRestaurant />
           </>
         )}
