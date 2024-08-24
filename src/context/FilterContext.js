@@ -33,6 +33,7 @@ export const FilterProvider = ({ children }) => {
   return (
     <FilterContext.Provider
       value={{
+        setFoodData,
         ApplyFilter,
         foodData,
         min,
