@@ -18,6 +18,7 @@ export const FoodCard = ({
   type,
   price,
   fooddetail_id,
+  isHealthy,
   isFavorite, // Prop indicating if the item is a favorite
   favouriteId, // ID of the favorite item
   onToggleFavorite, // Callback to handle the toggle action
@@ -81,6 +82,9 @@ export const FoodCard = ({
 
   const renderStars = (rating) => {
     let stars = [];
+    if (rating == 0) {
+      return "";
+    }
     for (let i = 0; i < 5; i++) {
       if (i - 0.5 < rating) {
         stars.push("⭐"); // Filled star
@@ -133,9 +137,19 @@ export const FoodCard = ({
             className="text-center fs-3"
             style={{ letterSpacing: "5px" }}
           >
-            <div style={{ fontFamily: "cursive", color: "green" }}>
-              <HeartPulseFill />
-            </div>
+            {isHealthy && (
+              <div
+                className="text-center"
+                style={{
+                  fontFamily: "cursive",
+                  color: "green",
+                  display: "flex",
+                }}
+              >
+                <HeartPulseFill />
+                <p>Healthy</p>
+              </div>
+            )}
           </Card.Text>
         </Card.Body>
         <Card.Text
