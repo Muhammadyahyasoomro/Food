@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Card, Badge, Button } from "react-bootstrap";
+import { Card, Badge, Button, Image } from "react-bootstrap";
 import {
   House,
   Shop,
@@ -9,7 +9,6 @@ import {
 } from "react-bootstrap-icons";
 import PopupCard from "./PopupCard";
 import { useNavigate } from "react-router-dom";
-import { SlTag } from "@shoelace-style/shoelace";
 
 export const FoodCard = ({
   imageUrl,
@@ -19,13 +18,14 @@ export const FoodCard = ({
   price,
   fooddetail_id,
   isHealthy,
-  isFavorite, // Prop indicating if the item is a favorite
-  favouriteId, // ID of the favorite item
-  onToggleFavorite, // Callback to handle the toggle action
+  isFavorite,
+  favouriteId,
+  onToggleFavorite,
 }) => {
   const navigate = useNavigate();
   const [showPopup, setShowPopup] = useState(false);
   const [isFav, setIsFav] = useState(isFavorite);
+  const [isHovered, setIsHovered] = useState(false);
 
   const handleClosePopup = () => {
     setShowPopup(false);
@@ -34,11 +34,11 @@ export const FoodCard = ({
   const handleShowPopup = () => {
     setShowPopup(true);
   };
+
   const API_BASE_URL = `http://localhost/WebApplication2/api`;
 
   const handleToggleFavorite = async () => {
     if (!isFav) {
-      // Add to favorites
       try {
         const response = await fetch(
           `${API_BASE_URL}/customer/AddToFavourite?customerId=${localStorage.getItem(
@@ -57,7 +57,6 @@ export const FoodCard = ({
         console.error("Error adding to favorites:", error);
       }
     } else {
-      // Remove from favorites
       try {
         const response = await fetch(
           `${API_BASE_URL}/customer/RemoveToFavourite?favouriteId=${favouriteId}`,
@@ -66,7 +65,7 @@ export const FoodCard = ({
         if (response.ok) {
           setIsFav(false);
           window.alert("Removed from your favorites");
-          onToggleFavorite(); // Notify parent to handle any additional state updates
+          onToggleFavorite();
         } else {
           console.error("Failed to remove from favorites");
         }
@@ -82,14 +81,14 @@ export const FoodCard = ({
 
   const renderStars = (rating) => {
     let stars = [];
-    if (rating == 0) {
+    if (rating === 0) {
       return "";
     }
     for (let i = 0; i < 5; i++) {
       if (i - 0.5 < rating) {
-        stars.push("⭐"); // Filled star
+        stars.push("⭐");
       } else {
-        stars.push("☆"); // Empty star
+        stars.push("☆");
       }
     }
     return stars.join("");
@@ -98,32 +97,46 @@ export const FoodCard = ({
   return (
     <>
       <Card
+        className="position-relative"
         style={{
           border: "2px solid red",
           borderRadius: "10px",
-          position: "relative",
           width: "13rem",
         }}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
       >
         <div
           onClick={handleToggleFavorite}
-          style={{
-            position: "absolute",
-            top: "10px",
-            right: "10px",
-            cursor: "pointer",
-          }}
+          className="position-absolute top-0 end-0 p-2"
+          style={{ cursor: "pointer" }}
         >
           {isFav ? <HeartFill color="red" size={24} /> : <Heart size={24} />}
         </div>
-        <Card.Img
-          className=""
-          variant="top"
-          src={imageUrl}
-          height={"150rem"}
-          style={{ borderTopLeftRadius: "10px", borderTopRightRadius: "10px" }}
-        />
-        <Card.Body className="" style={{ backgroundColor: "#FAD9D9" }}>
+
+        <div className="position-relative">
+          <Card.Img
+            className="food-image"
+            variant="top"
+            src={imageUrl}
+            height={"150rem"}
+            style={{
+              borderTopLeftRadius: "10px",
+              borderTopRightRadius: "10px",
+              opacity: isHovered && isHealthy ? 0.5 : 1, // Adjust opacity on hover
+            }}
+          />
+          {isHealthy && isHovered && (
+            <div
+              className="position-absolute top-50 start-50 translate-middle"
+              style={{ zIndex: 1 }}
+            >
+              <HeartPulseFill color="green" size={40} />
+            </div>
+          )}
+        </div>
+
+        <Card.Body style={{ backgroundColor: "#FAD9D9" }}>
           <Card.Title className="fs-6 text-center text-black">
             {title} {renderIcon(type)}
           </Card.Title>
@@ -133,25 +146,8 @@ export const FoodCard = ({
           >
             <Badge bg="danger">{renderStars(rating)}</Badge>
           </Card.Text>
-          <Card.Text
-            className="text-center fs-3"
-            style={{ letterSpacing: "5px" }}
-          >
-            {isHealthy && (
-              <div
-                className="text-center"
-                style={{
-                  fontFamily: "cursive",
-                  color: "green",
-                  display: "flex",
-                }}
-              >
-                <HeartPulseFill />
-                <p>Healthy</p>
-              </div>
-            )}
-          </Card.Text>
         </Card.Body>
+
         <Card.Text
           className="bg-danger text-white p-2 rounded text-center"
           style={{ fontSize: 18 }}
@@ -164,6 +160,7 @@ export const FoodCard = ({
           </Button>
         </Card.Footer>
       </Card>
+
       {showPopup && (
         <PopupCard
           bid={fooddetail_id}
