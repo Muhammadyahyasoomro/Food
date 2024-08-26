@@ -15,6 +15,7 @@ export const FoodCard = ({
   rating,
   title,
   type,
+  restaurantname,
   price,
   fooddetail_id,
   isHealthy,
@@ -81,7 +82,7 @@ export const FoodCard = ({
 
   const renderStars = (rating) => {
     let stars = [];
-    if (rating === 0) {
+    if (rating <= 0.9) {
       return "";
     }
     for (let i = 0; i < 5; i++) {
@@ -126,6 +127,9 @@ export const FoodCard = ({
               opacity: isHovered && isHealthy ? 0.5 : 1, // Adjust opacity on hover
             }}
           />
+          <Badge bg="danger" className="container">
+            {restaurantname}
+          </Badge>
           {isHealthy && isHovered && (
             <div
               className="position-absolute top-50 start-50 translate-middle"
@@ -140,6 +144,7 @@ export const FoodCard = ({
           <Card.Title className="fs-6 text-center text-black">
             {title} {renderIcon(type)}
           </Card.Title>
+
           <Card.Text
             className="text-center fs-3"
             style={{ letterSpacing: "5px" }}
@@ -154,6 +159,7 @@ export const FoodCard = ({
         >
           from Rs: {price}
         </Card.Text>
+
         <Card.Footer className="bg-danger rounded text-white fs-6 text-center">
           <Button variant="danger" onClick={handleShowPopup}>
             See Details

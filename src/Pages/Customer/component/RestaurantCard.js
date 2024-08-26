@@ -102,6 +102,7 @@ export default function RestaurantCard({ ResName, ResId, rating, type }) {
                     price={Item.min_price}
                     fooddetail_id={Item.id}
                     isHealthy={true}
+                    restaurantname={Item.restaurantname}
                   />
                 </div>
               ))
@@ -123,6 +124,7 @@ export default function RestaurantCard({ ResName, ResId, rating, type }) {
                     type={Item.res_type}
                     price={Item.min_price}
                     fooddetail_id={Item.id}
+                    isHealthy={false}
                   />
                 </div>
               ))}

@@ -41,6 +41,7 @@ export default function HomeCustomer() {
                   type={item.res_type}
                   price={item.Price}
                   bid={item.id}
+                  restaurantname={item.RestName}
                 />
                 {item.res_type}
               </Col>

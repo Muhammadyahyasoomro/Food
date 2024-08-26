@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Button, Container, Row, Col, Breadcrumb } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { NavbarHome } from "./components/NavbarHome";
@@ -27,13 +27,13 @@ const NewListing = () => {
     HasDisease: "",
     DiseaseName: "",
     foodCategory: "",
-    name: ""
+    name: "",
   });
 
   const handleSelectChange = (event) => {
     const options = event.target.options;
     const selectedValues = [];
-    
+
     for (let i = 0; i < options.length; i++) {
       if (options[i].selected) {
         selectedValues.push(options[i].value);
@@ -46,13 +46,15 @@ const NewListing = () => {
     setBelongsto((prevState) => ({
       ...prevState,
       HasDisease: selectedValues.length > 0 ? true : false,
-      DiseaseName: selectedValues.join(", ")
+      DiseaseName: selectedValues.join(", "),
     }));
   };
 
   const FetchBID = async () => {
     try {
-      const response = await fetch(`${API_BASE_URL}/restaurant/GetLatestFoodItemId`);
+      const response = await fetch(
+        `${API_BASE_URL}/restaurant/GetLatestFoodItemId`
+      );
       if (!response.ok) {
         throw new Error("Network response was not ok.");
       }
@@ -69,7 +71,7 @@ const NewListing = () => {
     const updatedBelongsto = {
       ...belongsto,
       foodCategory: category?.value || "",
-      name: subcategory?.value || ""
+      name: subcategory?.value || "",
     };
 
     const formData = new FormData();
@@ -79,13 +81,18 @@ const NewListing = () => {
     }
 
     try {
-      const response = await axios.post(`${API_BASE_URL}/restaurant/AddFoodItem`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data"
+      const response = await axios.post(
+        `${API_BASE_URL}/restaurant/AddFoodItem`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         }
-      });
+      );
       if (response.status === 200) {
         FetchBID();
+        CheckNext();
       }
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -105,7 +112,7 @@ const NewListing = () => {
           <Col md={6}>
             <Form onSubmit={handleSubmit} style={{ color: "red" }}>
               {next === 0 && <NewListingCategory />}
-              
+
               {next === 1 && (
                 <>
                   <Form.Group controlId="formDescription">
@@ -170,7 +177,7 @@ const NewListing = () => {
                 <>
                   <Form.Group controlId="formBasicDisease" className="p-3">
                     <Row className="fs-5 container text-danger">
-                      Select All Diseases That this item contains?
+                      Select All diseases that this item can handle?
                     </Row>
                     <Row className="fs-5 text-danger">
                       <select multiple={true} onChange={handleSelectChange}>
@@ -180,7 +187,7 @@ const NewListing = () => {
                         <option value="gluten">Gluten</option>
                       </select>
                     </Row>
-                    
+
                     <Row>
                       {selectedOptions.map((option, index) => (
                         <Breadcrumb key={index}>{option}</Breadcrumb>
