@@ -4,11 +4,14 @@ const FilterContext = createContext();
 
 export const FilterProvider = ({ children }) => {
   const [filterType, setFilterType] = useState(false);
-  const [rating, setRating] = useState(0.1);
+  const [rating, setRating] = useState(0);
   const [min, setMin] = useState(0);
   const [max, setMax] = useState(1000);
   const [foodData, setFoodData] = useState([]);
 
+  const ResetFilter = () => {
+    setFoodData([]);
+  };
   const ApplyFilter = () => {
     setFoodData([]);
     fetch(
@@ -43,6 +46,7 @@ export const FilterProvider = ({ children }) => {
         setRating,
         setMin,
         setMax,
+        ResetFilter,
       }}
     >
       {children}

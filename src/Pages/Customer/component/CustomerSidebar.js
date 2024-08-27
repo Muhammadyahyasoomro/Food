@@ -17,6 +17,7 @@ const CustomerSidebar = ({ isOpen, toggleSidebar }) => {
     setMin,
     max,
     setMax,
+    ResetFilter,
   } = useFilter();
 
   const renderStars = (count) => {
@@ -33,6 +34,8 @@ const CustomerSidebar = ({ isOpen, toggleSidebar }) => {
     setRating(null);
     setMin("");
     setMax("");
+    ResetFilter();
+    toggleSidebar();
   };
 
   const handleApplyFilters = () => {
@@ -41,6 +44,7 @@ const CustomerSidebar = ({ isOpen, toggleSidebar }) => {
     console.log("Max Value:", max);
     console.log("Type Value:", filterType);
     console.log("Rating:", rating);
+    toggleSidebar();
   };
 
   return (

@@ -20,14 +20,14 @@ import {
 import Navbarcustomer from "./component/NavbarCustomer";
 
 export default function DailyScheduler() {
-  const {theme}=useTheme();
+  const { theme } = useTheme();
   const { state: { CartList = [] } = {} } = useLocation();
   const [lunchItems, setLunchItems] = useState([]);
   const [dinnerItems, setDinnerItems] = useState([]);
   const [breakfastItems, setBreakfastItems] = useState([]);
-  const [lunchTime, setLunchTime] = useState("");
-  const [dinnerTime, setDinnerTime] = useState("");
-  const [breakfastTime, setBreakfastTime] = useState("");
+  const [lunchTime, setLunchTime] = useState("12:30");
+  const [dinnerTime, setDinnerTime] = useState("20:50");
+  const [breakfastTime, setBreakfastTime] = useState("08:00");
   const [endDate, setEndDate] = useState("");
   const [tabIndex, setTabIndex] = useState(0);
   const [openDialog, setOpenDialog] = useState(false); // State for dialog
@@ -173,38 +173,103 @@ export default function DailyScheduler() {
   return (
     <>
       <Navbarcustomer />
-      <Box sx={{ width: "100%", typography: "body1" }} style={{backgroundColor:theme==="light"?"white":"black  "}}>
-        <Tabs value={tabIndex} style={{ marginTop:"1rem",marginLeft:"23rem",marginRight:"23rem",backgroundColor:theme==="light"?"white":"black  "}} onChange={handleChangeTab}>
-          <Tab style={{color:theme==="light"?"black":"red",backgroundColor:theme==="light"?"white":"black",letterSpacing:".3rem",fontSize:"1.4rem",fontFamily:"cursive",marginRight:".3rem"}} label="Lunch" />
-          <Tab style={{color:theme==="light"?"black":"red",backgroundColor:theme==="light"?"white":"black",letterSpacing:".3rem",fontSize:"1.4rem",fontFamily:"cursive",marginRight:".3rem"}} label="Dinner" />
-          <Tab style={{color:theme==="light"?"black":"red",backgroundColor:theme==="light"?"white":"black",letterSpacing:".3rem",fontSize:"1.4rem",fontFamily:"cursive",marginRight:".3rem"}} label="Breakfast" />
+      <Box
+        sx={{ width: "100%", typography: "body1" }}
+        style={{ backgroundColor: theme === "light" ? "white" : "black  " }}
+      >
+        <Tabs
+          value={tabIndex}
+          style={{
+            marginTop: "1rem",
+            marginLeft: "23rem",
+            marginRight: "23rem",
+            backgroundColor: theme === "light" ? "white" : "black  ",
+          }}
+          onChange={handleChangeTab}
+        >
+          <Tab
+            style={{
+              color: theme === "light" ? "black" : "red",
+              backgroundColor: theme === "light" ? "white" : "black",
+              letterSpacing: ".3rem",
+              fontSize: "1.4rem",
+              fontFamily: "cursive",
+              marginRight: ".3rem",
+            }}
+            label="Lunch"
+          />
+          <Tab
+            style={{
+              color: theme === "light" ? "black" : "red",
+              backgroundColor: theme === "light" ? "white" : "black",
+              letterSpacing: ".3rem",
+              fontSize: "1.4rem",
+              fontFamily: "cursive",
+              marginRight: ".3rem",
+            }}
+            label="Dinner"
+          />
+          <Tab
+            style={{
+              color: theme === "light" ? "black" : "red",
+              backgroundColor: theme === "light" ? "white" : "black",
+              letterSpacing: ".3rem",
+              fontSize: "1.4rem",
+              fontFamily: "cursive",
+              marginRight: ".3rem",
+            }}
+            label="Breakfast"
+          />
         </Tabs>
-        <Box p={5} className="text-center" style={{color:theme==="light"?"black":"red"}}>
-          <Typography variant="h5" component="div" style={{letterSpacing:".3rem",fontFamily:"cursive"}}>
+        <Box
+          p={5}
+          className="text-center"
+          style={{ color: theme === "light" ? "black" : "red" }}
+        >
+          <Typography
+            variant="h5"
+            component="div"
+            style={{ letterSpacing: ".3rem", fontFamily: "cursive" }}
+          >
             {tabIndex === 0 && "Lunch Items"}
             {tabIndex === 1 && "Dinner Items"}
             {tabIndex === 2 && "Breakfast Items"}
           </Typography>
           {getCurrentItems().length > 0 ? (
             <>
-              <Table className="card container " style={{backgroundColor:theme==="light"?"white":"black"}} >
+              <Table
+                className="card container "
+                style={{
+                  backgroundColor: theme === "light" ? "white" : "black",
+                }}
+              >
                 <TableHead className="">
-                  <TableRow  >
+                  <TableRow>
                     <TableCell></TableCell>
                     <TableCell></TableCell>
                     <TableCell>
                       {" "}
-                      <Box sx={{ marginTop: 3 ,color:theme==="light"?"black":"red"}} className="d-flex ">
+                      <Box
+                        sx={{
+                          marginTop: 3,
+                          color: theme === "light" ? "black" : "red",
+                        }}
+                        className="d-flex "
+                      >
                         <Typography variant="body1" className="fs-5 mx-1">
                           Select Time
                         </Typography>
                         <input
-                        style={{color:theme==="light"?"black":"red",backgroundColor:theme==="light"?"white":"black",}}
+                          style={{
+                            color: theme === "light" ? "black" : "red",
+                            backgroundColor:
+                              theme === "light" ? "white" : "black",
+                          }}
                           type="time"
                           value={
                             tabIndex === 0
                               ? lunchTime
-                              : tabIndex === 1  
+                              : tabIndex === 1
                               ? dinnerTime
                               : breakfastTime
                           }
@@ -218,24 +283,48 @@ export default function DailyScheduler() {
                       </Box>
                     </TableCell>
                   </TableRow>
-                  <TableRow >
+                  <TableRow>
                     <TableCell
-                      sx={{ padding: "16px 44px", fontWeight: "bold",fontSize:"1.2rem",fontFamily:"cursive",color:theme==="light"?"black":"red" }}
+                      sx={{
+                        padding: "16px 44px",
+                        fontWeight: "bold",
+                        fontSize: "1.2rem",
+                        fontFamily: "cursive",
+                        color: theme === "light" ? "black" : "red",
+                      }}
                     >
                       Image
                     </TableCell>
                     <TableCell
-                      sx={{ padding: "16px 24px", fontWeight: "bold",color:theme==="light"?"black":"red",fontSize:"1.2rem",fontFamily:"cursive", }}
+                      sx={{
+                        padding: "16px 24px",
+                        fontWeight: "bold",
+                        color: theme === "light" ? "black" : "red",
+                        fontSize: "1.2rem",
+                        fontFamily: "cursive",
+                      }}
                     >
                       Item
                     </TableCell>
                     <TableCell
-                      sx={{ padding: "16px 24px", fontWeight: "bold",color:theme==="light"?"black":"red",fontSize:"1.2rem",fontFamily:"cursive", }}
+                      sx={{
+                        padding: "16px 24px",
+                        fontWeight: "bold",
+                        color: theme === "light" ? "black" : "red",
+                        fontSize: "1.2rem",
+                        fontFamily: "cursive",
+                      }}
                     >
                       Quantity
                     </TableCell>
                     <TableCell
-                      sx={{ padding: "16px 24px", fontWeight: "bold",color:theme==="light"?"black":"red",fontSize:"1.2rem",fontFamily:"cursive", }}
+                      sx={{
+                        padding: "16px 24px",
+                        fontWeight: "bold",
+                        color: theme === "light" ? "black" : "red",
+                        fontSize: "1.2rem",
+                        fontFamily: "cursive",
+                      }}
                     >
                       Actions
                     </TableCell>
@@ -244,14 +333,29 @@ export default function DailyScheduler() {
                 <TableBody>
                   {getCurrentItems().map((item, index) => (
                     <TableRow key={index}>
-                      <TableCell sx={{ padding: "16px 44px" ,color:theme==="light"?"black":"red"}}>
-                      <img className="rounded-5 border border-2 border-danger" style={{width:"60px", height:"60px"}} src={`http://localhost/WebApplication2/content/FoodItems/${item.Image}` } alt="Food Item" />
-
+                      <TableCell
+                        sx={{
+                          padding: "16px 44px",
+                          color: theme === "light" ? "black" : "red",
+                        }}
+                      >
+                        <img
+                          className="rounded-5 border border-2 border-danger"
+                          style={{ width: "60px", height: "60px" }}
+                          src={`http://localhost/WebApplication2/content/FoodItems/${item.Image}`}
+                          alt="Food Item"
+                        />
                       </TableCell>
-                      <TableCell className="text-capitalize fs-5 " style={{fontFamily:"cursive"}} sx={{color:theme==="light"?"black":"red"}}>
+                      <TableCell
+                        className="text-capitalize fs-5 "
+                        style={{ fontFamily: "cursive" }}
+                        sx={{ color: theme === "light" ? "black" : "red" }}
+                      >
                         {item.Name}
                       </TableCell>
-                      <TableCell sx={{ color:theme==="light"?"black":"red" }}>
+                      <TableCell
+                        sx={{ color: theme === "light" ? "black" : "red" }}
+                      >
                         <Box display="flex" alignItems="center">
                           <Button
                             variant="contained"
@@ -293,7 +397,7 @@ export default function DailyScheduler() {
                           </Button>
                         </Box>
                       </TableCell>
-                      <TableCell sx={{  }}>
+                      <TableCell sx={{}}>
                         <Button
                           variant="contained"
                           onClick={() => handleDeleteItem(index)}
