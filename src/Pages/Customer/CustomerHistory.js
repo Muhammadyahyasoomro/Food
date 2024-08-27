@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from "react";
 import Navbarcustomer from "../Customer/component/NavbarCustomer";
 import PopupCard from "./component/PopupCard";
+import { StarFill, Star } from "react-bootstrap-icons"; // Import filled and empty stars
+
 export default function CustomerHistory() {
   const [history, setHistory] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
+  const [foodItemId, setFoodItemId] = useState();
+  const [rating, setRating] = useState();
+
   const handleClosePopup = () => {
     setShowPopup(false);
   };
-  const [foodItemId, setFoodItemId] = useState();
 
   const handleShowPopup = () => {
     setShowPopup(true);
   };
+
   useEffect(() => {
     fetch(
       `http://localhost/WebApplication2/api/customer/customerhistory?c_id=${localStorage.getItem(
@@ -25,8 +30,43 @@ export default function CustomerHistory() {
       .then((data) => setHistory(data));
   }, []);
 
-  const handleOrderAgain = (orderId) => {
-    // Implement the re-order logic here
+  const RateOrder = (id, rating) => {
+    fetch(
+      `http://localhost/WebApplication2/api/Customer/RateOrder?id=${id}&rating=${rating}`,
+      { method: "POST" }
+    )
+      .then((response) => {
+        if (response.status === 200) {
+          alert("Order rated successfully!");
+        } else if (response.status === 400) {
+          return response.text().then((message) => {
+            alert(message);
+          });
+        } else if (response.status === 500) {
+          return response.text().then((message) => {
+            alert("Internal server error: " + message);
+          });
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        alert("An unexpected error occurred.");
+      });
+  };
+
+  const renderStars = (rating) => {
+    const totalStars = 5;
+    return (
+      <div>
+        {[...Array(totalStars)].map((_, i) =>
+          i < rating ? (
+            <StarFill key={i} className="text-warning" />
+          ) : (
+            <Star key={i} className="text-muted" />
+          )
+        )}
+      </div>
+    );
   };
 
   return (
@@ -61,13 +101,14 @@ export default function CustomerHistory() {
                           ? `Cancelled on ${order.OrderDate}`
                           : `Delivered on ${order.OrderDate}`}
                       </p>
+                      {renderStars(order.Rating)} {/* Display the rating */}
                     </div>
                   </div>
                   <div className="text-end">
                     <h5 className="fw-bold">Rs. {order.Price}</h5>
                     <button
                       className={`btn ${
-                        order.Status === "Cancelled"
+                        order.Status === "cancelled"
                           ? "btn-secondary"
                           : "btn-danger"
                       } mt-2`}
