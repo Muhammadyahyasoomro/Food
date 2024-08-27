@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
 import { NavbarHome } from "../Restaurant/components/NavbarHome";
 import { useNavigate } from "react-router-dom";
+import Navbarcustomer from "./component/NavbarCustomer";
 
 export default function UpdateDisease() {
   const [selectedOptions, setSelectedOptions] = useState([]); // State to keep track of selected options
@@ -72,7 +73,7 @@ export default function UpdateDisease() {
 
   return (
     <>
-      <NavbarHome />
+      <Navbarcustomer />
       <div className="bg-danger container-md">
         <Form>
           <Form.Group controlId="formBasicDisease" className="p-3">
@@ -81,7 +82,11 @@ export default function UpdateDisease() {
             </Row>
             <Row>
               {/* Dropdown list for selecting multiple diseases */}
-              <select multiple={true} onChange={handleSelectChange} value={selectedOptions}>
+              <select
+                multiple={true}
+                onChange={handleSelectChange}
+                value={selectedOptions}
+              >
                 <option value="lactose">Lactose</option>
                 <option value="sugar">Sugar</option>
                 <option value="bp">Blood Pressure</option>
