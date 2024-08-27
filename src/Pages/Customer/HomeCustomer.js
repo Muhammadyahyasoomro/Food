@@ -20,7 +20,7 @@ export default function HomeCustomer() {
   const [searchedItems, setSearchedItems] = useState([]);
 
   const navigate = useNavigate();
-
+  console.log("rating", rating);
   useEffect(() => {
     if (localStorage.getItem("emailCustomer") == null) {
       navigate("/");
@@ -31,21 +31,26 @@ export default function HomeCustomer() {
     <Row xs={2} md={4} lg={6} className="g-3">
       {rating > 0
         ? foodlist
-            .filter((item) => item.foodRating >= rating)
-            .map((item, index) => (
-              <Col key={index}>
-                <FoodCard
-                  imageUrl={`http://localhost/webapplication2/Content/FoodItems/${item.f_image}`}
-                  rating={item.foodRating}
-                  title={item.name}
-                  type={item.res_type}
-                  price={item.Price}
-                  bid={item.id}
-                  restaurantname={item.RestName}
-                />
-                {item.res_type}
-              </Col>
-            ))
+            .filter((item) => item.foodRating >= rating - 1)
+            .map(
+              (item, index) => (
+                console.log("item", item),
+                (
+                  <Col key={index}>
+                    <FoodCard
+                      imageUrl={`http://localhost/webapplication2/Content/FoodItems/${item.f_image}`}
+                      rating={item.foodRating}
+                      title={item.name}
+                      type={item.res_type}
+                      price={item.Price}
+                      bid={item.id}
+                      restaurantname={item.RestName}
+                    />
+                    {item.res_type}
+                  </Col>
+                )
+              )
+            )
         : foodlist.map((item, index) => (
             <Col key={index}>
               <FoodCard
