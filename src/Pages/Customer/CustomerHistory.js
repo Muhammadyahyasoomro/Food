@@ -2,20 +2,16 @@ import React, { useEffect, useState } from "react";
 import Navbarcustomer from "../Customer/component/NavbarCustomer";
 import PopupCard from "./component/PopupCard";
 import { StarFill, Star } from "react-bootstrap-icons"; // Import filled and empty stars
+import { Modal, ModalBody, ModalHeader, Button } from "react-bootstrap"; // Ensure all necessary components are imported
 
 export default function CustomerHistory() {
   const [history, setHistory] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
   const [foodItemId, setFoodItemId] = useState();
   const [rating, setRating] = useState();
-
-  const handleClosePopup = () => {
-    setShowPopup(false);
-  };
-
-  const handleShowPopup = () => {
-    setShowPopup(true);
-  };
+  const [ModelRate, SetModelRate] = useState(false); // State to manage modal visibility
+  const [hover, setHover] = useState(0);
+  const [id, setid] = useState();
 
   useEffect(() => {
     fetch(
@@ -30,7 +26,15 @@ export default function CustomerHistory() {
       .then((data) => setHistory(data));
   }, []);
 
-  const RateOrder = (id, rating) => {
+  const handleClosePopup = () => {
+    setShowPopup(false);
+  };
+
+  const handleShowPopup = () => {
+    setShowPopup(true);
+  };
+
+  const handleRateOrder = (id, rating) => {
     fetch(
       `http://localhost/WebApplication2/api/Customer/RateOrder?id=${id}&rating=${rating}`,
       { method: "POST" }
@@ -38,6 +42,9 @@ export default function CustomerHistory() {
       .then((response) => {
         if (response.status === 200) {
           alert("Order rated successfully!");
+
+          SetModelRate(false); // Close the modal after successful rating
+          window.location.reload();
         } else if (response.status === 400) {
           return response.text().then((message) => {
             alert(message);
@@ -98,10 +105,23 @@ export default function CustomerHistory() {
                       <p className="card-text">{order.FoodName}</p>
                       <p className="card-text text-muted">
                         {order.Status === "cancelled"
-                          ? `Cancelled on ${order.OrderDate}`
-                          : `Delivered on ${order.OrderDate}`}
+                          ? `${order.Status} on ${order.OrderDate}`
+                          : `${order.Status} on ${order.OrderDate}`}
                       </p>
-                      {renderStars(order.Rating)} {/* Display the rating */}
+                      {!order.Rating && order.Status === "delivered" ? (
+                        <button
+                          className="btn btn-outline-danger rounded-3 "
+                          onClick={() => {
+                            setid(order.OrderNumber);
+                            SetModelRate(true); // Show the rating modal
+                          }}
+                        >
+                          Rate FoodItem
+                        </button>
+                      ) : (
+                        <>{renderStars(order.Rating)}</>
+                      )}
+                      {/* Display the rating */}
                     </div>
                   </div>
                   <div className="text-end">
@@ -135,6 +155,36 @@ export default function CustomerHistory() {
             onHide={handleClosePopup}
           />
         )}
+        {/* Rating Modal */}
+        <Modal show={ModelRate} onHide={() => SetModelRate(false)}>
+          <ModalHeader closeButton>How would you rate this Item?</ModalHeader>
+          <ModalBody>
+            {[1, 2, 3, 4, 5].map((num) => (
+              <button
+                key={num}
+                onClick={() => setRating(num)}
+                onMouseOver={() => setHover(num)}
+                onMouseLeave={() => setHover(rating)}
+                style={{
+                  background: "none",
+                  border: "none",
+                  cursor: "pointer",
+                  fontSize: "1.5rem",
+                  color: num <= (hover || rating) ? "gold" : "gray",
+                }}
+              >
+                &#9733;
+              </button>
+            ))}
+            <Button
+              variant="primary"
+              onClick={() => handleRateOrder(id, rating)}
+              className="mt-3"
+            >
+              Submit Rating
+            </Button>
+          </ModalBody>
+        </Modal>
       </div>
     </>
   );
