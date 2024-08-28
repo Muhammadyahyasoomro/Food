@@ -136,7 +136,7 @@ export default function CustomerHistory() {
                         setFoodItemId(order.foodItemId);
                         handleShowPopup();
                       }}
-                      disabled={order.Status === "cancelled"}
+                      disabled={order.Status != "delivered"}
                     >
                       Select items to reorder
                     </button>
