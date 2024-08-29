@@ -14,7 +14,7 @@ import { useHealth } from "../../context/HealthContext";
 
 export default function HomeCustomer() {
   const { isHealthyMode } = useHealth();
-  const { foodData, rating } = useFilter();
+  const { foodData, ResetFilter, rating } = useFilter();
   const API_BASE_URL = `http://localhost/WebApplication2/api`;
   const { search, setSearch } = useSearch("null");
   const [searchedItems, setSearchedItems] = useState([]);
@@ -76,6 +76,7 @@ export default function HomeCustomer() {
       );
       const json = await response.json();
       setSearchedItems(json);
+      ResetFilter();
 
       console.log(json);
     } catch (error) {
