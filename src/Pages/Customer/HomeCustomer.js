@@ -112,8 +112,9 @@ export default function HomeCustomer() {
                     rating={Item.foodRating}
                     title={Item.name}
                     type={Item.res_type}
-                    price={Item.min_price}
+                    price={Item.price}
                     fooddetail_id={Item.id}
+                    restaurantname={Item.resName}
                   />
                 </div>
               ))}
