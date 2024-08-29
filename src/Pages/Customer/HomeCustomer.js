@@ -43,7 +43,7 @@ export default function HomeCustomer() {
                       title={item.name}
                       type={item.res_type}
                       price={item.Price}
-                      bid={item.id}
+                      fooddetail_id={item.FoodItemid}
                       restaurantname={item.RestName}
                       isHealthy={isHealthyMode}
                     />
@@ -60,7 +60,7 @@ export default function HomeCustomer() {
                 title={item.name}
                 type={item.res_type}
                 price={item.Price}
-                bid={item.id}
+                fooddetail_id={item.FoodItemid}
                 restaurantname={item.RestName}
                 isHealthy={isHealthyMode}
               />
