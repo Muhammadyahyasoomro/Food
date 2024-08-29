@@ -21,6 +21,7 @@ export default function UpdateDisease() {
     ).then((response) => {
       if (response.status === 200) {
         console.log("Updated successfully");
+        localStorage.setItem("disease", selectedOptions.join(","));
         navigate(`/HomeCustomer`); // Navigate to customer home page after successful update
       }
     });
