@@ -27,7 +27,6 @@ export default function Earnings(props) {
           />
           <EarningAttribute
             attributeHeader="Earning"
-           
             attributeValue={props.data.Earning}
           />
           <EarningAttribute

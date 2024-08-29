@@ -1,11 +1,13 @@
 import React from "react";
 import "./Earned.css";
+import { useTheme } from "@emotion/react";
 export default function EarningAttribute(props) {
+  const { theme } = useTheme();
   return (
     <div
       className="Rides"
       style={{
-        backgroundColor: "#13DA84",
+        backgroundColor: theme === "light" ? "grey" : "grey",
         width: "9rem",
         borderRadius: 5,
         textAlign: "center",
@@ -17,7 +19,9 @@ export default function EarningAttribute(props) {
       <div
         style={{ backgroundColor: "black", border: "none", borderRadius: 5 }}
       >
-        <h6>{props.attributeValue}</h6>
+        <h6 style={{ color: theme === "light" ? "black" : "white" }}>
+          {props.attributeValue}
+        </h6>
       </div>
     </div>
   );
