@@ -45,6 +45,7 @@ export default function HomeCustomer() {
                       price={item.Price}
                       bid={item.id}
                       restaurantname={item.RestName}
+                      isHealthy={isHealthyMode}
                     />
                     {item.res_type}
                   </Col>
@@ -61,6 +62,7 @@ export default function HomeCustomer() {
                 price={item.Price}
                 bid={item.id}
                 restaurantname={item.RestName}
+                isHealthy={isHealthyMode}
               />
             </Col>
           ))}
