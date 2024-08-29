@@ -112,7 +112,7 @@ export default function CustomerHistory() {
                         <button
                           className="btn btn-outline-danger rounded-3 "
                           onClick={() => {
-                            setid(order.OrderNumber);
+                            setid(order.OrderDetailId);
                             SetModelRate(true); // Show the rating modal
                           }}
                         >
