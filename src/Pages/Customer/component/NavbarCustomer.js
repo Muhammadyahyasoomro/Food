@@ -8,10 +8,12 @@ import toggle from "../../../Components/assets/rider/toggle.png";
 import { useTheme } from "../../../context/ThemeContext";
 import { useSearch } from "../../../context/SearchContext";
 import { useHealth } from "../../../context/HealthContext";
+import { useFilter } from "../../../context/FilterContext";
 export default function Navbarcustomer() {
   const { isHealthyMode, toggleHealth } = useHealth();
   const { setSearch } = useSearch();
   const { theme, toggleTheme } = useTheme();
+  const { ResetFilter } = useFilter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const Navigate = useNavigate();
@@ -20,6 +22,7 @@ export default function Navbarcustomer() {
     setSidebarOpen(!sidebarOpen);
   };
   const toggleHealthMode = () => {
+    ResetFilter();
     toggleHealth();
   };
 
