@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Navbarcustomer from "../Customer/component/NavbarCustomer";
 import PopupCard from "./component/PopupCard";
 import { StarFill, Star } from "react-bootstrap-icons"; // Import filled and empty stars
-import { Modal, ModalBody, ModalHeader, Button } from "react-bootstrap"; // Ensure all necessary components are imported
+import { Modal, ModalBody, ModalHeader, Button, Col } from "react-bootstrap"; // Ensure all necessary components are imported
 
 export default function CustomerHistory() {
   const [history, setHistory] = useState([]);
@@ -37,6 +37,33 @@ export default function CustomerHistory() {
   const handleRateOrder = (id, rating) => {
     fetch(
       `http://localhost/WebApplication2/api/Customer/RateOrder?id=${id}&rating=${rating}`,
+      { method: "POST" }
+    )
+      .then((response) => {
+        if (response.status === 200) {
+          alert("Order rated successfully!");
+
+          SetModelRate(false); // Close the modal after successful rating
+          window.location.reload();
+        } else if (response.status === 400) {
+          return response.text().then((message) => {
+            alert(message);
+          });
+        } else if (response.status === 500) {
+          return response.text().then((message) => {
+            alert("Internal server error: " + message);
+          });
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        alert("An unexpected error occurred.");
+      });
+  };
+
+  const handleRateRider = (id, rating) => {
+    fetch(
+      `http://localhost/WebApplication2/api/Customer/RateRider?id=${id}&rating=${rating}`,
       { method: "POST" }
     )
       .then((response) => {
@@ -119,7 +146,30 @@ export default function CustomerHistory() {
                           Rate FoodItem
                         </button>
                       ) : (
-                        <>{renderStars(order.Rating)}</>
+                        <>
+                          <div className="d-flex mx-2">
+                            <Col>Order Rating</Col>{" "}
+                            <Col>{renderStars(order.Rating)}</Col>
+                          </div>
+                        </>
+                      )}
+                      {!order.RiderRating && order.Status === "delivered" ? (
+                        <button
+                          className="btn btn-outline-warning rounded-3 "
+                          onClick={() => {
+                            setid(order.OrderNumber);
+                            SetModelRate(true); // Show the rating modal
+                          }}
+                        >
+                          Rate Rider
+                        </button>
+                      ) : (
+                        <>
+                          <div className="d-flex mx-2">
+                            <Col>Rider Rating</Col>{" "}
+                            <Col>{renderStars(order.RiderRating)}</Col>
+                          </div>
+                        </>
                       )}
                       {/* Display the rating */}
                     </div>
