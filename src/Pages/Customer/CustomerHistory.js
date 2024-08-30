@@ -24,7 +24,10 @@ export default function CustomerHistory() {
       }
     )
       .then((response) => response.json())
-      .then((data) => setHistory(data));
+      .then((data) =>
+        //sort by descending order data.sort((a, b) => b.OrderNumber - a.OrderNumber)
+        setHistory(data.sort((a, b) => b.OrderNumber - a.OrderNumber))
+      );
   }, []);
 
   const handleClosePopup = () => {
