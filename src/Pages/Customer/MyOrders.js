@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Tabs,
   Tab,
@@ -10,83 +10,100 @@ import {
   Modal,
   Table,
 } from "react-bootstrap";
-import { Trash, Pencil } from "react-bootstrap-icons";
+import { Trash } from "react-bootstrap-icons";
 import Navbarcustomer from "./component/NavbarCustomer";
 import { useNavigate } from "react-router-dom";
+import L from "leaflet";
+import "leaflet-routing-machine";
 
 const MyOrders = () => {
   const [orders, setOrders] = useState([]);
   const [scheduleOrders, setScheduleOrders] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [modalInfo, setModalInfo] = useState({ action: "", id: null });
-  const [orderDetails, setOrderDetails] = useState(null); // Order details state
-  const [showDetailsModal, setShowDetailsModal] = useState(false); // Details modal state
-  const [detailsError, setDetailsError] = useState(""); // Error state for details fetch
+  const [orderDetails, setOrderDetails] = useState(null);
+  const [showDetailsModal, setShowDetailsModal] = useState(false);
+  const [detailsError, setDetailsError] = useState("");
+  const [showMapModal, setShowMapModal] = useState(false);
+  const [mapData, setMapData] = useState(null);
+  const mapRef = useRef(null); // Ref for map container
 
   useEffect(() => {
+    // Fetch orders on component mount
+    fetchOrders();
+    fetchScheduledOrders();
+  }, []);
+
+  const fetchOrders = () => {
     fetch(
       `http://localhost/WebApplication2/api/customer/GetMySimpleOrder?customer_ID=${localStorage.getItem(
         "c_id"
       )}`
     )
       .then((response) => response.json())
-      .then((data) => {
-        setOrders(data);
-      })
+      .then((data) => setOrders(data))
       .catch((error) => console.error("Error fetching orders:", error));
+  };
 
+  const fetchScheduledOrders = () => {
     fetch(
       `http://localhost/WebApplication2/api/Customer/GetAllJobs?Customer_id=${localStorage.getItem(
         "c_id"
       )}`
     )
       .then((response) => response.json())
-      .then((data) => {
-        setScheduleOrders(data);
-      })
+      .then((data) => setScheduleOrders(data))
       .catch((error) =>
-        console.error("Error fetching schedule orders:", error)
+        console.error("Error fetching scheduled orders:", error)
       );
-  }, []);
+  };
 
-  // Open modal with specific action and id
-  const Navigate = useNavigate();
+  const navigate = useNavigate();
+
   const openModal = (action, id) => {
     setModalInfo({ action, id });
     setShowModal(true);
   };
 
-  const trackOrder = () => {};
-
-  // Close modal
   const closeModal = () => setShowModal(false);
 
-  // Fetch order details and show in modal
   const handleOrderDetails = (orderId) => {
     fetch(
       `http://localhost/WebApplication2/api/customer/GetMyOrderDetails?oid=${orderId}`
     )
       .then((response) => {
-        if (!response.ok) {
-          throw new Error("Failed to fetch order details");
-        }
+        if (!response.ok) throw new Error("Failed to fetch order details");
         return response.json();
       })
       .then((data) => {
         setOrderDetails(data);
         setDetailsError("");
-        setShowDetailsModal(true); // Show the details modal
+        setShowDetailsModal(true);
       })
       .catch((error) => {
         console.error("Error fetching order details:", error);
         setDetailsError(
           "Failed to load order details. Please try again later."
         );
-        setShowDetailsModal(true); // Show the details modal
+        setShowDetailsModal(true);
       });
   };
 
-  // Handle cancel order action
+  const trackOrder = (orderId) => {
+    fetch(
+      `http://localhost/WebApplication2/api/Customer/GetMapDetails?orderId=${orderId}`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setMapData(data);
+        setShowMapModal(true);
+      })
+      .catch((error) => {
+        console.error("Error fetching map details:", error);
+        alert("Failed to load map details.");
+      });
+  };
+
   const handleCancelOrder = () => {
     const { id } = modalInfo;
     fetch(
@@ -112,7 +129,6 @@ const MyOrders = () => {
     closeModal();
   };
 
-  // Handle delete schedule action
   const handleDeleteSchedule = () => {
     const { id } = modalInfo;
     fetch(
@@ -138,6 +154,44 @@ const MyOrders = () => {
     closeModal();
   };
 
+  // Function to initialize and display the Leaflet map
+  const renderMap = () => {
+    if (!mapRef.current || !mapData) return;
+
+    // Clear previous map instance
+    mapRef.current.innerHTML = "";
+
+    // Initialize the map
+    const map = L.map(mapRef.current).setView(
+      [mapData.Customerdata.latitude, mapData.Customerdata.longitude],
+      13
+    );
+
+    // Add a tile layer to the map
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 19,
+      attribution: "© OpenStreetMap",
+    }).addTo(map);
+
+    // Add routing to display the path
+    L.Routing.control({
+      waypoints: [
+        L.latLng(mapData.Customerdata.latitude, mapData.Customerdata.longitude),
+        L.latLng(mapData.riderdata.latitude, mapData.riderdata.longitude),
+      ],
+      lineOptions: {
+        styles: [{ color: "green", weight: 5 }],
+      },
+      show: false,
+      routeWhileDragging: true,
+      createMarker: () => null, // No markers
+    }).addTo(map);
+  };
+
+  useEffect(() => {
+    if (showMapModal) renderMap();
+  }, [showMapModal, mapData]);
+
   return (
     <>
       <Navbarcustomer />
@@ -155,7 +209,7 @@ const MyOrders = () => {
                   <Col sm={12} md={6} lg={4} key={order.id} className="mb-3">
                     <Card>
                       <Card.Body>
-                        <Card.Title className="">Order </Card.Title>
+                        <Card.Title>Order</Card.Title>
                         <Card.Text>Status: {order.status}</Card.Text>
                         <Card.Text>Time Left: {order.TimeLeft}</Card.Text>
                         <Button
@@ -165,7 +219,7 @@ const MyOrders = () => {
                         >
                           Cancel Order
                         </Button>
-                        {order.status === "accepted" && (
+                        {order.status === "pickedup" && (
                           <Button
                             variant="primary"
                             onClick={() => trackOrder(order.id)}
@@ -217,29 +271,22 @@ const MyOrders = () => {
                             </tr>
                             <tr>
                               <td>
-                                <strong>Day:</strong>
+                                <strong>End Date:</strong>
                               </td>
-                              <td>{schedule.Day}</td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <strong>Start Time:</strong>
-                              </td>
-                              <td>{schedule["Start Time"]}</td>
+                              <td>{schedule["End Date"]}</td>
                             </tr>
                           </tbody>
                         </Table>
-                        <div className="d-flex justify-content-between">
-                          <Button
-                            variant="danger"
-                            className="me-2"
-                            onClick={() =>
-                              openModal("deleteSchedule", schedule["Job Name"])
-                            }
-                          >
-                            <Trash /> Delete
-                          </Button>
-                        </div>
+                        <Button
+                          variant="danger"
+                          className="me-2"
+                          onClick={() =>
+                            openModal("deleteSchedule", schedule["Job Name"])
+                          }
+                        >
+                          Delete Schedule
+                          <Trash className="ms-1" />
+                        </Button>
                       </Card.Body>
                     </Card>
                   </Col>
@@ -249,18 +296,21 @@ const MyOrders = () => {
         </Tabs>
       </Container>
 
-      {/* Modal for confirming actions */}
-      <Modal show={showModal} onHide={closeModal}>
+      {/* Modal for Confirming Cancel/Delete */}
+      <Modal show={showModal} onHide={closeModal} centered>
         <Modal.Header closeButton>
-          <Modal.Title>Confirm Action</Modal.Title>
+          <Modal.Title>
+            {modalInfo.action === "cancelOrder"
+              ? "Confirm Cancel Order"
+              : "Confirm Delete Schedule"}
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {modalInfo.action === "cancelOrder" && (
-            <p>Are you sure you want to cancel order {modalInfo.id}?</p>
-          )}
-          {modalInfo.action === "deleteSchedule" && (
-            <p>Are you sure you want to delete schedule {modalInfo.id}?</p>
-          )}
+          Are you sure you want to{" "}
+          {modalInfo.action === "cancelOrder"
+            ? "cancel this order"
+            : "delete this schedule"}
+          ?
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={closeModal}>
@@ -274,46 +324,32 @@ const MyOrders = () => {
                 : handleDeleteSchedule
             }
           >
-            Confirm
+            {modalInfo.action === "cancelOrder"
+              ? "Cancel Order"
+              : "Delete Schedule"}
           </Button>
         </Modal.Footer>
       </Modal>
 
-      {/* Modal for order details */}
+      {/* Modal for Order Details */}
       <Modal
         show={showDetailsModal}
         onHide={() => setShowDetailsModal(false)}
-        size="lg"
+        centered
       >
         <Modal.Header closeButton>
           <Modal.Title>Order Details</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {detailsError ? (
-            <p className="text-danger">{detailsError}</p>
+            <p>{detailsError}</p>
           ) : orderDetails ? (
-            <Table striped bordered hover>
-              <thead>
-                <tr>
-                  <th>Item Name</th>
-                  <th>Quantity</th>
-                  <th>Price</th>
-                  <th>Image</th>
-                </tr>
-              </thead>
+            <Table striped bordered hover size="sm">
               <tbody>
-                {orderDetails.map((item) => (
-                  <tr key={item.ItemId}>
-                    <td>{item.Name}</td>
-                    <td>{item.Quantity}</td>
-                    <td>{item.Price}</td>
-                    <td>
-                      <img
-                        src={`http://localhost/WebApplication2/Content/FoodItem/${item.Image}`}
-                        alt={item.Name}
-                        style={{ width: "100px" }}
-                      />
-                    </td>
+                {Object.entries(orderDetails).map(([key, value], index) => (
+                  <tr key={index}>
+                    <td>{key}</td>
+                    <td>{value}</td>
                   </tr>
                 ))}
               </tbody>
@@ -327,6 +363,30 @@ const MyOrders = () => {
             variant="secondary"
             onClick={() => setShowDetailsModal(false)}
           >
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      {/* Map Modal */}
+      <Modal
+        show={showMapModal}
+        onHide={() => setShowMapModal(false)}
+        size="lg"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Track Order</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div
+            id="map"
+            style={{ height: "400px", width: "100%" }}
+            ref={mapRef}
+          />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowMapModal(false)}>
             Close
           </Button>
         </Modal.Footer>
