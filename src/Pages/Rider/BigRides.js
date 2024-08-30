@@ -7,7 +7,7 @@ import { Navbar } from "../../Components/Navbar";
 import { useNavigate } from "react-router-dom";
 
 export default function BigRides() {
-  const Navigate=useNavigate();
+  const Navigate = useNavigate();
   const mapRef = useRef(null);
   const mapInstanceRef = useRef(null);
   const routingControlRef = useRef(null);
@@ -22,11 +22,20 @@ export default function BigRides() {
   const [Rides, setRides] = useState([]);
   const [status, setStatus] = useState("not_pickedup");
   const [order, setOrder] = useState();
-useEffect(()=>{
-  fetch(`http://localhost/webapplication2/api/rider/AcceptanceRate?riderId=${localStorage.getItem("riderId")}`,{method:"GET"})
-  .then((response)=>{return response.json()})
-  .then((data)=>{setAcceptanceRate(data)})
-},[])
+  useEffect(() => {
+    fetch(
+      `http://localhost/webapplication2/api/rider/AcceptanceRate?riderId=${localStorage.getItem(
+        "riderId"
+      )}`,
+      { method: "GET" }
+    )
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        setAcceptanceRate(data);
+      });
+  }, []);
   // Function to select a random ride and update the state
   const selectRandomRide = (rides) => {
     if (rides.length > 0) {
@@ -43,13 +52,23 @@ useEffect(()=>{
 
   // Handle decline order
   const handleDeclineOrder = () => {
-    fetch(`http://localhost/WebApplication2/api/rider/RejectRide?riderId=${localStorage.getItem("riderId")}`, { method: "POST" });
+    fetch(
+      `http://localhost/WebApplication2/api/rider/RejectRide?riderId=${localStorage.getItem(
+        "riderId"
+      )}`,
+      { method: "POST" }
+    );
     selectRandomRide(Rides); // Select another ride when the current one is declined
   };
 
   // Get all rides and set random ride data
   useEffect(() => {
-    fetch(`http://localhost/WebApplication2/api/rider/givemerides?riderId=${localStorage.getItem("riderId")}`, { method: "GET" })
+    fetch(
+      `http://localhost/WebApplication2/api/rider/givemerides?riderId=${localStorage.getItem(
+        "riderId"
+      )}`,
+      { method: "GET" }
+    )
       .then((response) => response.json())
       .then((data) => {
         setRides(data);
@@ -79,7 +98,13 @@ useEffect(()=>{
   }, []);
 
   useEffect(() => {
-    if (mapInstanceRef.current && RestaurantLat && RestaurantLong && CustomerLat && CustomerLong) {
+    if (
+      mapInstanceRef.current &&
+      RestaurantLat &&
+      RestaurantLong &&
+      CustomerLat &&
+      CustomerLong
+    ) {
       const map = mapInstanceRef.current;
 
       const restaurantLocation = L.latLng(RestaurantLat, RestaurantLong);
@@ -103,7 +128,10 @@ useEffect(()=>{
         createMarker: (i, waypoint, n) => {
           const markerOptions = {
             icon: L.icon({
-              iconUrl: i === 0 ? "path-to-restaurant-icon.png" : "path-to-customer-icon.png",
+              iconUrl:
+                i === 0
+                  ? "path-to-restaurant-icon.png"
+                  : "path-to-customer-icon.png",
               iconSize: [25, 41],
               iconAnchor: [12, 41],
             }),
@@ -127,14 +155,20 @@ useEffect(()=>{
       const riderLocation = L.latLng(RiderLat, RiderLong);
       const restaurantLocation = L.latLng(RestaurantLat, RestaurantLong);
 
-      if (routingControlRef.current && map.hasLayer(routingControlRef.current)) {
+      if (
+        routingControlRef.current &&
+        map.hasLayer(routingControlRef.current)
+      ) {
         routingControlRef.current.getPlan().setWaypoints([]);
         map.removeControl(routingControlRef.current);
         routingControlRef.current = null;
       }
 
       const routingControl = L.Routing.control({
-        waypoints: status === "pickedup" ? [riderLocation, L.latLng(CustomerLat, CustomerLong)] : [riderLocation, restaurantLocation],
+        waypoints:
+          status === "pickedup"
+            ? [riderLocation, L.latLng(CustomerLat, CustomerLong)]
+            : [riderLocation, restaurantLocation],
         routeWhileDragging: false,
         addWaypoints: false,
         draggableWaypoints: false,
@@ -145,7 +179,10 @@ useEffect(()=>{
         createMarker: (i, waypoint, n) => {
           const markerOptions = {
             icon: L.icon({
-              iconUrl: i === 0 ? "path-to-rider-icon.png" : "path-to-restaurant-icon.png",
+              iconUrl:
+                i === 0
+                  ? "path-to-rider-icon.png"
+                  : "path-to-restaurant-icon.png",
               iconSize: [25, 41],
               iconAnchor: [12, 41],
             }),
@@ -181,79 +218,97 @@ useEffect(()=>{
 
   const handleAcceptOrder = (orderId) => {
     getRiderLocation();
-    fetch(`http://localhost/webapplication2/api/rider/AcceptRide?orderId=${order.id}&riderId=${localStorage.getItem("riderId")}`, { method: "POST" });
+    fetch(
+      `http://localhost/webapplication2/api/rider/AcceptRide?orderId=${
+        order.id
+      }&riderId=${localStorage.getItem("riderId")}`,
+      { method: "POST" }
+    );
     setStatus("accepted");
   };
 
   const handlePickedUp = () => {
     setStatus("pickedup");
-    fetch(`http://localhost/webapplication2/api/rider/PickedUpRide?orderId=${order.id}&riderId=${localStorage.getItem("riderId")}`, { method: "POST" });
+    fetch(
+      `http://localhost/webapplication2/api/rider/PickedUpRide?orderId=${
+        order.id
+      }&riderId=${localStorage.getItem("riderId")}`,
+      { method: "POST" }
+    );
     getRiderLocation();
   };
 
   const handleDelivered = () => {
     setStatus("delivered");
-    fetch(`http://localhost/webapplication2/api/rider/DeliveredRide?orderId=${order.id}&riderId=${localStorage.getItem("riderId")}`, { method: "POST" });
+    fetch(
+      `http://localhost/webapplication2/api/rider/DeliveredRide?orderId=${
+        order.id
+      }&riderId=${localStorage.getItem("riderId")}`,
+      { method: "POST" }
+    );
     getRiderLocation();
-    Navigate(`/MyRides`)
-    
+    Navigate(`/MyRides`);
   };
 
   return (
-    <div className="pb-5" >
-    <Navbar/>
-    <div className="container  " style={{paddingTop:"7rem"}}>
-      <div className="text-center">
-        {distance!=0&&(
-        <button
-          onClick={handleDeclineOrder}
-          className="bg-danger text-white p-2 border border-0 rounded fs-4"
-        >
-          DECLINE
-        </button>
-        )}
-        <div>Your acceptance rate is {acceptanceRate}%</div>
+    <div className="pb-5">
+      <Navbar />
+      <div className="container  " style={{ paddingTop: "7rem" }}>
+        <div className="text-center">
+          {distance != 0 && (
+            <button
+              onClick={handleDeclineOrder}
+              className="bg-danger text-white p-2 border border-0 rounded fs-4"
+            >
+              DECLINE
+            </button>
+          )}
+          <div>Your acceptance rate is {acceptanceRate}%</div>
+        </div>
+
+        <h2 className="text-center mt-4">NEW ORDER</h2>
+        <h4 className="text-center">Deliver Food at DoorStep</h4>
+
+        <div
+          id="map"
+          ref={mapRef}
+          style={{ width: "100%", height: "400px" }}
+        ></div>
+
+        <div className="text-center mt-4">
+          <p>
+            Pickup: ({RestaurantLat}, {RestaurantLong})
+          </p>
+          <p>
+            Dropoff: ({CustomerLat}, {CustomerLong})
+          </p>
+          <p>Distance: {distance} km</p>
+          {status === "not_pickedup" && (
+            <button
+              onClick={handleAcceptOrder}
+              className="bg-danger text-white p-2 border border-0 rounded fs-4"
+            >
+              ACCEPT RIDE
+            </button>
+          )}
+          {status === "accepted" && (
+            <button
+              onClick={handlePickedUp}
+              className="bg-success text-white p-2 border border-0 rounded fs-4"
+            >
+              PICKED UP
+            </button>
+          )}
+          {status === "pickedup" && (
+            <button
+              onClick={handleDelivered}
+              className="bg-primary text-white p-2 border border-0 rounded fs-4"
+            >
+              DELIVERED
+            </button>
+          )}
+        </div>
       </div>
-
-      <h2 className="text-center mt-4">NEW ORDER</h2>
-      <h4 className="text-center">Deliver Food at DoorStep</h4>
-
-      <div
-        id="map"
-        ref={mapRef}
-        style={{ width: "100%", height: "400px" }}
-      ></div>
-
-      <div className="text-center mt-4">
-        <p>Pickup: ({RestaurantLat}, {RestaurantLong})</p>
-        <p>Dropoff: ({CustomerLat}, {CustomerLong})</p>
-        <p>Distance: {distance} km</p>
-        {status === "not_pickedup" && (
-          <button
-            onClick={handleAcceptOrder}
-            className="bg-danger text-white p-2 border border-0 rounded fs-4"
-          >
-            ACCEPT RIDE
-          </button>
-        )}
-        {status === "accepted" && (
-          <button
-            onClick={handlePickedUp}
-            className="bg-success text-white p-2 border border-0 rounded fs-4"
-          >
-            PICKED UP
-          </button>
-        )}
-        {status === "pickedup" && (
-          <button
-            onClick={handleDelivered}
-            className="bg-primary text-white p-2 border border-0 rounded fs-4"
-          >
-            DELIVERED
-          </button>
-        )}
-      </div>
-    </div>
     </div>
   );
 }

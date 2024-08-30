@@ -128,7 +128,14 @@ const MyOrders = () => {
       });
     closeModal();
   };
-
+  const ConfirmDelivery = (id) => {
+    fetch(
+      `http://localhost/WebApplication2/api/Customer/ConfirmDelivered?id=${id}`,
+      { method: "POST" }
+    ).then((response) => {
+      response.status === 200 && alert(`order delivered ${id} successfully`);
+    });
+  };
   const handleDeleteSchedule = () => {
     const { id } = modalInfo;
     fetch(
@@ -219,12 +226,21 @@ const MyOrders = () => {
                         >
                           Cancel Order
                         </Button>
+
                         {order.status === "pickedup" && (
                           <Button
                             variant="primary"
                             onClick={() => trackOrder(order.id)}
                           >
                             Track Order
+                          </Button>
+                        )}
+                        {order.status === "isdelivered" && (
+                          <Button
+                            variant="primary"
+                            onClick={() => ConfirmDelivery(order.id)}
+                          >
+                            Confirm Delivered
                           </Button>
                         )}
                         <Button

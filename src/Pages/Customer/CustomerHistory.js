@@ -10,6 +10,7 @@ export default function CustomerHistory() {
   const [foodItemId, setFoodItemId] = useState();
   const [rating, setRating] = useState();
   const [ModelRate, SetModelRate] = useState(false); // State to manage modal visibility
+  const [ModelRateRider, SetModelRateRider] = useState(false); // State to manage modal visibility
   const [hover, setHover] = useState(0);
   const [id, setid] = useState();
 
@@ -68,7 +69,7 @@ export default function CustomerHistory() {
     )
       .then((response) => {
         if (response.status === 200) {
-          alert("Order rated successfully!");
+          alert("Rider rated successfully!");
 
           SetModelRate(false); // Close the modal after successful rating
           window.location.reload();
@@ -158,7 +159,7 @@ export default function CustomerHistory() {
                           className="btn btn-outline-warning rounded-3 "
                           onClick={() => {
                             setid(order.OrderNumber);
-                            SetModelRate(true); // Show the rating modal
+                            SetModelRateRider(true); // Show the rating modal
                           }}
                         >
                           Rate Rider
@@ -205,6 +206,36 @@ export default function CustomerHistory() {
             onHide={handleClosePopup}
           />
         )}
+        {/* Rating Modal Rider */}
+        <Modal show={ModelRateRider} onHide={() => SetModelRateRider(false)}>
+          <ModalHeader closeButton>How would you rate this Rider?</ModalHeader>
+          <ModalBody>
+            {[1, 2, 3, 4, 5].map((num) => (
+              <button
+                key={num}
+                onClick={() => setRating(num)}
+                onMouseOver={() => setHover(num)}
+                onMouseLeave={() => setHover(rating)}
+                style={{
+                  background: "none",
+                  border: "none",
+                  cursor: "pointer",
+                  fontSize: "1.5rem",
+                  color: num <= (hover || rating) ? "gold" : "gray",
+                }}
+              >
+                &#9733;
+              </button>
+            ))}
+            <Button
+              variant="primary"
+              onClick={() => handleRateRider(id, rating)}
+              className="mt-3"
+            >
+              Submit Rating
+            </Button>
+          </ModalBody>
+        </Modal>
         {/* Rating Modal */}
         <Modal show={ModelRate} onHide={() => SetModelRate(false)}>
           <ModalHeader closeButton>How would you rate this Item?</ModalHeader>
