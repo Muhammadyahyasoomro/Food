@@ -1,6 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { StarFill } from "react-bootstrap-icons";
+import {
+  StarFill,
+  House,
+  Cart,
+  ListCheck,
+  Heart,
+  BoxArrowRight,
+  Calendar,
+  Person,
+  BoxArrowInRight,
+  Envelope,
+} from "react-bootstrap-icons"; // Import the icons you need
 import toggle from "../../../Components/assets/rider/toggle.png";
 import { useTheme } from "../../../context/ThemeContext";
 import { useFilter } from "../../../context/FilterContext";
@@ -47,6 +58,11 @@ const CustomerSidebar = ({ isOpen, toggleSidebar }) => {
     toggleSidebar();
   };
 
+  const handleCopyLink = () => {
+    navigator.clipboard.writeText("www.quettacafe.com");
+    alert("Link copied to clipboard!");
+  };
+
   return (
     <div>
       <style>
@@ -59,6 +75,8 @@ const CustomerSidebar = ({ isOpen, toggleSidebar }) => {
             color: ${theme === "light" ? "black" : "red"};
             font-family: cursive;
             text-decoration: none;
+            display: flex;
+            align-items: center;
           }
           .filter-section {
             padding: 1rem;
@@ -84,6 +102,9 @@ const CustomerSidebar = ({ isOpen, toggleSidebar }) => {
           .active-filter {
             background-color: red !important;
             color: white !important;
+          }
+          .icon {
+            margin-right: 8px;
           }
         `}
       </style>
@@ -117,7 +138,7 @@ const CustomerSidebar = ({ isOpen, toggleSidebar }) => {
         </div>
         {isOpen && (
           <>
-            <div className="filter-box  border-top border-bottom border-3 rounded border-danger py-2">
+            <div className="filter-box border-top border-bottom border-3 rounded border-danger py-2">
               <h5 className="text-danger text-center">Filters</h5>
               <div className="filter-item text-danger">
                 <label>Price Range</label>
@@ -188,23 +209,68 @@ const CustomerSidebar = ({ isOpen, toggleSidebar }) => {
             </div>
             <ul style={{ listStyleType: "none", padding: 0 }}>
               {[
-                { to: "/customer/MyOrderHistory", text: "My Order History" },
-                { to: "/HomeCustomer", text: "Home" },
-                { to: "/customer/myOrders", text: "My Orders" },
-                { to: "/Mycart", text: "My Cart" },
-                { to: "/customer/schedule", text: "My Weekly Schedule" },
-                { to: "/customer/daily", text: "My Daily Schedule" },
-                { to: "/Checkout", text: "Checkout" },
-                { to: "/Customer/MyDisease", text: "My Disease" },
-                { to: "/Favourites", text: "Favourites" },
-                { to: "/InviteFriends", text: "Invite Friends" },
-                { to: "/SavedAddresses", text: "Saved Addresses" },
-                { to: "/LogOut", text: "Log Out" },
+                {
+                  to: "/customer/MyOrderHistory",
+                  text: "My Order History",
+                  icon: <ListCheck className="icon" />,
+                },
+                {
+                  to: "/HomeCustomer",
+                  text: "Home",
+                  icon: <House className="icon" />,
+                },
+                {
+                  to: "/customer/myOrders",
+                  text: "My Orders",
+                  icon: <BoxArrowInRight className="icon" />,
+                },
+                {
+                  to: "/Mycart",
+                  text: "My Cart",
+                  icon: <Cart className="icon" />,
+                },
+                {
+                  to: "/customer/schedule",
+                  text: "My Weekly Schedule",
+                  icon: <Calendar className="icon" />,
+                },
+                {
+                  to: "/Customer/MyDisease",
+                  text: "My Disease",
+                  icon: <Person className="icon" />,
+                },
+                {
+                  to: "/Favourites",
+                  text: "Favourites",
+                  icon: <Heart className="icon" />,
+                },
+                {
+                  text: "Invite Friends",
+                  onClick: handleCopyLink,
+                  icon: <Envelope className="icon" />,
+                }, // Added copy to clipboard functionality
+                {
+                  to: "/LogOut",
+                  text: "Log Out",
+                  icon: <BoxArrowRight className="icon" />,
+                },
               ].map((item, index) => (
                 <li key={index} style={{ marginBottom: "1rem" }}>
-                  <Link to={item.to} className="sidebar-link">
-                    {item.text}
-                  </Link>
+                  {item.to ? (
+                    <Link to={item.to} className="sidebar-link">
+                      {item.icon}
+                      {item.text}
+                    </Link>
+                  ) : (
+                    <span
+                      className="sidebar-link"
+                      onClick={item.onClick}
+                      style={{ cursor: "pointer" }}
+                    >
+                      {item.icon}
+                      {item.text}
+                    </span>
+                  )}
                 </li>
               ))}
             </ul>
