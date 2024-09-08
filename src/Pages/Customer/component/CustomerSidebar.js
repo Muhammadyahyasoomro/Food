@@ -34,7 +34,7 @@ const CustomerSidebar = ({ isOpen, toggleSidebar }) => {
   const renderStars = (count) => {
     return Array(count)
       .fill(0)
-      .map((_, i) => <StarFill key={i} style={{ color: "pink" }} />);
+      .map((_, i) => <StarFill key={i} style={{ color: "" }} />);
   };
 
   const handleHomechef = () => setFilterType(true);
