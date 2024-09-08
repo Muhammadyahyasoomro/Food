@@ -141,12 +141,26 @@ export const FoodCard = ({
             {restaurantname}
           </Badge>
           {isHealthy && isHovered && (
-            <div
-              className="position-absolute top-50 start-50 translate-middle"
-              style={{ zIndex: 1 }}
-            >
-              <HeartPulseFill color="green" size={40} />
-            </div>
+            <>
+              <div
+                onClick={handleToggleFavorite}
+                className="position-absolute top-0 end-0 p-2"
+                style={{ cursor: "pointer" }}
+              >
+                {isFav ? (
+                  <HeartFill color="red" size={24} />
+                ) : (
+                  <Heart size={24} />
+                )}
+              </div>
+
+              <div
+                className="position-absolute top-50 start-50 translate-middle"
+                style={{ zIndex: 1 }}
+              >
+                <HeartPulseFill color="green" size={40} />
+              </div>
+            </>
           )}
         </div>
 
