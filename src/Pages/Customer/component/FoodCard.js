@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Card, Badge, Button, Image } from "react-bootstrap";
 import {
   House,
@@ -19,19 +19,30 @@ export const FoodCard = ({
   price,
   fooddetail_id,
   isHealthy,
-  isFavorite,
-  favouriteId,
   onToggleFavorite,
 }) => {
   const navigate = useNavigate();
   const [showPopup, setShowPopup] = useState(false);
-  const [isFav, setIsFav] = useState(isFavorite);
+  const [isFav, setIsFav] = useState();
   const [isHovered, setIsHovered] = useState(false);
+  const [FavouriteId, setFavouriteId] = useState();
 
   const handleClosePopup = () => {
     setShowPopup(false);
   };
-
+  useEffect(() => {
+    fetch(
+      `http://localhost/WebApplication2/api/Customer/isFavourite?foodItemId=${fooddetail_id}&customerId=${localStorage.getItem(
+        "c_id"
+      )}`,
+      { method: "GET" }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setIsFav(data.isFav);
+        setFavouriteId(data?.favouriteId);
+      });
+  }, []);
   const handleShowPopup = () => {
     setShowPopup(true);
   };
@@ -60,7 +71,7 @@ export const FoodCard = ({
     } else {
       try {
         const response = await fetch(
-          `${API_BASE_URL}/customer/RemoveToFavourite?favouriteId=${favouriteId}`,
+          `${API_BASE_URL}/customer/RemoveToFavourite?favouriteId=${FavouriteId}`,
           { method: "DELETE" }
         );
         if (response.ok) {
@@ -107,15 +118,14 @@ export const FoodCard = ({
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        <div
-          onClick={handleToggleFavorite}
-          className="position-absolute top-0 end-0 p-2"
-          style={{ cursor: "pointer" }}
-        >
-          {isFav ? <HeartFill color="red" size={24} /> : <Heart size={24} />}
-        </div>
-
         <div className="position-relative">
+          <div
+            onClick={handleToggleFavorite}
+            className="position-absolute top-0 end-0 p-2"
+            style={{ cursor: "pointer" }}
+          >
+            {isFav ? <HeartFill color="red" size={24} /> : <Heart size={24} />}
+          </div>
           <Card.Img
             className="food-image"
             variant="top"
