@@ -188,6 +188,7 @@ const CustomerSidebar = ({ isOpen, toggleSidebar }) => {
             </div>
             <ul style={{ listStyleType: "none", padding: 0 }}>
               {[
+                { to: "/customer/MyOrderHistory", text: "My Order History" },
                 { to: "/HomeCustomer", text: "Home" },
                 { to: "/customer/myOrders", text: "My Orders" },
                 { to: "/Mycart", text: "My Cart" },
@@ -195,12 +196,10 @@ const CustomerSidebar = ({ isOpen, toggleSidebar }) => {
                 { to: "/customer/daily", text: "My Daily Schedule" },
                 { to: "/Checkout", text: "Checkout" },
                 { to: "/Customer/MyDisease", text: "My Disease" },
-                { to: "/HelpCenter", text: "Help Center" },
                 { to: "/Favourites", text: "Favourites" },
                 { to: "/InviteFriends", text: "Invite Friends" },
                 { to: "/SavedAddresses", text: "Saved Addresses" },
                 { to: "/LogOut", text: "Log Out" },
-                { to: "/customer/MyOrderHistory", text: "My Order History" },
               ].map((item, index) => (
                 <li key={index} style={{ marginBottom: "1rem" }}>
                   <Link to={item.to} className="sidebar-link">
