@@ -39,7 +39,8 @@ export default function Favourites() {
   return (
     <>
       <Navbarcustomer />
-      <Row>
+
+      <Row style={{ marginLeft: "20rem" }}>
         {favourites.length > 0 && favourites ? (
           favourites.map((item) => (
             <Col
@@ -47,16 +48,17 @@ export default function Favourites() {
               xs={12}
               sm={6}
               md={4}
-              lg={3}
+              lg={2}
               className="mb-4"
             >
               <FoodCard
-                imageUrl={`http://localhost/WebApplication2/Content/FoodItems/${item.f_image}`}
-                title={item.food_name}
-                rating={item.foodRating}
-                type={item.res_type}
-                price={item.price}
-                fooddetail_id={item.id}
+                restaurantname={item.RestaurantName}
+                imageUrl={`http://localhost/WebApplication2/Content/FoodItems/${item.FoodDetail.f_image}`}
+                title={item.FoodDetail.name}
+                rating={Math.floor(Math.random() * 3 + 1)}
+                type={item.RestaurantType}
+                price={item.MinPrice}
+                fooddetail_id={item.FoodDetail.id}
                 isFavorite={true} // Always true for items in the favourites list
                 favouriteId={item.favouriteId} // ID of the favorite item
                 // Callback to refresh the list
@@ -72,8 +74,9 @@ export default function Favourites() {
                   <Card
                     className="text-center mt-5 rounded border border-0 p-4"
                     style={{
-                      backgroundColor: theme !== "light" ? "#212121" : "orange",
-                      color: "white",
+                      backgroundColor:
+                        theme !== "light" ? "#212121" : "#EFEFEF",
+                      color: theme === "light" ? "#212121" : "#FFFFFF",
                     }}
                   >
                     <Card.Body>
@@ -85,7 +88,7 @@ export default function Favourites() {
                       className="btn border  rounded"
                       style={{
                         backgroundColor:
-                          theme !== "light" ? "#383838" : "orange",
+                          theme !== "light" ? "#383838" : "green",
                         color: theme !== "light" ? "white" : "white",
                       }}
                     >
