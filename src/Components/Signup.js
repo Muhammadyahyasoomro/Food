@@ -34,7 +34,7 @@ export const Signup = () => {
     if (!rider.email) errors.email = "Email is required";
     else if (!emailRegex.test(rider.email))
       errors.email = "Invalid email format";
-    if (!rider.cnic) errors.cnic = "CNIC is required";
+    if (!rider.cnic) errors.cnic = "CNIC is required Format(12345-1234567-1)";
     else if (!cnicRegex.test(rider.cnic)) errors.cnic = "Invalid CNIC format";
     if (!rider.password) errors.password = "Password is required";
     else if (rider.password.length < 6)
@@ -128,7 +128,7 @@ export const Signup = () => {
                   <Form.Control
                     type="text"
                     name="cnic"
-                    placeholder="CNIC"
+                    placeholder="CNIC Format:54321-7654321-1"
                     value={rider.cnic}
                     onChange={handleInputChange}
                     isInvalid={!!errors.cnic}
@@ -154,7 +154,7 @@ export const Signup = () => {
                   <Form.Control
                     type="text"
                     name="phone"
-                    placeholder="Phone"
+                    placeholder="Phone must be 10-14 digit long"
                     value={rider.phone}
                     onChange={handleInputChange}
                     isInvalid={!!errors.phone}
