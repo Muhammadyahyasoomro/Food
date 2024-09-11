@@ -96,7 +96,8 @@ export default function RestaurantCard({ ResName, ResId, rating, type }) {
                         ? `http://localhost/WebApplication2/Content/FoodItems/${Item.f_image}`
                         : alternativeImage
                     }
-                    rating={Item.foodRating}
+                    // rating={Item.foodRating}
+                    rating={Math.floor(Math.random() * 4 + 1)}
                     title={Item.name}
                     type={Item.res_type}
                     price={Item.min_price}
@@ -119,7 +120,8 @@ export default function RestaurantCard({ ResName, ResId, rating, type }) {
                         ? `http://localhost/WebApplication2/Content/FoodItems/${Item.f_image}`
                         : alternativeImage
                     }
-                    rating={Item.foodRating}
+                    // rating={Item.foodRating}
+                    rating={Math.floor(Math.random() * 4 + 1)}
                     title={Item.name}
                     type={Item.res_type}
                     price={Item.min_price}

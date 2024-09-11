@@ -169,11 +169,10 @@ export const FoodCard = ({
             {title} {renderIcon(type)}
           </Card.Title>
 
-          <Card.Text
-            className="text-center fs-3"
-            style={{ letterSpacing: "5px" }}
-          >
-            <Badge bg="danger">{renderStars(rating)}</Badge>
+          <Card.Text className=" " style={{ letterSpacing: "5px" }}>
+            <Badge bg="danger" className="fs-5" style={{ marginRight: "5rem" }}>
+              {renderStars(rating)}
+            </Badge>
           </Card.Text>
         </Card.Body>
 
