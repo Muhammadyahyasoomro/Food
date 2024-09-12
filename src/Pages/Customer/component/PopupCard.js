@@ -17,9 +17,7 @@ export default function PopupCard({ bid, show, onHide }) {
 
   useEffect(() => {
     if (bid) {
-      fetch(
-        `${API_BASE_URL}/Customer/GetFoodItemDetailsById?foodItemId=${bid}`
-      )
+      fetch(`${API_BASE_URL}/Customer/GetFoodItemDetailsById?foodItemId=${bid}`)
         .then((response) => {
           if (!response.ok) {
             throw new Error("Network response was not ok.");
@@ -118,30 +116,25 @@ export default function PopupCard({ bid, show, onHide }) {
               ? `http://localhost/WebApplication2/Content/FoodItems/${image}`
               : defaultImageUrl
           })`,
-          backgroundSize:"31.2rem 15rem",
-          backgroundRepeat:"no-repeat",
-          
-          
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
           height: "10rem",
-          
           backgroundColor: !image ? "gray" : "transparent", // Fallback color
         }}
         className="bg-danger"
       >
-        {/* Fallback img tag for debugging or development */}
         <img
           src={`http://localhost/WebApplication2/Content/FoodItems/${image}`}
           alt="Food Item"
           style={{ display: "none" }}
           onError={(e) => {
             e.target.style.display = "none";
-            // Optionally log or handle the error if needed
             console.error("Image failed to load:", e.target.src);
           }}
         />
       </Modal.Header>
       <Modal.Body>
-        <div className="bg-white">
+        <div style={{ backgroundColor: "white", padding: "1rem" }}>
           <Row>
             <Col sm={6} className="text-capitalize fw-bold fs-5">
               {name}
@@ -151,36 +144,53 @@ export default function PopupCard({ bid, show, onHide }) {
             </Col>
           </Row>
           <Row>
-            <Col sm={9}>{description}</Col>
+            <Col sm={12}>{description}</Col>
           </Row>
-          <div className="border border-2 rounded-3 border-danger fst-italic">
-            <div
-              className="p-4 text-black rounded border border-danger"
-              style={{ backgroundColor: "#FDEAEA", color: "white" }}
+          <div
+            style={{
+              border: "2px solid #dc3545",
+              borderRadius: "0.5rem",
+              padding: "1rem",
+              backgroundColor: "#FDEAEA",
+              marginTop: "1rem",
+            }}
+          >
+            <Row
+              style={{
+                color: "black",
+                fontSize: "0.9rem",
+                fontStyle: "italic",
+                marginBottom: "0.5rem",
+              }}
             >
-              <Row className="text-black fs-6 fw-italic">
-                <Col md={4}>Select One</Col>
-                <Col md={4}>Unit</Col>
-                <Col md={4}>Price</Col>
+              <Col xs={4}>Select One</Col>
+              <Col xs={4}>Unit</Col>
+              <Col xs={4}>Price</Col>
+            </Row>
+            {popupCard.map((item) => (
+              <Row
+                key={item.id}
+                style={{
+                  color: "black",
+                  fontSize: "0.9rem",
+                  fontStyle: "italic",
+                  marginBottom: "0.5rem",
+                  alignItems: "center",
+                }}
+              >
+                <Col xs={4}>
+                  <input
+                    type="radio"
+                    value={item.id}
+                    checked={selectedOptionId === item.id}
+                    onChange={() => handleOptionChange(item.id)}
+                    style={{ marginRight: "0.5rem" }}
+                  />
+                </Col>
+                <Col xs={4}>{item.unit}</Col>
+                <Col xs={4}>{item.price}</Col>
               </Row>
-              {popupCard.map((item) => (
-                <Row key={item.id} className="text-black fs-6 fw-italic">
-                  <Col md={4}>
-                    <input
-                      type="radio"
-                      value={item.id}
-                      checked={selectedOptionId === item.id}
-                      onChange={() => handleOptionChange(item.id)}
-                    />
-                  </Col>
-                  <Col md={4}>{item.unit}</Col>
-                  <Col md={4}>{item.price}</Col>
-                 
-                </Row>
-                
-              ))}
-              
-            </div>
+            ))}
           </div>
         </div>
       </Modal.Body>
@@ -205,7 +215,7 @@ export default function PopupCard({ bid, show, onHide }) {
           }}
         >
           Add to
-          <Cart4 className="mx-1 fs-4" />
+          <span className="mx-1 fs-4">🛒</span>
         </Button>
       </div>
     </Modal>
