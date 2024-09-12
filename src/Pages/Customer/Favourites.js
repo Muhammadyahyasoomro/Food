@@ -40,25 +40,26 @@ export default function Favourites() {
     <>
       <Navbarcustomer />
 
-      <Row style={{ marginLeft: "20rem" }}>
+      <Row style={{}}>
         {favourites.length > 0 && favourites ? (
           favourites.map((item) => (
             <Col
               key={item.favouriteId}
               xs={12}
-              sm={6}
-              md={4}
+              sm={1}
+              md={2}
               lg={2}
               className="mb-4"
             >
               <FoodCard
-                restaurantname={item.RestaurantName}
-                imageUrl={`http://localhost/WebApplication2/Content/FoodItems/${item.FoodDetail.f_image}`}
-                title={item.FoodDetail.name}
+                restaurantname={item.restaurantName}
+                imageUrl={`http://localhost/WebApplication2/Content/FoodItems/${item.f_image}`}
+                title={item.name}
                 rating={Math.floor(Math.random() * 3 + 1)}
                 type={item.RestaurantType}
-                price={item.MinPrice}
-                fooddetail_id={item.FoodDetail.id}
+                price={item.minPrice}
+                fooddetail_id={item.id}
+                isHealthy={item.HasDisease}
                 isFavorite={true} // Always true for items in the favourites list
                 favouriteId={item.favouriteId} // ID of the favorite item
                 // Callback to refresh the list
@@ -69,7 +70,7 @@ export default function Favourites() {
           <>
             <Container>
               <Row>
-                <Col lg={4} md={4} sm={4}></Col>
+                <Col lg={4} md={6} sm={6}></Col>
                 <Col>
                   <Card
                     className="text-center mt-5 rounded border border-0 p-4"
