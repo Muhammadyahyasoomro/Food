@@ -22,7 +22,25 @@ export default function RestaurantActiveStatus() {
   const handleToDate = (e) => {
     setToDate(e.target.value);
   };
-
+  const handlePost = () => {
+    fetch(
+      `http://localhost/WebApplication2/api/restaurant/IamNotAvailabaleFrom?from=${fromDate}&to=${toDate}&id=${localStorage.getItem(
+        "res_id"
+      )}`,
+      { method: "POST" }
+    )
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        if (data == "updated") {
+          alert("updated");
+        }
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  };
   return (
     <>
       <NavbarHome />
@@ -62,7 +80,12 @@ export default function RestaurantActiveStatus() {
                 </Row>
               </Card.Body>
               <Card.Footer className="text-center">
-                <button className="btn btn-danger w-100 rounded">Update</button>
+                <button
+                  className="btn btn-danger w-100 rounded"
+                  onClick={handlePost}
+                >
+                  Update
+                </button>
               </Card.Footer>
             </Card>
           </Col>
