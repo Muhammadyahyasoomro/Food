@@ -218,6 +218,9 @@ const Schedule = () => {
       })
       .then((data) => {
         console.log("Response from server:", data);
+        if (data == "Weekly schedule processed successfully.") {
+          navigate(`/homecustomer`);
+        }
       })
       .catch((error) => {
         console.error("Error making request:", error);
@@ -295,8 +298,9 @@ const Schedule = () => {
   const handleScheduleOrder = () => {
     console.log("Schedule 2D Array:", schedule);
 
-    const url =
-      `http://localhost/WebApplication2/api/Customer/CreateWeeklyMenu?customerId=${localStorage.getItem("c_id")}`;
+    const url = `http://localhost/WebApplication2/api/Customer/CreateWeeklyMenu?customerId=${localStorage.getItem(
+      "c_id"
+    )}`;
 
     fetch(url, {
       method: "POST",

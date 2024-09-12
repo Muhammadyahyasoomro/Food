@@ -103,6 +103,7 @@ export default function MyCart() {
             Please select a time between one hour from now on until 11:59PM.
           </p>
           <Col
+            xs={4}
             style={{
               marginBottom: "10px",
               fontSize: "18px",
@@ -136,7 +137,7 @@ export default function MyCart() {
         className="myItems"
         style={{
           marginTop: "20px",
-          overflow: "auto",
+          // overflow: "auto",
           height: "200px",
           scrollbarColor: "red",
         }}
