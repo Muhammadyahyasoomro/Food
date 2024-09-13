@@ -9,21 +9,25 @@ import { SearchProvider } from "./context/SearchContext";
 import reportWebVitals from "./reportWebVitals";
 import { FilterProvider } from "./context/FilterContext";
 import { HealthProvider } from "./context/HealthContext";
+import { HealthyItemsProvider } from "./context/HealthyItemContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <HealthProvider>
-      <ThemeProvider>
-        <CategoryProvider>
-          <SearchProvider>
-            <FilterProvider>
-              <App />
-            </FilterProvider>
-          </SearchProvider>
-        </CategoryProvider>
-      </ThemeProvider>
-    </HealthProvider>
+    <HealthyItemsProvider>
+      {" "}
+      <HealthProvider>
+        <ThemeProvider>
+          <CategoryProvider>
+            <SearchProvider>
+              <FilterProvider>
+                <App />
+              </FilterProvider>
+            </SearchProvider>
+          </CategoryProvider>
+        </ThemeProvider>
+      </HealthProvider>
+    </HealthyItemsProvider>
   </React.StrictMode>
 );
 

@@ -11,9 +11,11 @@ import { useSearch } from "../../context/SearchContext";
 import alternativeImage from "../../../src/Components/assets/alternativeImage.png";
 import { useFilter } from "../../context/FilterContext";
 import { useHealth } from "../../context/HealthContext";
+import { useHealthyItems } from "../../context/HealthyItemContext";
 
 export default function HomeCustomer() {
   const { isHealthyMode } = useHealth();
+  const { isHealthyItemsMode } = useHealthyItems();
   const { foodData, ResetFilter, rating } = useFilter();
   const API_BASE_URL = `http://localhost/WebApplication2/api`;
   const { search, setSearch } = useSearch("null");
@@ -46,6 +48,7 @@ export default function HomeCustomer() {
                       fooddetail_id={item.FoodItemid}
                       restaurantname={item.RestName}
                       isHealthy={isHealthyMode}
+                      isHealthyItems={isHealthyItemsMode}
                     />
                     {item.res_type}
                   </Col>

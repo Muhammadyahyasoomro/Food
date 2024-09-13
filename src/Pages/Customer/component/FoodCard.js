@@ -19,7 +19,9 @@ export const FoodCard = ({
   price,
   fooddetail_id,
   isHealthy,
+  isHealthyItem,
   onToggleFavorite,
+  DiseaseName,
 }) => {
   const navigate = useNavigate();
   const [showPopup, setShowPopup] = useState(false);
@@ -134,13 +136,14 @@ export const FoodCard = ({
             style={{
               borderTopLeftRadius: "10px",
               borderTopRightRadius: "10px",
-              opacity: isHovered && isHealthy ? 0.5 : 1, // Adjust opacity on hover
+              opacity: isHovered && isHealthyItem ? 0.5 : 1, // Adjust opacity on hover
             }}
           />
           <Badge bg="danger" className="container">
             {restaurantname}
           </Badge>
-          {isHealthy && isHovered && (
+          {isHealthy && <p>{DiseaseName}</p>}
+          {isHealthyItem && isHovered && (
             <>
               <div
                 onClick={handleToggleFavorite}
@@ -182,7 +185,7 @@ export const FoodCard = ({
         >
           from Rs: {price}
         </Card.Text>
-
+        {isHealthyItem && <div>healthy</div>}
         <Card.Footer className="bg-danger rounded text-white fs-6 text-center">
           <Button variant="danger" onClick={handleShowPopup}>
             See Details

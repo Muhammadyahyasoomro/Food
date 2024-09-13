@@ -5,9 +5,10 @@ import { useNavigate } from "react-router-dom";
 import alternativeImage from "../../../Components/assets/alternativeImage.png";
 import { useTheme } from "../../../context/ThemeContext";
 import { useHealth } from "../../../context/HealthContext";
-
+import { useHealthyItems } from "../../../context/HealthyItemContext";
 export default function RestaurantCard({ ResName, ResId, rating, type }) {
   const { isHealthyMode } = useHealth();
+  const { isHealthyItemsMode } = useHealthyItems();
   const { theme } = useTheme();
   const [ItemList, setItemList] = useState([]);
   const Navigate = useNavigate();
@@ -28,6 +29,7 @@ export default function RestaurantCard({ ResName, ResId, rating, type }) {
       .then((data) => {
         console.log("Restaurant Items:", data);
         setItemList(data);
+        console.log("isheahlyitemslist", data);
       })
       .catch((error) => {
         console.error("Error fetching restaurant items:", error);
@@ -82,6 +84,31 @@ export default function RestaurantCard({ ResName, ResId, rating, type }) {
         style={{ maxWidth: "100%", overflowX: "auto" }}
       >
         <div className="d-flex">
+          {isHealthyItemsMode &&
+            ItemList.filter((row) => row.IsHealthy == true).map((Item) => (
+              <div className="my-4 mx-2" key={Item.id}>
+                <FoodCard
+                  className="mx-5"
+                  style={{
+                    maxWidth: "13rem",
+                    maxHeight: "25rem",
+                  }}
+                  imageUrl={
+                    Item.f_image
+                      ? `http://localhost/WebApplication2/Content/FoodItems/${Item.f_image}`
+                      : alternativeImage
+                  }
+                  // rating={Item.foodRating}
+                  rating={Math.floor(Math.random() * 4 + 1)}
+                  title={Item.name}
+                  type={Item.res_type}
+                  price={Item.min_price}
+                  fooddetail_id={Item.id}
+                  isHealthyItem={true}
+                  restaurantname={Item.restaurantname}
+                />
+              </div>
+            ))}
           {isHealthyMode
             ? ItemList.filter(filterItemsByDisease).map((Item) => (
                 <div className="my-4 mx-2" key={Item.id}>
@@ -104,6 +131,7 @@ export default function RestaurantCard({ ResName, ResId, rating, type }) {
                     fooddetail_id={Item.id}
                     isHealthy={true}
                     restaurantname={Item.restaurantname}
+                    DiseaseName={Item.DiseaseName}
                   />
                 </div>
               ))
