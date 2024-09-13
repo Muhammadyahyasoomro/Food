@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card, Badge, Button, Image } from "react-bootstrap";
+import { Card, Badge, Button, Image, Breadcrumb } from "react-bootstrap";
 import {
   House,
   Shop,
@@ -52,10 +52,20 @@ export const FoodCard = ({
   const API_BASE_URL = `http://localhost/WebApplication2/api`;
   const handleDiseaseDesign = (DiseaseName) => {
     let d = DiseaseName.split(",");
-    //return <>{d[0]}</>;
-    d.map((Item) => {
-      return <div className="bg-danger text-white rounded">{Item}</div>;
-    });
+    return (
+      <>
+        <div className="d-flex">
+          {d.map((Item, index) => (
+            <div
+              key={index}
+              className="bg-danger text-center px-1 text-white rounded mx-2"
+            >
+              {Item}
+            </div>
+          ))}
+        </div>
+      </>
+    );
   };
 
   const handleToggleFavorite = async () => {
