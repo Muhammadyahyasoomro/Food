@@ -16,7 +16,10 @@ const NewListing = () => {
 
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [file, setFile] = useState(null);
-
+  const [isChecked, setIsChecked] = useState(false);
+  const handleCheckboxChange = (event) => {
+    setIsChecked(event.target.checked);
+  };
   const [belongsto, setBelongsto] = useState({
     restaurant_id: localStorage.getItem("res_id") || "",
     f_id: "",
@@ -28,6 +31,7 @@ const NewListing = () => {
     DiseaseName: "",
     foodCategory: "",
     name: "",
+    IsHealthy: "",
   });
 
   const handleSelectChange = (event) => {
@@ -72,6 +76,7 @@ const NewListing = () => {
       ...belongsto,
       foodCategory: category?.value || "",
       name: subcategory?.value || "",
+      IsHealthy: isChecked,
     };
 
     const formData = new FormData();
@@ -194,7 +199,14 @@ const NewListing = () => {
                       ))}
                     </Row>
                   </Form.Group>
-
+                  <Form.Group controlId="formTaste">
+                    <Form.Label>is Item healthy</Form.Label>
+                    <input
+                      type="checkbox"
+                      onChange={handleCheckboxChange}
+                      value={isChecked}
+                    />
+                  </Form.Group>
                   <Button
                     variant="outline-danger"
                     type="submit"
