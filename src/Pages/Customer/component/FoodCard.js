@@ -50,6 +50,13 @@ export const FoodCard = ({
   };
 
   const API_BASE_URL = `http://localhost/WebApplication2/api`;
+  const handleDiseaseDesign = (DiseaseName) => {
+    let d = DiseaseName.split(",");
+    //return <>{d[0]}</>;
+    d.map((Item) => {
+      return <div className="bg-danger text-white rounded">{Item}</div>;
+    });
+  };
 
   const handleToggleFavorite = async () => {
     if (!isFav) {
@@ -142,7 +149,7 @@ export const FoodCard = ({
           <Badge bg="danger" className="container">
             {restaurantname}
           </Badge>
-          {isHealthy && <p>{DiseaseName}</p>}
+          {isHealthy && handleDiseaseDesign(DiseaseName)}
           {isHealthyItem && isHovered && (
             <>
               <div
