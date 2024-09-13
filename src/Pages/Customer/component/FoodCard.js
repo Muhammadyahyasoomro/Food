@@ -58,7 +58,7 @@ export const FoodCard = ({
           {d.map((Item, index) => (
             <div
               key={index}
-              className="bg-danger text-center px-1 text-white rounded mx-2"
+              className="bg-danger text-center px-1 text-white rounded mx-1"
             >
               {Item}
             </div>
