@@ -105,7 +105,7 @@ export default function Navbarcustomer() {
               padding: "10px",
             }}
           >
-            {isHealthyMode ? "Healthy Mode" : "Cheat Mode"}
+            {isHealthyMode ? "Order For another Person" : "BackToAntiDisease"}
           </Button>
           <a className="text-gray-700 hover:text-gray-900 mr-4">
             <img src={notificationIcon} width={20} alt="Notification" />
