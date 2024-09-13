@@ -202,7 +202,7 @@ export const FoodCard = ({
         >
           from Rs: {price}
         </Card.Text>
-        {isHealthyItem && <div>healthy</div>}
+
         <Card.Footer className="bg-danger rounded text-white fs-6 text-center">
           <Button variant="danger" onClick={handleShowPopup}>
             See Details
