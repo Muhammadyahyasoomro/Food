@@ -3,7 +3,7 @@ import { useHealth } from "./HealthContext";
 const HealthyItemContext = createContext();
 
 export const HealthyItemsProvider = ({ children }) => {
-  const [isHealthyItemsMode, setIsHealthyItemsMode] = useState(true);
+  const [isHealthyItemsMode, setIsHealthyItemsMode] = useState(false);
   const [Healthyfooditems, setHealthyFoodItems] = useState();
 
   const toggleHealthyItems = () => {

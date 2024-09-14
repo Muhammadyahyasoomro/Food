@@ -135,7 +135,8 @@ export default function RestaurantCard({ ResName, ResId, rating, type }) {
                   />
                 </div>
               ))
-            : ItemList.map((Item) => (
+            : !isHealthyItemsMode &&
+              ItemList.map((Item) => (
                 <div className="my-4 mx-2" key={Item.id}>
                   <FoodCard
                     className="mx-5"

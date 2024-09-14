@@ -109,10 +109,9 @@ export default function Navbarcustomer() {
               marginRight: "1rem",
               padding: "10px",
             }}
+            disabled={isHealthyItemsMode}
           >
-            {isHealthyMode
-              ? "Order for another person"
-              : "Back to  Anti disease"}
+            {isHealthyMode ? "Order for another person" : "Order for MySelf"}
           </Button>
           <Button
             onClick={toggleHealthyItemsMode}
@@ -124,8 +123,9 @@ export default function Navbarcustomer() {
               marginRight: "1rem",
               padding: "10px",
             }}
+            disabled={isHealthyMode}
           >
-            {isHealthyItemsMode ? "Healthy Mode" : "Cheat Mode"}
+            {isHealthyItemsMode ? "Healthy Mode is on" : "Healthy Mode is off"}
           </Button>
           <a className="text-gray-700 hover:text-gray-900 mr-4">
             <img src={notificationIcon} width={20} alt="Notification" />
