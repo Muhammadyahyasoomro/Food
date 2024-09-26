@@ -37,6 +37,7 @@ import BigRides from "./Pages/Rider/BigRides";
 import UpdateDisease from "./Pages/Customer/UpdateDisease";
 import CustomerHistory from "./Pages/Customer/CustomerHistory";
 import RestaurantActiveStatus from "./Pages/Restaurant/RestaurantActiveStatus";
+import MasterChef from "./Pages/MasterChef";
 
 setBasePath(
   "https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.15.0/cdn/"
@@ -87,6 +88,7 @@ function App() {
           <Route exact path="/customer/myOrders" Component={MyOrders} />
           <Route exact path="/customer/schedule" Component={Schedule} />
           <Route exact path="/customer/daily" Component={DailyScheduler} />
+          <Route exact path="/MasterChef" Component={MasterChef} />
           <Route
             exact
             path="/customer/MyOrderHistory"

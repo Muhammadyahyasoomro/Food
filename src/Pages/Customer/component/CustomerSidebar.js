@@ -24,6 +24,8 @@ const CustomerSidebar = ({ isOpen, toggleSidebar }) => {
     setFilterType,
     rating,
     setRating,
+    setChefRating,
+    chefRating,
     min,
     setMin,
     max,
@@ -35,6 +37,11 @@ const CustomerSidebar = ({ isOpen, toggleSidebar }) => {
     return Array(count)
       .fill(0)
       .map((_, i) => <StarFill key={i} style={{ color: "" }} />);
+  };
+  const renderChefStars = (count) => {
+    return Array(count)
+      .fill(0)
+      .map((_, i) => <StarFill key={i} style={{ color: "yellow" }} />);
   };
 
   const handleHomechef = () => setFilterType(true);
@@ -55,6 +62,7 @@ const CustomerSidebar = ({ isOpen, toggleSidebar }) => {
     console.log("Max Value:", max);
     console.log("Type Value:", filterType);
     console.log("Rating:", rating);
+
     toggleSidebar();
   };
 
@@ -171,6 +179,83 @@ const CustomerSidebar = ({ isOpen, toggleSidebar }) => {
                     {renderStars(starCount)}
                   </div>
                 ))}
+              </div>
+              {/* chef rating filter*/}
+              {/* chef rating filter*/}
+              <div>
+                <div className="fs-5 text-danger">min MasterChef Rated</div>
+                <div className="stars">
+                  <div className="row">
+                    <button
+                      className="5star border border-0 "
+                      style={{
+                        backgroundColor: chefRating === 5 ? "red" : "white",
+                      }}
+                      onClick={() => {
+                        setChefRating(5);
+                        console.log("chef rating", chefRating);
+                      }}
+                    >
+                      {renderChefStars(5)}
+                    </button>
+                  </div>
+                  <div className="row">
+                    <button
+                      className="5star border-0 "
+                      style={{
+                        backgroundColor: chefRating === 4 ? "red" : "white",
+                      }}
+                      onClick={() => {
+                        setChefRating(4);
+                        console.log("chef rating", chefRating);
+                      }}
+                    >
+                      {renderChefStars(4)}
+                    </button>
+                  </div>
+                  <div className="row">
+                    <button
+                      className="5star border-0 "
+                      style={{
+                        backgroundColor: chefRating === 3 ? "red" : "white",
+                      }}
+                      onClick={() => {
+                        setChefRating(3);
+                        console.log("chef rating", chefRating);
+                      }}
+                    >
+                      {renderChefStars(3)}
+                    </button>
+                  </div>
+                  <div className="row">
+                    <button
+                      className="5star border-0 "
+                      style={{
+                        backgroundColor: chefRating === 2 ? "red" : "white",
+                      }}
+                      onClick={() => {
+                        setChefRating(2);
+                        console.log("chef rating", chefRating);
+                      }}
+                    >
+                      {renderChefStars(2)}
+                    </button>
+                  </div>
+                  <div className="row">
+                    <button
+                      style={{
+                        backgroundColor: chefRating === 1 ? "red" : "white",
+                      }}
+                      className="5star border-0 "
+                      onClick={() => {
+                        setChefRating(1);
+                        console.log("chef rating", chefRating);
+                      }}
+                    >
+                      {renderChefStars(1)}
+                    </button>
+                  </div>
+                </div>
               </div>
               <div className="d-flex">
                 <button

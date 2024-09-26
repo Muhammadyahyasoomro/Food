@@ -16,7 +16,7 @@ import { useHealthyItems } from "../../context/HealthyItemContext";
 export default function HomeCustomer() {
   const { isHealthyMode } = useHealth();
   const { isHealthyItemsMode } = useHealthyItems();
-  const { foodData, ResetFilter, rating } = useFilter();
+  const { foodData, ResetFilter, rating, chefRating } = useFilter();
   const API_BASE_URL = `http://localhost/WebApplication2/api`;
   const { search, setSearch } = useSearch("null");
   const [searchedItems, setSearchedItems] = useState([]);
@@ -33,7 +33,11 @@ export default function HomeCustomer() {
     <Row xs={2} md={4} lg={6} className="g-3">
       {rating > 0
         ? foodlist
-            .filter((item) => item.foodRating >= rating - 1)
+            .filter(
+              (item) =>
+                item.foodRating >= rating - 1 || item.chefRating >= chefRating
+            )
+            .toSorted((a, b) => b.chefRating - a.chefRating)
             .map(
               (item, index) => (
                 console.log("item", item),
@@ -49,6 +53,7 @@ export default function HomeCustomer() {
                       restaurantname={item.RestName}
                       isHealthy={isHealthyMode}
                       isHealthyItems={isHealthyItemsMode}
+                      chefRating={item.chefRating}
                     />
                     {item.res_type}
                   </Col>

@@ -22,6 +22,7 @@ export const FoodCard = ({
   isHealthyItem,
   onToggleFavorite,
   DiseaseName,
+  chefRating,
 }) => {
   const navigate = useNavigate();
   const [showPopup, setShowPopup] = useState(false);
@@ -112,10 +113,10 @@ export const FoodCard = ({
 
   const renderStars = (rating) => {
     let stars = [];
-    if (rating <= 0.9) {
+    if (rating <= 1) {
       return "";
     }
-    for (let i = 0; i < 5; i++) {
+    for (let i = 1; i <= 5; i++) {
       if (i - 0.5 < rating) {
         stars.push("⭐");
       } else {
@@ -192,6 +193,19 @@ export const FoodCard = ({
           <Card.Text className=" " style={{ letterSpacing: "5px" }}>
             <Badge bg="danger" className="fs-5" style={{ marginRight: "5rem" }}>
               {renderStars(rating)}
+            </Badge>
+          </Card.Text>
+          <Card.Text className=" " style={{ letterSpacing: "5px" }}>
+            <Badge className="" style={{ fontSize: "10px" }}>
+              {" "}
+              MasterChef Rating
+            </Badge>
+            <Badge
+              bg="primary"
+              className="fs-5"
+              style={{ marginRight: "5rem" }}
+            >
+              {renderStars(chefRating)}
             </Badge>
           </Card.Text>
         </Card.Body>
