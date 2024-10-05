@@ -205,21 +205,38 @@ const BigByte = () => {
             zIndex: 1000,
             borderRadius: "8px",
             boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+            maxWidth: "300px",
           }}
         >
-          <h5 className="text-dark">
-            🚧 This website is under construction for backend as there are
+          <h5 className="text-dark mb-3">
+            🚧 This website is under construction for backend due to the cost of
             expensive solutions. The backend works locally. Please excuse any
             inconvenience.
+            <br />
+            <span style={{ color: "green" }}>
+              Check the recruiter button for navigation.
+            </span>
           </h5>
+
+          <div className="d-flex align-items-center">
+            <img
+              src={require("../Components/assets/recuiterslogo.png")}
+              alt="Recruiters Logo"
+              style={{ width: "40px", height: "40px", borderRadius: "50%" }}
+              className="me-2"
+            />
+            <span className="text-dark">Recruiters Guide</span>
+          </div>
+
           <button
             onClick={closePopup}
-            className="btn btn-sm btn-outline-danger mt-2"
+            className="btn btn-sm btn-outline-danger mt-3"
           >
             Close
           </button>
         </div>
       )}
+
       <style>
         {`
           .seo-text, .hidden-keywords {

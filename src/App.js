@@ -1,6 +1,6 @@
 // App.js
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 import { useTheme } from "./context/ThemeContext";
 import { SignupRider } from "./Pages/Rider/SignupRider";
@@ -38,6 +38,7 @@ import UpdateDisease from "./Pages/Customer/UpdateDisease";
 import CustomerHistory from "./Pages/Customer/CustomerHistory";
 import RestaurantActiveStatus from "./Pages/Restaurant/RestaurantActiveStatus";
 import MasterChef from "./Pages/MasterChef";
+import { Arrow90degLeft } from "react-bootstrap-icons";
 
 setBasePath(
   "https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.15.0/cdn/"
@@ -45,7 +46,6 @@ setBasePath(
 
 function App() {
   //adding arrow to show recruiter guide where to navigate
-
   const { theme } = useTheme();
   const [showRecruiterMenu, setShowRecruiterMenu] = useState(false); // State to toggle recruiter menu
 
