@@ -44,6 +44,8 @@ setBasePath(
 );
 
 function App() {
+  //adding arrow to show recruiter guide where to navigate
+
   const { theme } = useTheme();
   const [showRecruiterMenu, setShowRecruiterMenu] = useState(false); // State to toggle recruiter menu
 
@@ -135,7 +137,18 @@ function App() {
           style={floatingButtonStyles}
           onClick={() => setShowRecruiterMenu(!showRecruiterMenu)}
         >
-          +
+          <img
+            src={require("./Components/assets/recuiterslogo.png")}
+            style={{
+              width: "63px", // Set the width of the image
+              height: "63px", // Set the height of the image
+              objectFit: "contain", // Contain the image within the width/height while maintaining aspect ratio
+              backgroundColor: "transparent", // Ensure the background is transparent
+              borderRadius: "50%", // Make it circular (useful if it's a profile image or logo)
+              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)", // Add shadow to elevate the image
+              filter: "brightness(0.9) contrast(1.1)", // Adjust brightness/contrast
+            }}
+          />
         </div>
 
         {/* Recruiter Navigation Menu */}
