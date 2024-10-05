@@ -1,7 +1,7 @@
 // App.js
 
-import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import React, { useState } from "react";
+import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 import { useTheme } from "./context/ThemeContext";
 import { SignupRider } from "./Pages/Rider/SignupRider";
 import { LoginRider } from "./Pages/Rider/LoginRider";
@@ -44,19 +44,52 @@ setBasePath(
 );
 
 function App() {
-  const { theme, toggleTheme } = useTheme();
+  const { theme } = useTheme();
+  const [showRecruiterMenu, setShowRecruiterMenu] = useState(false); // State to toggle recruiter menu
 
   const appStyles = {
     backgroundColor: theme === "light" ? "white" : "#292929",
     color: theme === "light" ? "black" : "white",
     minHeight: "100vh",
     transition: "all 0.3s ease",
+    position: "relative",
+  };
+
+  const floatingButtonStyles = {
+    position: "fixed",
+    bottom: "20px",
+    right: "20px",
+    backgroundColor: "#ff6347", // Button color
+    color: "white",
+    borderRadius: "50%",
+    width: "60px",
+    height: "60px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: "24px",
+    cursor: "pointer",
+    boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+  };
+
+  const menuStyles = {
+    position: "fixed",
+    bottom: "90px",
+    right: "20px",
+    backgroundColor: "white",
+    color: "black",
+    borderRadius: "10px",
+    boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+    padding: "10px",
+    display: showRecruiterMenu ? "block" : "none",
+    zIndex: 1000,
   };
 
   return (
     <div style={appStyles}>
       <BrowserRouter>
         <Routes>
+          {/* Define all routes */}
           <Route exact path="/WorkingZonePage" Component={WorkingZonePage} />
           <Route exact path="/trackorder" Component={TrackRider} />
           <Route exact path="/MyOrders" Component={MyOrders} />
@@ -96,6 +129,65 @@ function App() {
           />
           <Route exact path="/MyStatus" Component={RestaurantActiveStatus} />
         </Routes>
+
+        {/* Floating Button */}
+        <div
+          style={floatingButtonStyles}
+          onClick={() => setShowRecruiterMenu(!showRecruiterMenu)}
+        >
+          +
+        </div>
+
+        {/* Recruiter Navigation Menu */}
+        <div style={menuStyles}>
+          <p>
+            <strong>Navigate as:</strong>
+          </p>
+          <ul>
+            <li>
+              <Link to="/HomeCustomer">Home (Customer)</Link>
+            </li>
+            <li>
+              <Link to="/HomeRestaurant">Home (Restaurant)</Link>
+            </li>
+            <li>
+              <Link to="/Myrides">My Rides (Rider)</Link>
+            </li>
+            <li>
+              <Link to="/SignupRider">Signup (Rider)</Link>
+            </li>
+            <li>
+              <Link to="/SignupRestaurant">Signup (Restaurant)</Link>
+            </li>
+            <li>
+              <Link to="/SignupCustomer">Signup (Customer)</Link>
+            </li>
+            <li>
+              <Link to="/LoginRider">Login (Rider)</Link>
+            </li>
+            <li>
+              <Link to="/LoginRestaurant">Login (Restaurant)</Link>
+            </li>
+            <li>
+              <Link to="/LoginCustomer">Login (Customer)</Link>
+            </li>
+            <li>
+              <Link to="/NewListing">New Listing (Restaurant)</Link>
+            </li>
+            <li>
+              <Link to="/Mycart">My Cart (Customer)</Link>
+            </li>
+            <li>
+              <Link to="/Plansandpricing">Plans & Pricing (Restaurant)</Link>
+            </li>
+            <li>
+              <Link to="/trackorder">Track Order (Restaurant)</Link>
+            </li>
+            <li>
+              <Link to="/Favourites">Favourites (Customer)</Link>
+            </li>
+          </ul>
+        </div>
       </BrowserRouter>
     </div>
   );
