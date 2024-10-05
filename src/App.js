@@ -227,7 +227,7 @@ function App() {
         {/* Video Popup */}
         <div style={videoPopupStyles}>
           <div style={videoContainerStyles}>
-            <div style={videoTagStyles}>Demo Project</div>
+           
             <iframe
               style={iframeStyles}
                src={require("../src/Components/assets/videodemolocal.mp4")}
