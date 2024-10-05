@@ -1,5 +1,3 @@
-// App.js
-
 import React, { useState } from "react";
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 import { useTheme } from "./context/ThemeContext";
@@ -85,12 +83,14 @@ function App() {
     padding: "10px",
     display: showRecruiterMenu ? "block" : "none",
     zIndex: 1000,
+    maxWidth: "250px",
   };
+
   const videoPopupStyles = {
     position: "fixed",
-    top: "100px",
-    left: "201px",
-    width: "60vw",
+    top: "50px",
+    left: "10%",
+    width: "80%",
     height: "60vh",
     backgroundColor: "rgba(10, 10, 10, 0.8)",
     display: showVideoPopup ? "flex" : "none",
@@ -101,8 +101,8 @@ function App() {
 
   const closeButtonStyles = {
     position: "absolute",
-    top: "20px",
-    right: "20px",
+    top: "10px",
+    right: "10px",
     backgroundColor: "red",
     color: "white",
     borderRadius: "50%",
@@ -112,6 +112,30 @@ function App() {
     alignItems: "center",
     justifyContent: "center",
     cursor: "pointer",
+  };
+
+  const videoContainerStyles = {
+    position: "relative",
+    width: "100%",
+    padding: "20px",
+    backgroundColor: "black",
+    color: "white",
+    textAlign: "center",
+  };
+
+  const videoTagStyles = {
+    position: "absolute",
+    top: "-40px",
+    left: "20px",
+    backgroundColor: "#ff6347",
+    padding: "5px 10px",
+    borderRadius: "5px",
+    fontWeight: "bold",
+  };
+
+  const iframeStyles = {
+    width: "100%",
+    height: "100%",
   };
 
   return (
@@ -186,65 +210,39 @@ function App() {
           </p>
           <ul>
             <li>
-              <Link to="/HomeCustomer">Home (Customer)</Link>
+              <Link to="/SignupRider">Signup Rider</Link>
             </li>
             <li>
-              <Link to="/HomeRestaurant">Home (Restaurant)</Link>
+              <Link to="/LoginRider">Login Rider</Link>
             </li>
             <li>
-              <Link to="/Myrides">My Rides (Rider)</Link>
+              <Link to="/Myrides">My Rides</Link>
             </li>
             <li>
-              <Link to="/SignupRider">Signup (Rider)</Link>
-            </li>
-            <li>
-              <Link to="/SignupRestaurant">Signup (Restaurant)</Link>
-            </li>
-            <li>
-              <Link to="/SignupCustomer">Signup (Customer)</Link>
-            </li>
-            <li>
-              <Link to="/LoginRider">Login (Rider)</Link>
-            </li>
-            <li>
-              <Link to="/LoginRestaurant">Login (Restaurant)</Link>
-            </li>
-            <li>
-              <Link to="/LoginCustomer">Login (Customer)</Link>
-            </li>
-            <li>
-              <Link to="/NewListing">New Listing (Restaurant)</Link>
-            </li>
-            <li>
-              <Link to="/Mycart">My Cart (Customer)</Link>
-            </li>
-            <li>
-              <Link to="/Plansandpricing">Plans & Pricing (Restaurant)</Link>
-            </li>
-            <li>
-              <Link to="/trackorder">Track Order (Restaurant)</Link>
-            </li>
-            <li>
-              <Link to="/Favourites">Favourites (Customer)</Link>
+              <Link to="/History">Ride History</Link>
             </li>
           </ul>
         </div>
+
         {/* Video Popup */}
-        <div style={videoPopupStyles} className="container mt-5">
-          <div
-            style={closeButtonStyles}
-            onClick={() => setShowVideoPopup(false)}
-          >
-            X
+        <div style={videoPopupStyles}>
+          <div style={videoContainerStyles}>
+            <div style={videoTagStyles}>Demo Project</div>
+            <iframe
+              style={iframeStyles}
+              src="https://www.youtube.com/embed/CZq4biCUgCI"
+              title="YouTube video player"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+            <div
+              style={closeButtonStyles}
+              onClick={() => setShowVideoPopup(false)}
+            >
+              <Arrow90degLeft />
+            </div>
           </div>
-          <iframe
-            width="560"
-            height="315"
-            src={require("../src/Components/assets/videodemolocal.mp4")}
-            title="YouTube video player"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          ></iframe>
         </div>
       </BrowserRouter>
     </div>
