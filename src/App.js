@@ -1,6 +1,6 @@
 // App.js
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 import { useTheme } from "./context/ThemeContext";
 import { SignupRider } from "./Pages/Rider/SignupRider";
@@ -45,9 +45,9 @@ setBasePath(
 );
 
 function App() {
-  //adding arrow to show recruiter guide where to navigate
   const { theme } = useTheme();
-  const [showRecruiterMenu, setShowRecruiterMenu] = useState(false); // State to toggle recruiter menu
+  const [showRecruiterMenu, setShowRecruiterMenu] = useState(false); // Toggle recruiter menu
+  const [showVideoPopup, setShowVideoPopup] = useState(true);
 
   const appStyles = {
     backgroundColor: theme === "light" ? "white" : "#292929",
@@ -61,7 +61,7 @@ function App() {
     position: "fixed",
     bottom: "20px",
     right: "20px",
-    backgroundColor: "#ff6347", // Button color
+    backgroundColor: "#ff6347",
     color: "white",
     borderRadius: "50%",
     width: "60px",
@@ -85,6 +85,33 @@ function App() {
     padding: "10px",
     display: showRecruiterMenu ? "block" : "none",
     zIndex: 1000,
+  };
+  const videoPopupStyles = {
+    position: "fixed",
+    top: "100px",
+    left: "201px",
+    width: "60vw",
+    height: "60vh",
+    backgroundColor: "rgba(10, 10, 10, 0.8)",
+    display: showVideoPopup ? "flex" : "none",
+    alignItems: "center",
+    justifyContent: "center",
+    zIndex: 1000,
+  };
+
+  const closeButtonStyles = {
+    position: "absolute",
+    top: "20px",
+    right: "20px",
+    backgroundColor: "red",
+    color: "white",
+    borderRadius: "50%",
+    width: "30px",
+    height: "30px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    cursor: "pointer",
   };
 
   return (
@@ -140,14 +167,15 @@ function App() {
           <img
             src={require("./Components/assets/recuiterslogo.png")}
             style={{
-              width: "63px", // Set the width of the image
-              height: "63px", // Set the height of the image
-              objectFit: "contain", // Contain the image within the width/height while maintaining aspect ratio
-              backgroundColor: "transparent", // Ensure the background is transparent
-              borderRadius: "50%", // Make it circular (useful if it's a profile image or logo)
-              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)", // Add shadow to elevate the image
-              filter: "brightness(0.9) contrast(1.1)", // Adjust brightness/contrast
+              width: "63px",
+              height: "63px",
+              objectFit: "contain",
+              backgroundColor: "transparent",
+              borderRadius: "50%",
+              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+              filter: "brightness(0.9) contrast(1.1)",
             }}
+            alt="Recruiter's Logo"
           />
         </div>
 
@@ -200,6 +228,23 @@ function App() {
               <Link to="/Favourites">Favourites (Customer)</Link>
             </li>
           </ul>
+        </div>
+        {/* Video Popup */}
+        <div style={videoPopupStyles} className="container mt-5">
+          <div
+            style={closeButtonStyles}
+            onClick={() => setShowVideoPopup(false)}
+          >
+            X
+          </div>
+          <iframe
+            width="560"
+            height="315"
+            src={require("../src/Components/assets/videodemolocal.mp4")}
+            title="YouTube video player"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          ></iframe>
         </div>
       </BrowserRouter>
     </div>
